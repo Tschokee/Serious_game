@@ -8,10 +8,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZContent\</RootDirectory>
+      <LoggerRootDirectory>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
