@@ -1,0 +1,6 @@
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\SeriousGameZ.exe
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\SeriousGameZ.pdb
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\SeriousGameZ.csprojResolveAssemblyReference.cache
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\SeriousGameZ.exe
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\SeriousGameZ.pdb

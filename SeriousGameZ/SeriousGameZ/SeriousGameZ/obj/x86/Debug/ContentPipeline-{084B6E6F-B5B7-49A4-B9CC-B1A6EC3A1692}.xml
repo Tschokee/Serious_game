@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{084B6E6F-B5B7-49A4-B9CC-B1A6EC3A1692}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZContent\</RootDirectory>
+      <LoggerRootDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\</LoggerRootDirectory>
+      <IntermediateDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2015-01-20T19:10:33.0204226+01:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

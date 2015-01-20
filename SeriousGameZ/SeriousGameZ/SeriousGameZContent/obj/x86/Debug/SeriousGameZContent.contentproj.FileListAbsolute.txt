@@ -1,0 +1,1 @@
+c:\users\tschokee\documents\visual studio 2013\Projects\SeriousGameZ\SeriousGameZ\SeriousGameZContent\obj\x86\Debug\SeriousGameZContent.contentprojResolveAssemblyReference.cache
