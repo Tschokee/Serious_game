@@ -28,12 +28,13 @@ namespace SeriousGameZ
 
         private const float OrbWidth = 50f;
         private const float OrbHeight = 50f;
-        private float speed = 1.5f;
+        private float speed = 10f;
 
         private Thread backgroundThread;
         private bool isLoading = false;
         MouseState  mouseState;
         MouseState  previousMouseState;
+        private GameState gameState;
 
         public Game1()
         {
@@ -51,6 +52,14 @@ namespace SeriousGameZ
         {
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
+
+            ////set the position of the buttons
+            //startButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 200);
+            //exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 250);
+
+            ////set the gamestate to start menu
+            //gameState = GameState.StartMenu;
+
             LoadGame();
             base.Initialize();
         }
@@ -64,7 +73,9 @@ namespace SeriousGameZ
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //load the buttonimages into the content pipeline
+            startButton = Content.Load<Texture2D>(@"Sprites/Navigation/start");
+            exitButton = Content.Load<Texture2D>(@"Sprites/Navigation/exit");
         }
 
         /// <summary>
@@ -119,7 +130,7 @@ namespace SeriousGameZ
 
         protected void LoadGame()
         {
-            orb = Content.Load<Texture2D>(@"Sprites/orb");
+            orb = Content.Load<Texture2D>(@"Sprites/GameElements/orb");
              orbPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (OrbWidth / 2),
                 (GraphicsDevice.Viewport.Height / 2) - (OrbHeight / 2));
         }
