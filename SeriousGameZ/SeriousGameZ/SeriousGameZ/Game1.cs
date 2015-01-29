@@ -1,23 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using SeriousGameZ.Model;
 
 namespace SeriousGameZ
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private Texture2D  orb;
+        private Texture2D startButton;
+        private Texture2D exitButton;
+        private Texture2D pauseButton;
+        private Texture2D resumeButton;
+        private Texture2D loadingScreen;
+
+        private Vector2 orbPosition;
+        private Vector2 startButtonPosition;
+        private Vector2 exitButtonPosition;
+        private Vector2 resumeButtonPosition;
+
+        private const float OrbWidth = 50f;
+        private const float OrbHeight = 50f;
+        private float speed = 1.5f;
+
+        private Thread backgroundThread;
+        private bool isLoading = false;
+        MouseState  mouseState;
+        MouseState  previousMouseState;
 
         public Game1()
         {
@@ -34,7 +50,8 @@ namespace SeriousGameZ
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
+            LoadGame();
             base.Initialize();
         }
 
@@ -68,9 +85,16 @@ namespace SeriousGameZ
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                this.Exit();  
+      
+            //move the orb
+            orbPosition.X += speed;
 
-            // TODO: Add your update logic here
+            //prevent out of bounds
+            if (orbPosition.X > (GraphicsDevice.Viewport.Width - OrbWidth) || orbPosition.X < 0)
+            {
+                speed *= -1;
+            } 
 
             base.Update(gameTime);
         }
@@ -83,9 +107,21 @@ namespace SeriousGameZ
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+ 
+            //draw the orb
+            spriteBatch.Draw(orb, orbPosition, Color.White);
+   
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        protected void LoadGame()
+        {
+            orb = Content.Load<Texture2D>(@"Sprites/orb");
+             orbPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (OrbWidth / 2),
+                (GraphicsDevice.Viewport.Height / 2) - (OrbHeight / 2));
         }
     }
 }

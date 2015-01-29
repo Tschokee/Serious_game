@@ -5,3 +5,16 @@ SeriousGameZ/SeriousGameZ/SeriousGameZ/obj/x86/Debug/SeriousGameZ.csproj.FileLis
 SeriousGameZ/SeriousGameZ/SeriousGameZContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 SeriousGameZ/SeriousGameZ/SeriousGameZContent/obj/x86/Debug/SeriousGameZContent.contentproj.FileListAbsolute.txt
 SeriousGameZ/SeriousGameZ.v12.suo
+SeriousGameZ/SeriousGameZ.v12.suo
+*.suo
+*.txt
+*.xml
+*.pdb
+*.exe
+*.cachefile
+*.pdb
+*.pdb
+*.xnb
+*.exe
+SeriousGameZ/SeriousGameZ/SeriousGameZ/bin/x86/Debug/SeriousGameZ.exe
+*.exe
