@@ -53,14 +53,17 @@ namespace SeriousGameZ
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
 
-            ////set the position of the buttons
-            //startButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 200);
-            //exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 250);
+            //set the position of the buttons
+            startButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 200);
+            exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 250);
 
-            ////set the gamestate to start menu
-            //gameState = GameState.StartMenu;
+            //set the gamestate to start menu
+            gameState = GameState.StartMenu;
 
-            LoadGame();
+            //get the mouse state
+            mouseState = Mouse.GetState();
+            previousMouseState = mouseState;
+
             base.Initialize();
         }
 
@@ -76,6 +79,9 @@ namespace SeriousGameZ
             //load the buttonimages into the content pipeline
             startButton = Content.Load<Texture2D>(@"Sprites/Navigation/start");
             exitButton = Content.Load<Texture2D>(@"Sprites/Navigation/exit");
+
+            //load the loading screen
+            loadingScreen = Content.Load<Texture2D>(@"Sprites/Navigation/loading");
         }
 
         /// <summary>
@@ -96,16 +102,45 @@ namespace SeriousGameZ
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();  
-      
-            //move the orb
-            orbPosition.X += speed;
+                this.Exit();
 
-            //prevent out of bounds
-            if (orbPosition.X > (GraphicsDevice.Viewport.Width - OrbWidth) || orbPosition.X < 0)
+            //load the game when needed
+            if (gameState == GameState.Loading && !isLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
             {
-                speed *= -1;
-            } 
+                //set backgroundthread
+                backgroundThread = new Thread(LoadGame);
+                isLoading = true;
+
+                //start backgroundthread
+                backgroundThread.Start();
+            }
+
+            //move the orb if the game is in progress
+            if (gameState == GameState.Playing)
+            {
+                //move the orb
+                orbPosition.X += speed;
+
+                //prevent out of bounds
+                if (orbPosition.X > (GraphicsDevice.Viewport.Width - OrbWidth) || orbPosition.X < 0)
+                    speed *= -1;
+            }
+
+            //wait for mouseclick
+            mouseState = Mouse.GetState();
+            if (previousMouseState.LeftButton == ButtonState.Pressed &&
+                mouseState.LeftButton == ButtonState.Released)
+            {
+                MouseClicked(mouseState.X, mouseState.Y);
+            }
+
+            previousMouseState = mouseState;
+
+            if (gameState == GameState.Playing && isLoading)
+            {
+                LoadGame();
+                isLoading = false;
+            }
 
             base.Update(gameTime);
         }
@@ -119,20 +154,102 @@ namespace SeriousGameZ
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
- 
-            //draw the orb
-            spriteBatch.Draw(orb, orbPosition, Color.White);
-   
+
+            //draw the start menu
+            if (gameState == GameState.StartMenu)
+            {
+                spriteBatch.Draw(startButton, startButtonPosition, Color.White);
+                spriteBatch.Draw(exitButton, exitButtonPosition, Color.White);
+            }
+
+            //show the loading screen when needed
+            if (gameState == GameState.Loading)
+            {
+                spriteBatch.Draw(loadingScreen,
+                    new Vector2((GraphicsDevice.Viewport.Width / 2) - (loadingScreen.Width / 2),
+                        (GraphicsDevice.Viewport.Height / 2) - (loadingScreen.Height / 2)), 
+                    Color.YellowGreen);
+            }
+
+            //draw the the game when playing
+            if (gameState == GameState.Playing)
+            {
+                //orb
+                spriteBatch.Draw(orb, orbPosition, Color.White);
+
+                //pause button
+                spriteBatch.Draw(pauseButton, new Vector2(0, 0), Color.White);
+            }
+
+            //draw the pause screen
+            if (gameState == GameState.Paused)
+                spriteBatch.Draw(resumeButton, resumeButtonPosition, Color.White);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
-
+        
+        /// <summary>
+        /// Loads the orb
+        /// </summary>
         protected void LoadGame()
         {
+            //load the game images into the content pipeline
             orb = Content.Load<Texture2D>(@"Sprites/GameElements/orb");
-             orbPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (OrbWidth / 2),
-                (GraphicsDevice.Viewport.Height / 2) - (OrbHeight / 2));
+            pauseButton = Content.Load<Texture2D>(@"Sprites/Navigation/pause");
+            resumeButton = Content.Load<Texture2D>(@"Sprites/Navigation/resume");
+            resumeButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (resumeButton.Width / 2),
+                                               (GraphicsDevice.Viewport.Height / 2) - (resumeButton.Height / 2));
+
+            //set the position of the orb in the middle of the gamewindow
+            orbPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (OrbWidth / 2), (GraphicsDevice.Viewport.Height / 2) - (OrbHeight / 2));
+
+            //since this will go to fast for this demo's purpose, wait for 3 seconds
+            Thread.Sleep(500);
+
+            //start playing
+            gameState = GameState.Playing;
+            isLoading = false;
+        }
+
+        protected void MouseClicked(int x, int y)
+        {
+            //creates a rectangle of 10x10 around the place where the mouse was clicked
+            var mouseClickRect = new Rectangle(x, y, 10, 10);
+
+            //check the startmenu
+            if (gameState == GameState.StartMenu)
+            {
+                var startButtonRect = new Rectangle((int)startButtonPosition.X, (int)startButtonPosition.Y, 100, 20);
+                var exitButtonRect = new Rectangle((int)exitButtonPosition.X, (int)exitButtonPosition.Y, 100, 20);
+
+                if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
+                {
+                    gameState = GameState.Loading;
+                    isLoading = false;
+                }
+                else if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
+                    Exit();
+            }
+
+            //check the pausebutton
+            if (gameState == GameState.Playing)
+            {
+                var pauseButtonRect = new Rectangle(0, 0, 70, 70);
+
+                if (mouseClickRect.Intersects(pauseButtonRect))
+                    gameState = GameState.Paused;
+            }
+
+            //check the resumebutton
+            if (gameState == GameState.Paused)
+            {
+                var resumeButtonRect = new Rectangle((int)resumeButtonPosition.X, (int)resumeButtonPosition.Y, 100, 20);
+
+                if (mouseClickRect.Intersects(resumeButtonRect))
+                    gameState = GameState.Playing;
+            }
         }
     }
 }
