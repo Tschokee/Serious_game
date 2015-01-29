@@ -2,13 +2,31 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Sprites\orb.jpg</Source>
-      <Name>Sprites\orb</Name>
+      <Source>Sprites\GameElements\orb.jpg</Source>
+      <Name>Sprites\GameElements\orb</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\orb.xnb</Output>
+      <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\GameElements\orb.xnb</Output>
       <Time>2015-01-29T17:22:11.7728368+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\Navigation\exit.jpg</Source>
+      <Name>Sprites\Navigation\exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\exit.xnb</Output>
+      <Time>2015-01-29T17:31:05.0903408+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\Navigation\start.jpg</Source>
+      <Name>Sprites\Navigation\start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\start.xnb</Output>
+      <Time>2015-01-29T17:31:05.0923409+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
