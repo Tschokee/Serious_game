@@ -20,11 +20,13 @@ namespace SeriousGameZ
         private Texture2D pauseButton;
         private Texture2D resumeButton;
         private Texture2D loadingScreen;
+        private Texture2D _helyesVagyHejesStartButton;
 
         private Vector2 orbPosition;
         private Vector2 startButtonPosition;
         private Vector2 exitButtonPosition;
         private Vector2 resumeButtonPosition;
+        private Vector2 _helyesVagyHejesStartButtonPosition;
 
         private const float OrbWidth = 50f;
         private const float OrbHeight = 50f;
@@ -55,7 +57,9 @@ namespace SeriousGameZ
 
             //set the position of the buttons
             startButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 200);
-            exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 250);
+            exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width) -125, 25);
+            //TODO: set position & scale
+            _helyesVagyHejesStartButtonPosition = GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition;
 
             //set the gamestate to start menu
             gameState = GameState.StartMenu;
@@ -79,6 +83,7 @@ namespace SeriousGameZ
             //load the buttonimages into the content pipeline
             startButton = Content.Load<Texture2D>(@"Sprites/Navigation/start");
             exitButton = Content.Load<Texture2D>(@"Sprites/Navigation/exit");
+            _helyesVagyHejesStartButton = Content.Load<Texture2D>(@"Sprites/Navigation/helyes_vagy_hejes");
 
             //load the loading screen
             loadingScreen = Content.Load<Texture2D>(@"Sprites/Navigation/loading");
@@ -160,6 +165,7 @@ namespace SeriousGameZ
             {
                 spriteBatch.Draw(startButton, startButtonPosition, Color.White);
                 spriteBatch.Draw(exitButton, exitButtonPosition, Color.White);
+                spriteBatch.Draw(_helyesVagyHejesStartButton, _helyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0 );
             }
 
             //show the loading screen when needed
@@ -179,6 +185,7 @@ namespace SeriousGameZ
 
                 //pause button
                 spriteBatch.Draw(pauseButton, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(exitButton, exitButtonPosition, Color.White);
             }
 
             //draw the pause screen
@@ -237,9 +244,13 @@ namespace SeriousGameZ
             if (gameState == GameState.Playing)
             {
                 var pauseButtonRect = new Rectangle(0, 0, 70, 70);
+                var exitButtonRect = new Rectangle((int)exitButtonPosition.X, (int)exitButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(pauseButtonRect))
                     gameState = GameState.Paused;
+
+                if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
+                    Exit();
             }
 
             //check the resumebutton
