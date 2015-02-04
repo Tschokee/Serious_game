@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SeriousGameZ.Model;
 
+//TODO: Draw function to view(?) and Update to controller
+
 namespace SeriousGameZ
 {
     /// <summary>
@@ -14,6 +16,7 @@ namespace SeriousGameZ
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //TODO: these variables will be transfered to model
         private Texture2D  orb;
         private Texture2D startButton;
         private Texture2D exitButton;
@@ -52,7 +55,8 @@ namespace SeriousGameZ
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            //TODO: if all variables changed use this
+            //GameModel.Initialize();
             IsMouseVisible = true;
 
             //set the position of the buttons
@@ -77,6 +81,9 @@ namespace SeriousGameZ
         /// </summary>
         protected override void LoadContent()
         {
+            //TODO: if all variables changed use this
+            //ContentLoader.ContentLoader.LoadContent(GraphicsDevice, Content);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -88,13 +95,14 @@ namespace SeriousGameZ
             //load the loading screen
             loadingScreen = Content.Load<Texture2D>(@"Sprites/Navigation/loading");
         }
-
+        
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
         protected override void UnloadContent()
         {
+            ContentLoader.ContentLoader.UnloadContent();
             // TODO: Unload any non ContentManager content here
         }
 
