@@ -113,6 +113,7 @@ namespace SeriousGameZ
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //TODO: this will go to Controller
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -164,6 +165,8 @@ namespace SeriousGameZ
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //TODO: if all variables changed use this
+            //View.Draw.DrawSreen(GraphicsDevice);
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
