@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentLoader\ContentLoader.cs" />
+    <Compile Include="Controller\Updater.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\GameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,9 +116,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

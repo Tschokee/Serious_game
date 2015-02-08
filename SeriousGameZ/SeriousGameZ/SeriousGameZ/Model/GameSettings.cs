@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Threading;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,6 +8,16 @@ namespace SeriousGameZ.Model
     public class GameSettings
     {
         public static GameState GameState { get; set; }
+
+        public class GameStateSettings
+        {
+            public static bool IsLoading { get; set; }
+        }
+
+        public class ThreadSettings
+        {
+            public static Thread BackgroundThread { get; set; }
+        }
 
         public class MainMenuSettings
         {
@@ -33,6 +44,11 @@ namespace SeriousGameZ.Model
             public static bool IsMouseVisible { get; set; }
             public static MouseState MouseState { get; set; }
             public static MouseState PreviousMouseState { get; set; }
+        }
+
+        public static class SampleGameSettings
+        {
+            public static Vector2 OrbPosition { get; set; }
         }
     }
 }

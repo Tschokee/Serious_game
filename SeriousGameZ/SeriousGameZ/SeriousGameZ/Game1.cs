@@ -1,7 +1,9 @@
 using System.Threading;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SeriousGameZ.Controller;
 using SeriousGameZ.Model;
 
 //TODO: Draw function to view(?) and Update to controller
@@ -113,6 +115,8 @@ namespace SeriousGameZ
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Updater.Update(gameTime);
+
             //TODO: this will go to Controller
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)

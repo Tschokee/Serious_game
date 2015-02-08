@@ -21,6 +21,8 @@ namespace SeriousGameZ.Model
             //get the mouse state
             GameSettings.MouseSettings.MouseState = Mouse.GetState();
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
+
+            GameSettings.GameStateSettings.IsLoading = false;
         }
     }
 }
