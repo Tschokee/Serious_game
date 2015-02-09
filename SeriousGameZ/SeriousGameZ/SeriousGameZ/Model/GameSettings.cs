@@ -45,10 +45,5 @@ namespace SeriousGameZ.Model
             public static MouseState MouseState { get; set; }
             public static MouseState PreviousMouseState { get; set; }
         }
-
-        public static class SampleGameSettings
-        {
-            public static Vector2 OrbPosition { get; set; }
-        }
     }
 }
