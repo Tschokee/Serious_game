@@ -9,26 +9,26 @@ namespace SeriousGameZ.Controller
 {
     public class Updater
     {
-        private Vector2 orbPosition = new Vector2(0, 0);
+        private static Vector2 orbPosition = new Vector2(0, 0);
         private const float orbWidth = 50f;
         private const float orbHeight = 50f;
-        private float speed = 10f;
-        private Texture2D orb;
-        private Texture2D pauseButton;
-        private Texture2D resumeButton;
-        private Vector2 resumeButtonPosition;
-        private GraphicsDevice graphicsDevice; //not sure this will work, take care
-        private ContentManager contentManager;
+        private static float speed = 10f;
+        private static Texture2D orb;
+        private static Texture2D pauseButton;
+        private static Texture2D resumeButton;
+        private static Vector2 resumeButtonPosition;
+        //private GraphicsDevice graphicsDevice; //not sure this will work, take care
+        //private ContentManager contentManager;
         private Game game; 
 
-        public void Update(GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
+        public static void Update(GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             //load the game when needed
             if (GameSettings.GameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
             {
                 //TODO implement
                 //set backgroundthread
-                GameSettings.ThreadSettings.BackgroundThread = new Thread(LoadGame);
+                GameSettings.ThreadSettings.BackgroundThread = new Thread(() => LoadGame(graphicsDevice, contentManager));
                 GameSettings.GameStateSettings.IsLoading = true;
 
                 //start backgroundthread
@@ -66,7 +66,7 @@ namespace SeriousGameZ.Controller
         /// <summary>
         /// Loads the orb
         /// </summary>
-        public void LoadGame()//GraphicsDevice graphicsDevice, ContentManager contentManager)
+        public static void LoadGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             //load the game images into the content pipeline
             orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");

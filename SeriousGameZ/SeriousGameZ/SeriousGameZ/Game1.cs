@@ -115,7 +115,7 @@ namespace SeriousGameZ
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            //Updater.Update(gameTime);
+            //Updater.Update(gameTime, GraphicsDevice, Content);
 
             //TODO: this will go to Controller
             // Allows the game to exit
