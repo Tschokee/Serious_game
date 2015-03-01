@@ -7,11 +7,9 @@ namespace SeriousGameZ.Model
     {
         public static void Initialize()
         {
-            GameSettings.MouseSettings.IsMouseVisible = true;
-
             //set the position of the buttons
             GameSettings.MainMenuSettings.StartButtonPosition = new Vector2(50, 200);
-            GameSettings.MainMenuSettings.ExitButtonPosition = new Vector2(125, 25);
+            GameSettings.MainMenuSettings.ExitButtonPosition = new Vector2(50, 250);
             //TODO: set position & scale
             GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition = new Vector2(125, 25);
 

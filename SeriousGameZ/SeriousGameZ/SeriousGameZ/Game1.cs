@@ -28,17 +28,13 @@ namespace SeriousGameZ
         private Texture2D _helyesVagyHejesStartButton;
 
         private Vector2 orbPosition;
-        private Vector2 startButtonPosition;
-        private Vector2 exitButtonPosition;
         private Vector2 resumeButtonPosition;
-        private Vector2 _helyesVagyHejesStartButtonPosition;
 
         private const float OrbWidth = 50f;
         private const float OrbHeight = 50f;
         private float speed = 10f;
 
         private Thread backgroundThread;
-        private bool isLoading = false;
         MouseState  mouseState;
         MouseState  previousMouseState;
         private GameState gameState;
@@ -58,14 +54,8 @@ namespace SeriousGameZ
         protected override void Initialize()
         {
             //TODO: if all variables changed use this
-            //GameModel.Initialize();
-            IsMouseVisible = true;
-
-            //set the position of the buttons
-            startButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 200);
-            exitButtonPosition = new Vector2((GraphicsDevice.Viewport.Width) -125, 25);
-            //TODO: set position & scale
-            _helyesVagyHejesStartButtonPosition = GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition;
+            GameModel.Initialize();
+            IsMouseVisible = true;            
 
             //set the gamestate to start menu
             gameState = GameState.StartMenu;
@@ -84,7 +74,7 @@ namespace SeriousGameZ
         protected override void LoadContent()
         {
             //TODO: if all variables changed use this
-            //ContentLoader.ContentLoader.LoadContent(GraphicsDevice, Content);
+            ContentLoader.ContentLoader.LoadContent(GraphicsDevice, Content);
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -123,11 +113,11 @@ namespace SeriousGameZ
                 this.Exit();
 
             //load the game when needed
-            if (gameState == GameState.Loading && !isLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
+            if (gameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
             {
                 //set backgroundthread
                 backgroundThread = new Thread(LoadGame);
-                isLoading = true;
+                GameSettings.GameStateSettings.IsLoading = true;
 
                 //start backgroundthread
                 backgroundThread.Start();
@@ -154,10 +144,10 @@ namespace SeriousGameZ
 
             previousMouseState = mouseState;
 
-            if (gameState == GameState.Playing && isLoading)
+            if (gameState == GameState.Playing && GameSettings.GameStateSettings.IsLoading)
             {
                 LoadGame();
-                isLoading = false;
+                GameSettings.GameStateSettings.IsLoading = false;
             }
 
             base.Update(gameTime);
@@ -178,9 +168,9 @@ namespace SeriousGameZ
             //draw the start menu
             if (gameState == GameState.StartMenu)
             {
-                spriteBatch.Draw(startButton, startButtonPosition, Color.White);
-                spriteBatch.Draw(exitButton, exitButtonPosition, Color.White);
-                spriteBatch.Draw(_helyesVagyHejesStartButton, _helyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0 );
+                spriteBatch.Draw(startButton, GameSettings.MainMenuSettings.StartButtonPosition, Color.White);
+                spriteBatch.Draw(exitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
+                spriteBatch.Draw(_helyesVagyHejesStartButton, GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
             }
 
             //show the loading screen when needed
@@ -200,7 +190,7 @@ namespace SeriousGameZ
 
                 //pause button
                 spriteBatch.Draw(pauseButton, new Vector2(0, 0), Color.White);
-                spriteBatch.Draw(exitButton, exitButtonPosition, Color.White);
+                spriteBatch.Draw(exitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
             }
 
             //draw the pause screen
@@ -232,7 +222,7 @@ namespace SeriousGameZ
 
             //start playing
             gameState = GameState.Playing;
-            isLoading = false;
+            GameSettings.GameStateSettings.IsLoading = false;
         }
 
         protected void MouseClicked(int x, int y)
@@ -243,13 +233,13 @@ namespace SeriousGameZ
             //check the startmenu
             if (gameState == GameState.StartMenu)
             {
-                var startButtonRect = new Rectangle((int)startButtonPosition.X, (int)startButtonPosition.Y, 100, 20);
-                var exitButtonRect = new Rectangle((int)exitButtonPosition.X, (int)exitButtonPosition.Y, 100, 20);
+                var startButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.StartButtonPosition.X, (int)GameSettings.MainMenuSettings.StartButtonPosition.Y, 100, 20);
+                var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
                 {
                     gameState = GameState.Loading;
-                    isLoading = false;
+                    GameSettings.GameStateSettings.IsLoading = false;
                 }
                 else if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     Exit();
@@ -259,7 +249,7 @@ namespace SeriousGameZ
             if (gameState == GameState.Playing)
             {
                 var pauseButtonRect = new Rectangle(0, 0, 70, 70);
-                var exitButtonRect = new Rectangle((int)exitButtonPosition.X, (int)exitButtonPosition.Y, 100, 20);
+                var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(pauseButtonRect))
                     gameState = GameState.Paused;
