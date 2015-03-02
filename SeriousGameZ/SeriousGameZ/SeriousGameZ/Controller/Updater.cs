@@ -21,7 +21,7 @@ namespace SeriousGameZ.Controller
         //private ContentManager contentManager;
         private Game game; 
 
-        public static void Update(GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
+        public static void Update(Game1 game, GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             //load the game when needed
             if (GameSettings.GameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
@@ -86,7 +86,7 @@ namespace SeriousGameZ.Controller
             GameSettings.GameStateSettings.IsLoading = false;
         }
 
-        public void MouseClicked(int x, int y)
+        public static void MouseClicked(Game1 game, int x, int y)
         {
             //creates a rectangle of 10x10 around the place where the mouse was clicked
             var mouseClickRect = new Rectangle(x, y, 10, 10);
