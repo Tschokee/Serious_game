@@ -17,8 +17,6 @@ namespace SeriousGameZ.Controller
         private static Texture2D pauseButton;
         private static Texture2D resumeButton;
         private static Vector2 resumeButtonPosition;
-        //private GraphicsDevice graphicsDevice; //not sure this will work, take care
-        //private ContentManager contentManager;
         private Game game; 
 
         public static void Update(Game1 game, GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
@@ -51,14 +49,14 @@ namespace SeriousGameZ.Controller
             if (GameSettings.MouseSettings.PreviousMouseState.LeftButton == ButtonState.Pressed &&
                 GameSettings.MouseSettings.MouseState.LeftButton == ButtonState.Released)
             {
-                //MouseClicked(mouseState.X, mouseState.Y);
+                MouseClicked(game, GameSettings.MouseSettings.MouseState.X, GameSettings.MouseSettings.MouseState.Y);
             }
 
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
 
             if (GameSettings.GameState == GameState.Playing && GameSettings.GameStateSettings.IsLoading)
             {
-                //LoadGame();
+             //   LoadGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.IsLoading = false;
             }
         }

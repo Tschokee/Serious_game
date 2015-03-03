@@ -77,7 +77,6 @@ namespace SeriousGameZ
         {
             //Updater.Update(this, gameTime, GraphicsDevice, Content);
 
-            //TODO: this will go to Controller
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -97,11 +96,11 @@ namespace SeriousGameZ
             if (GameSettings.GameState == GameState.Playing)
             {
                 //move the orb
-                orbPosition.X += speed;
+                orbPosition.X += GameSettings.TempGameContent.Speed;
 
                 //prevent out of bounds
                 if (orbPosition.X > (GraphicsDevice.Viewport.Width - OrbWidth) || orbPosition.X < 0)
-                    speed *= -1;
+                    GameSettings.TempGameContent.Speed *= -1;
             }
 
             //wait for mouseclick
@@ -109,7 +108,7 @@ namespace SeriousGameZ
             if (GameSettings.MouseSettings.PreviousMouseState.LeftButton == ButtonState.Pressed &&
                 GameSettings.MouseSettings.MouseState.LeftButton == ButtonState.Released)
             {
-                MouseClicked( GameSettings.MouseSettings.MouseState.X, GameSettings.MouseSettings.MouseState.Y);
+                MouseClicked(GameSettings.MouseSettings.MouseState.X, GameSettings.MouseSettings.MouseState.Y);
             }
 
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
@@ -129,43 +128,24 @@ namespace SeriousGameZ
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            //TODO: if all variables changed use this
-            //View.Draw.DrawSreen(GraphicsDevice);
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //It's working
+            View.Draw.DrawSreen(GraphicsDevice);
 
             GameSettings.SreenSettings.SpriteBatch.Begin();
-
-            //draw the start menu
-            if (GameSettings.GameState == GameState.StartMenu)
-            {
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.StartButton, GameSettings.MainMenuSettings.StartButtonPosition, Color.White);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.HelyesVagyHejesButton, GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
-            }
-
-            //show the loading screen when needed
-            if (GameSettings.GameState == GameState.Loading)
-            {
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.SreenSettings.LoadingScreen,
-                    new Vector2((GraphicsDevice.Viewport.Width / 2) - (GameSettings.SreenSettings.LoadingScreen.Width / 2),
-                        (GraphicsDevice.Viewport.Height / 2) - (GameSettings.SreenSettings.LoadingScreen.Height / 2)), 
-                    Color.YellowGreen);
-            }
-
             //draw the the game when playing
             if (GameSettings.GameState == GameState.Playing)
             {
                 //orb
-                GameSettings.SreenSettings.SpriteBatch.Draw(orb, orbPosition, Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.Orb, orbPosition, Color.White);
 
                 //pause button
-                GameSettings.SreenSettings.SpriteBatch.Draw(pauseButton, new Vector2(0, 0), Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.PauseButton, new Vector2(0, 0), Color.White);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
             }
 
             //draw the pause screen
             if (GameSettings.GameState == GameState.Paused)
-                GameSettings.SreenSettings.SpriteBatch.Draw(resumeButton, resumeButtonPosition, Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.ResumeButton, GameSettings.TempGameContent.ResumeButtonPosition, Color.White);
 
             GameSettings.SreenSettings.SpriteBatch.End();
 
@@ -178,11 +158,11 @@ namespace SeriousGameZ
         protected void LoadGame()
         {
             //load the game images into the content pipeline
-            orb = Content.Load<Texture2D>(@"Sprites/GameElements/orb");
-            pauseButton = Content.Load<Texture2D>(@"Sprites/Navigation/pause");
-            resumeButton = Content.Load<Texture2D>(@"Sprites/Navigation/resume");
-            resumeButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (resumeButton.Width / 2),
-                                               (GraphicsDevice.Viewport.Height / 2) - (resumeButton.Height / 2));
+            GameSettings.TempGameContent.Orb = Content.Load<Texture2D>(@"Sprites/GameElements/orb");
+            GameSettings.TempGameContent.PauseButton = Content.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.TempGameContent.ResumeButton = Content.Load<Texture2D>(@"Sprites/Navigation/resume");
+            GameSettings.TempGameContent.ResumeButtonPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (GameSettings.TempGameContent.ResumeButton.Width / 2),
+                                               (GraphicsDevice.Viewport.Height / 2) - (GameSettings.TempGameContent.ResumeButton.Height / 2));
 
             //set the position of the orb in the middle of the gamewindow
             orbPosition = new Vector2((GraphicsDevice.Viewport.Width / 2) - (OrbWidth / 2), (GraphicsDevice.Viewport.Height / 2) - (OrbHeight / 2));
@@ -231,7 +211,7 @@ namespace SeriousGameZ
             //check the resumebutton
             if (GameSettings.GameState == GameState.Paused)
             {
-                var resumeButtonRect = new Rectangle((int)resumeButtonPosition.X, (int)resumeButtonPosition.Y, 100, 20);
+                var resumeButtonRect = new Rectangle((int)GameSettings.TempGameContent.ResumeButtonPosition.X, (int)GameSettings.TempGameContent.ResumeButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(resumeButtonRect))
                     GameSettings.GameState = GameState.Playing;
