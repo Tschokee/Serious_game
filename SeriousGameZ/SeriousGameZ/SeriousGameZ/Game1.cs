@@ -1,12 +1,6 @@
-using System.Threading;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SeriousGameZ.Controller;
 using SeriousGameZ.Model;
-
-//TODO: Draw function to view(?) and Update to controller
 
 namespace SeriousGameZ
 {
@@ -15,25 +9,11 @@ namespace SeriousGameZ
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-
-        //TODO: these variables will be transfered to model
-        private Texture2D  orb;
-        private Texture2D pauseButton;
-        private Texture2D resumeButton;
-
-        private Vector2 orbPosition;
-        private Vector2 resumeButtonPosition;
-
-        private const float OrbWidth = 50f;
-        private const float OrbHeight = 50f;
-        private float speed = 10f;
-
-        private Thread backgroundThread;
+        GraphicsDeviceManager _graphics;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 

@@ -9,15 +9,8 @@ namespace SeriousGameZ.Controller
 {
     public class Updater
     {
-        private static Vector2 orbPosition = new Vector2(0, 0);
         private const float orbWidth = 50f;
         private const float orbHeight = 50f;
-        private static float speed = 10f;
-        private static Texture2D orb;
-        private static Texture2D pauseButton;
-        private static Texture2D resumeButton;
-        private static Vector2 resumeButtonPosition;
-        private Game game; 
 
         public static void Update(Game1 game, GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
