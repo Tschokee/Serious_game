@@ -37,11 +37,11 @@ namespace SeriousGameZ.Controller
             if (GameSettings.GameState == GameState.Playing)
             {
                 ////move the orb
-                orbPosition.X += speed;
+                GameSettings.TempGameContent.OrbPosition += new Vector2(GameSettings.TempGameContent.Speed, 0); 
 
                 ////prevent out of bounds
-                if (orbPosition.X > (graphicsDevice.Viewport.Width - orbWidth) || orbPosition.X < 0)
-                    speed *= -1;
+                if (GameSettings.TempGameContent.OrbPosition.X > (graphicsDevice.Viewport.Width - orbWidth) || GameSettings.TempGameContent.OrbPosition.X < 0)
+                    GameSettings.TempGameContent.Speed *= -1;
             }
 
             //wait for mouseclick
@@ -56,7 +56,7 @@ namespace SeriousGameZ.Controller
 
             if (GameSettings.GameState == GameState.Playing && GameSettings.GameStateSettings.IsLoading)
             {
-             //   LoadGame(graphicsDevice, contentManager);
+                LoadGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.IsLoading = false;
             }
         }
@@ -67,14 +67,14 @@ namespace SeriousGameZ.Controller
         public static void LoadGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             //load the game images into the content pipeline
-            orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
-            pauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
-            resumeButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/resume");
-            resumeButtonPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (resumeButton.Width / 2),
-                                               (graphicsDevice.Viewport.Height / 2) - (resumeButton.Height / 2));
+            GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
+            GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.TempGameContent.ResumeButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/resume");
+            GameSettings.TempGameContent.ResumeButtonPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.TempGameContent.ResumeButton.Width / 2),
+                                               (graphicsDevice.Viewport.Height / 2) - (GameSettings.TempGameContent.ResumeButton.Height / 2));
 
             //set the position of the orb in the middle of the gamewindow
-            orbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
+            GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
 
             //since this will go to fast for this demo's purpose, wait for 3 seconds
             Thread.Sleep(500);
@@ -120,7 +120,7 @@ namespace SeriousGameZ.Controller
             //check the resumebutton
             if (GameSettings.GameState == GameState.Paused)
             {
-                var resumeButtonRect = new Rectangle((int)resumeButtonPosition.X, (int)resumeButtonPosition.Y, 100, 20);
+                var resumeButtonRect = new Rectangle((int)GameSettings.TempGameContent.ResumeButtonPosition.X, (int)GameSettings.TempGameContent.ResumeButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(resumeButtonRect))
                     GameSettings.GameState = GameState.Playing;

@@ -29,7 +29,20 @@ namespace SeriousGameZ.View
                     Color.YellowGreen);
             }
 
-            //TODO: missing parts
+            //draw the the game when playing
+            if (GameSettings.GameState == GameState.Playing)
+            {
+                //orb
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.Orb, GameSettings.TempGameContent.OrbPosition, Color.White);
+
+                //pause button
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.PauseButton, new Vector2(0, 0), Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
+            }
+
+            //draw the pause screen
+            if (GameSettings.GameState == GameState.Paused)
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.ResumeButton, GameSettings.TempGameContent.ResumeButtonPosition, Color.White);
 
             GameSettings.SreenSettings.SpriteBatch.End();
         }
