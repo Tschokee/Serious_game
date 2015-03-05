@@ -17,7 +17,6 @@ namespace SeriousGameZ.Controller
             //load the game when needed
             if (GameSettings.GameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
             {
-                //TODO implement
                 //set backgroundthread
                 GameSettings.ThreadSettings.BackgroundThread = new Thread(() => LoadGame(graphicsDevice, contentManager));
                 GameSettings.GameStateSettings.IsLoading = true;
@@ -74,6 +73,29 @@ namespace SeriousGameZ.Controller
 
             //start playing
             GameSettings.GameState = GameState.Playing;
+            GameSettings.GameStateSettings.IsLoading = false;
+        }
+
+        /// <summary>
+        /// Loads the orb
+        /// </summary>
+        public static void LoadHelyesVagyHejesGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
+        {
+            //load the game images into the content pipeline
+            GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
+            GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.TempGameContent.ResumeButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/resume");
+            GameSettings.TempGameContent.ResumeButtonPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.TempGameContent.ResumeButton.Width / 2),
+                                               (graphicsDevice.Viewport.Height / 2) - (GameSettings.TempGameContent.ResumeButton.Height / 2));
+
+            //set the position of the orb in the middle of the gamewindow
+            GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
+
+            //since this will go to fast for this demo's purpose, wait for 3 seconds
+            Thread.Sleep(500);
+
+            //start playing
+            GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
             GameSettings.GameStateSettings.IsLoading = false;
         }
 
