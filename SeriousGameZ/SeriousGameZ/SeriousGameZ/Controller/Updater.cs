@@ -127,6 +127,8 @@ namespace SeriousGameZ.Controller
 
                 if (mouseClickRect.Intersects(pauseButtonRect))
                     GameSettings.GameState = GameState.Paused;
+                    //TODO: use this when pause is removed
+                    //GameSettings.GameState = GameState.StartMenu;
 
                 if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();

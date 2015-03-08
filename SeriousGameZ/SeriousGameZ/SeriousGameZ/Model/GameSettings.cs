@@ -24,6 +24,8 @@ namespace SeriousGameZ.Model
             public static Vector2 HelyesVagyHejesStartButtonPosition { get; set; }
             public static Vector2 StartButtonPosition { get; set; }
             public static Vector2 ExitButtonPosition { get; set; }
+            public static Vector2 OsztokaButtonPosition { get; set; }
+            public static Vector2 SzorzokaButtonPosition { get; set; }
         }
 
         public static class Buttons
@@ -31,6 +33,8 @@ namespace SeriousGameZ.Model
             public static Texture2D StartButton { get; set; }
             public static Texture2D ExitButton { get; set; }
             public static Texture2D HelyesVagyHejesButton { get; set; }
+            public static Texture2D OsztokaButton { get; set; }
+            public static Texture2D SzorzokaButton { get; set; }
         }
 
         public static class SreenSettings

@@ -64,6 +64,15 @@
       <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\helyes_vagy_hejes.xnb</Output>
       <Time>2015-02-02T17:05:20.8349103+01:00</Time>
     </Item>
+    <Item>
+      <Source>Sprites\Navigation\osztoka.jpg</Source>
+      <Name>Sprites\Navigation\osztoka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\osztoka.xnb</Output>
+      <Time>2015-03-08T19:35:58.3889788+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{084B6E6F-B5B7-49A4-B9CC-B1A6EC3A1692}</ContentProjectGUID>

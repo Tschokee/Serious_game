@@ -11,6 +11,7 @@ namespace SeriousGameZ.Model
             GameSettings.MainMenuSettings.StartButtonPosition = new Vector2(50, 200);
             GameSettings.MainMenuSettings.ExitButtonPosition = new Vector2(50, 250);
             GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition = new Vector2(125, 25);
+            GameSettings.MainMenuSettings.OsztokaButtonPosition = new Vector2(225, 25);
 
             //set the gamestate to start menu
             GameSettings.GameState = GameState.StartMenu;

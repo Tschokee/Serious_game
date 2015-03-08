@@ -15,6 +15,7 @@ namespace SeriousGameZ.ContentLoader
             GameSettings.Buttons.StartButton= contentManager.Load<Texture2D>(@"Sprites/Navigation/start");
             GameSettings.Buttons.ExitButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/exit");
             GameSettings.Buttons.HelyesVagyHejesButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/helyes_vagy_hejes");
+            GameSettings.Buttons.OsztokaButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/osztoka");
 
             //load the loading screen
             GameSettings.SreenSettings.LoadingScreen = contentManager.Load<Texture2D>(@"Sprites/Navigation/loading");

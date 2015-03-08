@@ -17,3 +17,4 @@ E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Con
 E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\resume.xnb
 E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\pause.xnb
 E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\helyes_vagy_hejes.xnb
+E:\GitRepo\Serious_game\SeriousGameZ\SeriousGameZ\SeriousGameZ\bin\x86\Debug\Content\Sprites\Navigation\osztoka.xnb

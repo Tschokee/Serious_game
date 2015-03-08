@@ -18,6 +18,7 @@ namespace SeriousGameZ.View
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.StartButton, GameSettings.MainMenuSettings.StartButtonPosition, Color.White);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.HelyesVagyHejesButton, GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.OsztokaButton, GameSettings.MainMenuSettings.OsztokaButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
             }
 
             //show the loading screen when needed
