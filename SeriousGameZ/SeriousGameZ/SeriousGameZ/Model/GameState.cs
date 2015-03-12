@@ -4,6 +4,7 @@
     {//TODO: a loading & playing state for every game is needed
         StartMenu,
         Loading,
+        LoadingHelyesVagyHejes,
         Playing,
         PlayingHelyesVagyHejes
     }

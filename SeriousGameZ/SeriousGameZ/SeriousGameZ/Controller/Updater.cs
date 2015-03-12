@@ -25,8 +25,19 @@ namespace SeriousGameZ.Controller
                 GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
             }
 
+            //TODO refactor needed ofc
+            if (GameSettings.GameState == GameState.LoadingHelyesVagyHejes && !GameSettings.GameStateSettings.HelyesVagyHejesIsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
+            {
+                //set backgroundthread
+                GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread = new Thread(() => LoadHelyesVagyHejesGame(graphicsDevice, contentManager));
+                GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = true;
+
+                //start backgroundthread
+                GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread.Start();
+            }
+
             //move the orb if the game is in progress
-            if (GameSettings.GameState == GameState.Playing)
+            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
                 //move the orb
                 GameSettings.TempGameContent.OrbPosition += new Vector2(GameSettings.TempGameContent.Speed, 0); 
@@ -50,6 +61,11 @@ namespace SeriousGameZ.Controller
             {
                 LoadGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.IsLoading = false;
+            }
+            if (GameSettings.GameState == GameState.PlayingHelyesVagyHejes && GameSettings.GameStateSettings.HelyesVagyHejesIsLoading)
+            {
+                LoadHelyesVagyHejesGame(graphicsDevice, contentManager);
+                GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
             }
         }
 
@@ -90,7 +106,7 @@ namespace SeriousGameZ.Controller
 
             //start playing
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
-            //GameSettings.GameStateSettings.IsLoading = false;
+            GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
         }
 
         public static void MouseClicked(Game1 game, int x, int y)
@@ -104,18 +120,25 @@ namespace SeriousGameZ.Controller
                 var startButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.StartButtonPosition.X, (int)GameSettings.MainMenuSettings.StartButtonPosition.Y, 100, 20);
                 var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
 
+                var helyesVagyHejesButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition.X, (int)GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition.Y, 200, 100);
+
                 if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
                 {
                     //GameSettings.GameState = GameState.Playing;
                     GameSettings.GameState = GameState.Loading;
                     GameSettings.GameStateSettings.IsLoading = false;
                 }
-                else if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
+                if (mouseClickRect.Intersects(helyesVagyHejesButtonRect)) 
+                {
+                    GameSettings.GameState = GameState.LoadingHelyesVagyHejes;
+                    GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
+                }
+                if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();
             }
 
             //check the pausebutton
-            if (GameSettings.GameState == GameState.Playing)
+            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
                 var pauseButtonRect = new Rectangle(0, 0, 70, 70);
                 var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);

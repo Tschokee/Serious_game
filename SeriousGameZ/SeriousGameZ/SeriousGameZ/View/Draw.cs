@@ -22,7 +22,7 @@ namespace SeriousGameZ.View
             }
 
             //show the loading screen when needed
-            if (GameSettings.GameState == GameState.Loading)
+            if (GameSettings.GameState == GameState.Loading || GameSettings.GameState == GameState.LoadingHelyesVagyHejes)
             {
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.SreenSettings.LoadingScreen,
                     new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.SreenSettings.LoadingScreen.Width / 2),
@@ -30,7 +30,7 @@ namespace SeriousGameZ.View
             }
 
             //draw the the game when playing
-            if (GameSettings.GameState == GameState.Playing)
+            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
                 //orb
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.Orb, GameSettings.TempGameContent.OrbPosition, Color.White);
