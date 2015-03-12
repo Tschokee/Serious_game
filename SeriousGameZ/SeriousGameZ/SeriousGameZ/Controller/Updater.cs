@@ -18,20 +18,20 @@ namespace SeriousGameZ.Controller
             if (GameSettings.GameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
             {
                 //set backgroundthread
-                GameSettings.ThreadSettings.BackgroundThread = new Thread(() => LoadGame(graphicsDevice, contentManager));
+                GameSettings.ThreadSettings.TmpGameBackgroundThread = new Thread(() => LoadGame(graphicsDevice, contentManager));
                 GameSettings.GameStateSettings.IsLoading = true;
 
                 //start backgroundthread
-                GameSettings.ThreadSettings.BackgroundThread.Start();
+                GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
             }
 
             //move the orb if the game is in progress
             if (GameSettings.GameState == GameState.Playing)
             {
-                ////move the orb
+                //move the orb
                 GameSettings.TempGameContent.OrbPosition += new Vector2(GameSettings.TempGameContent.Speed, 0); 
 
-                ////prevent out of bounds
+                //prevent out of bounds
                 if (GameSettings.TempGameContent.OrbPosition.X > (graphicsDevice.Viewport.Width - orbWidth) || GameSettings.TempGameContent.OrbPosition.X < 0)
                     GameSettings.TempGameContent.Speed *= -1;
             }
@@ -90,7 +90,7 @@ namespace SeriousGameZ.Controller
 
             //start playing
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
-            GameSettings.GameStateSettings.IsLoading = false;
+            //GameSettings.GameStateSettings.IsLoading = false;
         }
 
         public static void MouseClicked(Game1 game, int x, int y)
@@ -106,6 +106,7 @@ namespace SeriousGameZ.Controller
 
                 if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
                 {
+                    //GameSettings.GameState = GameState.Playing;
                     GameSettings.GameState = GameState.Loading;
                     GameSettings.GameStateSettings.IsLoading = false;
                 }

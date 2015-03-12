@@ -26,8 +26,7 @@ namespace SeriousGameZ.View
             {
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.SreenSettings.LoadingScreen,
                     new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.SreenSettings.LoadingScreen.Width / 2),
-                        (graphicsDevice.Viewport.Height / 2) - (GameSettings.SreenSettings.LoadingScreen.Height / 2)),
-                    Color.YellowGreen);
+                        (graphicsDevice.Viewport.Height / 2) - (GameSettings.SreenSettings.LoadingScreen.Height / 2)), Color.YellowGreen);
             }
 
             //draw the the game when playing

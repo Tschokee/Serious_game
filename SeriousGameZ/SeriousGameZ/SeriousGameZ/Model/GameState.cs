@@ -1,10 +1,9 @@
 ﻿namespace SeriousGameZ.Model
 {
     public enum GameState
-    {//TODO: loading and paused may be removed
+    {//TODO: a loading & playing state for every game is needed
         StartMenu,
         Loading,
-        //Paused,
         Playing,
         PlayingHelyesVagyHejes
     }
