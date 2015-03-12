@@ -41,10 +41,6 @@ namespace SeriousGameZ.View
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
             }
 
-            //draw the pause screen
-            if (GameSettings.GameState == GameState.Paused)
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.ResumeButton, GameSettings.TempGameContent.ResumeButtonPosition, Color.White);
-
             GameSettings.SreenSettings.SpriteBatch.End();
         }
     }

@@ -54,8 +54,8 @@ namespace SeriousGameZ.Model
         {
             public static Texture2D Orb { get; set; }
             public static Texture2D PauseButton { get; set; }
-            public static Texture2D ResumeButton { get; set; }
-            public static Vector2 ResumeButtonPosition { get; set; }
+            //public static Texture2D ResumeButton { get; set; }
+            //public static Vector2 ResumeButtonPosition { get; set; }
             public static Vector2 OrbPosition { get; set; }
             public static float Speed = 10f;
         }

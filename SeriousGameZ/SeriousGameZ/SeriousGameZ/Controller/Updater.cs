@@ -61,15 +61,12 @@ namespace SeriousGameZ.Controller
             //load the game images into the content pipeline
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
             GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
-            GameSettings.TempGameContent.ResumeButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/resume");
-            GameSettings.TempGameContent.ResumeButtonPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.TempGameContent.ResumeButton.Width / 2),
-                                               (graphicsDevice.Viewport.Height / 2) - (GameSettings.TempGameContent.ResumeButton.Height / 2));
 
             //set the position of the orb in the middle of the gamewindow
             GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
 
             //since this will go to fast for this demo's purpose, wait for 3 seconds
-            Thread.Sleep(500);
+            Thread.Sleep(100);
 
             //start playing
             GameSettings.GameState = GameState.Playing;
@@ -84,15 +81,12 @@ namespace SeriousGameZ.Controller
             //load the game images into the content pipeline
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
             GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
-            GameSettings.TempGameContent.ResumeButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/resume");
-            GameSettings.TempGameContent.ResumeButtonPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.TempGameContent.ResumeButton.Width / 2),
-                                               (graphicsDevice.Viewport.Height / 2) - (GameSettings.TempGameContent.ResumeButton.Height / 2));
 
             //set the position of the orb in the middle of the gamewindow
             GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
 
             //since this will go to fast for this demo's purpose, wait for 3 seconds
-            Thread.Sleep(500);
+            Thread.Sleep(100);
 
             //start playing
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
@@ -126,21 +120,10 @@ namespace SeriousGameZ.Controller
                 var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(pauseButtonRect))
-                    GameSettings.GameState = GameState.Paused;
-                    //TODO: use this when pause is removed
-                    //GameSettings.GameState = GameState.StartMenu;
+                    GameSettings.GameState = GameState.StartMenu;
 
                 if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();
-            }
-
-            //check the resumebutton
-            if (GameSettings.GameState == GameState.Paused)
-            {
-                var resumeButtonRect = new Rectangle((int)GameSettings.TempGameContent.ResumeButtonPosition.X, (int)GameSettings.TempGameContent.ResumeButtonPosition.Y, 100, 20);
-
-                if (mouseClickRect.Intersects(resumeButtonRect))
-                    GameSettings.GameState = GameState.Playing;
             }
         }
     }
