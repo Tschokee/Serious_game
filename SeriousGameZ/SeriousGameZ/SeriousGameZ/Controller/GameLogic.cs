@@ -28,9 +28,9 @@ namespace SeriousGameZ.Controller
                 {
                     if (IsLoadingState(GameState.LoadingHelyesVagyHejes, GameSettings.GameStateSettings.HelyesVagyHejesIsLoading))
                     {
-                        GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread = thread;
+                        GameSettings.ThreadSettings.TmpGameBackgroundThread = thread; //TODO danger: rename if exception happens
                         GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = true;
-                        GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread.Start();
+                        GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
                     }
                     break;
                 }

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -81,10 +82,12 @@ namespace SeriousGameZ.Controller
         {
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
             GameSettings.Buttons.ReturnButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
-            GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
+            GameSettings.TempGameContent.OrbPosition = new Vector2(
+                (graphicsDevice.Viewport.Width/2) - (orbWidth/2), (graphicsDevice.Viewport.Height/2) - (orbHeight/2));
             Thread.Sleep(100);
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
             GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
+          
         }
 
         public static void MouseClicked(Game1 game, int x, int y)
