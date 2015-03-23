@@ -9,7 +9,7 @@ namespace SeriousGameZ.Model
         public static void Initialize(GraphicsDevice graphicsDevice)
         {
             //set the position of the buttons
-            GameSettings.ButtonPositions.StartButtonPosition = new Vector2(50, 200);
+            GameSettings.ButtonPositions.TempGameStartButtonPosition = new Vector2(50, 200);
             GameSettings.ButtonPositions.ExitButtonPosition = new Vector2(graphicsDevice.Viewport.Width - 100, 100);
             GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition = new Vector2(125, 25);
             GameSettings.ButtonPositions.OsztokaButtonPosition = new Vector2(325, 25);
@@ -22,7 +22,7 @@ namespace SeriousGameZ.Model
             GameSettings.MouseSettings.MouseState = Mouse.GetState();
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
 
-            GameSettings.GameStateSettings.IsLoading = false;
+            GameSettings.GameStateSettings.TempGameIsLoading = false;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SeriousGameZ.Model
 
         public class GameStateSettings
         {
-            public static bool IsLoading { get; set; }
+            public static bool TempGameIsLoading { get; set; }
             public static bool HelyesVagyHejesIsLoading { get; set; }
         }
 
@@ -24,7 +24,7 @@ namespace SeriousGameZ.Model
         public class ButtonPositions
         {
             public static Vector2 HelyesVagyHejesStartButtonPosition { get; set; }
-            public static Vector2 StartButtonPosition { get; set; }
+            public static Vector2 TempGameStartButtonPosition { get; set; }
             public static Vector2 ExitButtonPosition { get; set; }
             public static Vector2 OsztokaButtonPosition { get; set; }
             public static Vector2 SzorzokaButtonPosition { get; set; }
@@ -35,7 +35,7 @@ namespace SeriousGameZ.Model
 
         public static class Buttons
         {
-            public static Texture2D StartButton { get; set; }
+            public static Texture2D TempGameStartButton { get; set; }
             public static Texture2D ExitButton { get; set; }
             public static Texture2D HelyesVagyHejesButton { get; set; }
             public static Texture2D OsztokaButton { get; set; }

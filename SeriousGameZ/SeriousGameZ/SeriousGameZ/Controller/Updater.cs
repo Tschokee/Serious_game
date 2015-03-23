@@ -19,7 +19,7 @@ namespace SeriousGameZ.Controller
             
             switch (GameSettings.GameState)
             {
-                case GameState.Playing:
+                case GameState.PlayingTempGame:
                     TempGame.Play(graphicsDevice);
                     break;
                 case GameState.PlayingHelyesVagyHejes:
@@ -37,10 +37,10 @@ namespace SeriousGameZ.Controller
 
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
 
-            if (RecentlyStartedPlaying(GameState.Playing, GameSettings.GameStateSettings.IsLoading))
+            if (RecentlyStartedPlaying(GameState.PlayingTempGame, GameSettings.GameStateSettings.TempGameIsLoading))
             {
                 LoadGame(graphicsDevice, contentManager);
-                GameSettings.GameStateSettings.IsLoading = false;
+                GameSettings.GameStateSettings.TempGameIsLoading = false;
             }
             if (RecentlyStartedPlaying(GameState.PlayingHelyesVagyHejes, GameSettings.GameStateSettings.HelyesVagyHejesIsLoading))
             {
@@ -70,8 +70,8 @@ namespace SeriousGameZ.Controller
             Thread.Sleep(100);
 
             //start playing
-            GameSettings.GameState = GameState.Playing;
-            GameSettings.GameStateSettings.IsLoading = false;
+            GameSettings.GameState = GameState.PlayingTempGame;
+            GameSettings.GameStateSettings.TempGameIsLoading = false;
         }
 
         /// <summary>
@@ -95,27 +95,21 @@ namespace SeriousGameZ.Controller
             //check the startmenu
             if (GameSettings.GameState == GameState.StartMenu)
             {
-                var startButtonRect = new Rectangle((int)GameSettings.ButtonPositions.StartButtonPosition.X, (int)GameSettings.ButtonPositions.StartButtonPosition.Y, 100, 20);
-                var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
-
+                var startButtonRect = new Rectangle((int)GameSettings.ButtonPositions.TempGameStartButtonPosition.X, (int)GameSettings.ButtonPositions.TempGameStartButtonPosition.Y, 100, 20);
                 var helyesVagyHejesButtonRect = new Rectangle((int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.X, (int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.Y, 200, 100);
 
-                if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
-                {
-                    GameSettings.GameState = GameState.Loading;
-                    GameSettings.GameStateSettings.IsLoading = false;
-                }
+                var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
+                
+                if (mouseClickRect.Intersects(startButtonRect)) 
+                    SetGameState("TempGame");                    
                 if (mouseClickRect.Intersects(helyesVagyHejesButtonRect)) 
-                {
-                    GameSettings.GameState = GameState.LoadingHelyesVagyHejes;
-                    GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
-                }
+                    SetGameState("HelyesVagyHejes");    
                 if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();
             }
 
             //check the return button
-            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
+            if (GameSettings.GameState == GameState.PlayingTempGame || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
                 var pauseButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ReturnButtonPosition.X, (int)GameSettings.ButtonPositions.ReturnButtonPosition.Y, 70, 70);
                 var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
@@ -125,6 +119,25 @@ namespace SeriousGameZ.Controller
 
                 if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();
+            }
+        }
+
+        private static void SetGameState(string gameName)
+        {
+            switch (gameName)
+            {
+                case "TempGame":
+                {
+                    GameSettings.GameState = GameState.LoadingTempGame;
+                    GameSettings.GameStateSettings.TempGameIsLoading = false;
+                    break;
+                }
+                case "HelyesVagyHejes":
+                {
+                    GameSettings.GameState = GameState.LoadingHelyesVagyHejes;
+                    GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
+                    break;
+                }
             }
         }
     }

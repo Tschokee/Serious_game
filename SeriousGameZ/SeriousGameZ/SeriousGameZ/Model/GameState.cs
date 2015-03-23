@@ -4,9 +4,9 @@
     {   //TODO: a loading & playing state for every game is needed
         //TODO: global loading/playing?
         StartMenu,
-        Loading,
+        LoadingTempGame,
         LoadingHelyesVagyHejes,
-        Playing,
+        PlayingTempGame,
         PlayingHelyesVagyHejes
     }
 }

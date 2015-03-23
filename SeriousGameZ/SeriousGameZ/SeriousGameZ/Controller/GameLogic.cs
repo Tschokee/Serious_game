@@ -14,12 +14,11 @@ namespace SeriousGameZ.Controller
             {
                 case "TempGame":
                 {
-                    if (IsLoadingState(GameState.Loading, GameSettings.GameStateSettings.IsLoading)) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
+                    if (IsLoadingState(GameState.LoadingTempGame, GameSettings.GameStateSettings.TempGameIsLoading)) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
                     {
                         //set backgroundthread
                         GameSettings.ThreadSettings.TmpGameBackgroundThread = thread;
-                        GameSettings.GameStateSettings.IsLoading = true;
-
+                        GameSettings.GameStateSettings.TempGameIsLoading = true;
                         //start backgroundthread
                         GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
                     }

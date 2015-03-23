@@ -16,14 +16,14 @@ namespace SeriousGameZ.View
             //draw the start menu
             if (GameSettings.GameState == GameState.StartMenu)
             {
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.StartButton, GameSettings.ButtonPositions.StartButtonPosition, Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.TempGameStartButton, GameSettings.ButtonPositions.TempGameStartButtonPosition, Color.White);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.ButtonPositions.ExitButtonPosition, Color.White);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.HelyesVagyHejesButton, GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.OsztokaButton, GameSettings.ButtonPositions.OsztokaButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
             }
 
             //show the loading screen when needed
-            if (GameSettings.GameState == GameState.Loading || GameSettings.GameState == GameState.LoadingHelyesVagyHejes)
+            if (GameSettings.GameState == GameState.LoadingTempGame || GameSettings.GameState == GameState.LoadingHelyesVagyHejes)
             {
                 GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.SreenSettings.LoadingScreen,
                     new Vector2((graphicsDevice.Viewport.Width / 2) - (GameSettings.SreenSettings.LoadingScreen.Width / 2),
@@ -33,7 +33,7 @@ namespace SeriousGameZ.View
             //draw the the game when playing
             switch (GameSettings.GameState)
             {
-                case GameState.Playing:
+                case GameState.PlayingTempGame:
                     TempGame.Draw();
                     break;
                 case GameState.PlayingHelyesVagyHejes:
