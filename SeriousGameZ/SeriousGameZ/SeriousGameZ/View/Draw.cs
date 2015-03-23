@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SeriousGameZ.Controller;
 using SeriousGameZ.Model;
 
 namespace SeriousGameZ.View
@@ -15,10 +16,10 @@ namespace SeriousGameZ.View
             //draw the start menu
             if (GameSettings.GameState == GameState.StartMenu)
             {
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.StartButton, GameSettings.MainMenuSettings.StartButtonPosition, Color.White);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.HelyesVagyHejesButton, GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.OsztokaButton, GameSettings.MainMenuSettings.OsztokaButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.StartButton, GameSettings.ButtonPositions.StartButtonPosition, Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.ButtonPositions.ExitButtonPosition, Color.White);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.HelyesVagyHejesButton, GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
+                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.OsztokaButton, GameSettings.ButtonPositions.OsztokaButtonPosition, null, Color.White, 0, new Vector2(), .25f, SpriteEffects.None, 0);
             }
 
             //show the loading screen when needed
@@ -30,14 +31,14 @@ namespace SeriousGameZ.View
             }
 
             //draw the the game when playing
-            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
+            switch (GameSettings.GameState)
             {
-                //orb
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.Orb, GameSettings.TempGameContent.OrbPosition, Color.White);
-
-                //pause button
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.TempGameContent.PauseButton, new Vector2(0, 0), Color.White);
-                GameSettings.SreenSettings.SpriteBatch.Draw(GameSettings.Buttons.ExitButton, GameSettings.MainMenuSettings.ExitButtonPosition, Color.White);
+                case GameState.Playing:
+                    TempGame.Draw();
+                    break;
+                case GameState.PlayingHelyesVagyHejes:
+                    HelyesVagyHejesGame.Draw();
+                    break;
             }
 
             GameSettings.SreenSettings.SpriteBatch.End();

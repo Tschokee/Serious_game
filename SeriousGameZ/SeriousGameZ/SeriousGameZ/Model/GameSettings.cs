@@ -21,14 +21,17 @@ namespace SeriousGameZ.Model
             public static Thread HelyesVagyHejesBackgroundThread { get; set; }
         }
 
-        public class MainMenuSettings
+        public class ButtonPositions
         {
             public static Vector2 HelyesVagyHejesStartButtonPosition { get; set; }
             public static Vector2 StartButtonPosition { get; set; }
             public static Vector2 ExitButtonPosition { get; set; }
             public static Vector2 OsztokaButtonPosition { get; set; }
             public static Vector2 SzorzokaButtonPosition { get; set; }
+            public static Vector2 ReturnButtonPosition { get; set; }
         }
+
+
 
         public static class Buttons
         {
@@ -37,6 +40,7 @@ namespace SeriousGameZ.Model
             public static Texture2D HelyesVagyHejesButton { get; set; }
             public static Texture2D OsztokaButton { get; set; }
             public static Texture2D SzorzokaButton { get; set; }
+            public static Texture2D ReturnButton { get; set; }
         }
 
         public static class SreenSettings
@@ -55,7 +59,7 @@ namespace SeriousGameZ.Model
         public static class TempGameContent
         {
             public static Texture2D Orb { get; set; }
-            public static Texture2D PauseButton { get; set; }
+            
             public static Vector2 OrbPosition { get; set; }
             public static float Speed = 10f;
         }

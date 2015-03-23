@@ -25,7 +25,7 @@ namespace SeriousGameZ
         /// </summary>
         protected override void Initialize()
         {
-            GameModel.Initialize();
+            GameModel.Initialize(GraphicsDevice);
             IsMouseVisible = true;            
             base.Initialize();
         }

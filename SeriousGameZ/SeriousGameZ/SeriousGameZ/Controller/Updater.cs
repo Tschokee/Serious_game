@@ -61,7 +61,7 @@ namespace SeriousGameZ.Controller
         {
             //load the game images into the content pipeline
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
-            GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.Buttons.ReturnButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
 
             //set the position of the orb in the middle of the gamewindow
             GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
@@ -80,7 +80,7 @@ namespace SeriousGameZ.Controller
         public static void LoadHelyesVagyHejesGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
-            GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.Buttons.ReturnButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
             GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
             Thread.Sleep(100);
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
@@ -95,10 +95,10 @@ namespace SeriousGameZ.Controller
             //check the startmenu
             if (GameSettings.GameState == GameState.StartMenu)
             {
-                var startButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.StartButtonPosition.X, (int)GameSettings.MainMenuSettings.StartButtonPosition.Y, 100, 20);
-                var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
+                var startButtonRect = new Rectangle((int)GameSettings.ButtonPositions.StartButtonPosition.X, (int)GameSettings.ButtonPositions.StartButtonPosition.Y, 100, 20);
+                var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
 
-                var helyesVagyHejesButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition.X, (int)GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition.Y, 200, 100);
+                var helyesVagyHejesButtonRect = new Rectangle((int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.X, (int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.Y, 200, 100);
 
                 if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
                 {
@@ -117,9 +117,8 @@ namespace SeriousGameZ.Controller
             //check the return button
             if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
-                //TODO: rename to return
-                var pauseButtonRect = new Rectangle(0, 0, 70, 70);
-                var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
+                var pauseButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ReturnButtonPosition.X, (int)GameSettings.ButtonPositions.ReturnButtonPosition.Y, 70, 70);
+                var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
 
                 if (mouseClickRect.Intersects(pauseButtonRect))
                     GameSettings.GameState = GameState.StartMenu;

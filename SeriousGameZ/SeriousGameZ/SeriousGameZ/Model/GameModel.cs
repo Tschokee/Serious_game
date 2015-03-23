@@ -1,17 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace SeriousGameZ.Model
 {
     public class GameModel
     {
-        public static void Initialize()
+        public static void Initialize(GraphicsDevice graphicsDevice)
         {
             //set the position of the buttons
-            GameSettings.MainMenuSettings.StartButtonPosition = new Vector2(50, 200);
-            GameSettings.MainMenuSettings.ExitButtonPosition = new Vector2(50, 250);
-            GameSettings.MainMenuSettings.HelyesVagyHejesStartButtonPosition = new Vector2(125, 25);
-            GameSettings.MainMenuSettings.OsztokaButtonPosition = new Vector2(325, 25);
+            GameSettings.ButtonPositions.StartButtonPosition = new Vector2(50, 200);
+            GameSettings.ButtonPositions.ExitButtonPosition = new Vector2(graphicsDevice.Viewport.Width - 100, 100);
+            GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition = new Vector2(125, 25);
+            GameSettings.ButtonPositions.OsztokaButtonPosition = new Vector2(325, 25);
+            GameSettings.ButtonPositions.ReturnButtonPosition = new Vector2(graphicsDevice.Viewport.Width-100, 0);
 
             //set the gamestate to start menu
             GameSettings.GameState = GameState.StartMenu;
