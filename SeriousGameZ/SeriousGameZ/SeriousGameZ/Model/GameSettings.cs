@@ -17,8 +17,7 @@ namespace SeriousGameZ.Model
 
         public class ThreadSettings
         {
-            public static Thread TmpGameBackgroundThread { get; set; }
-            public static Thread HelyesVagyHejesBackgroundThread { get; set; }
+            public static Thread BackgroundThread { get; set; }
         }
 
         public class ButtonPositions

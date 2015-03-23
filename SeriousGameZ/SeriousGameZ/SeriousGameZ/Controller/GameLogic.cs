@@ -16,11 +16,9 @@ namespace SeriousGameZ.Controller
                 {
                     if (IsLoadingState(GameState.LoadingTempGame, GameSettings.GameStateSettings.TempGameIsLoading)) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
                     {
-                        //set backgroundthread
-                        GameSettings.ThreadSettings.TmpGameBackgroundThread = thread;
+                        GameSettings.ThreadSettings.BackgroundThread = thread;
                         GameSettings.GameStateSettings.TempGameIsLoading = true;
-                        //start backgroundthread
-                        GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
+                        GameSettings.ThreadSettings.BackgroundThread.Start();
                     }
                     break;
                 }
@@ -28,9 +26,9 @@ namespace SeriousGameZ.Controller
                 {
                     if (IsLoadingState(GameState.LoadingHelyesVagyHejes, GameSettings.GameStateSettings.HelyesVagyHejesIsLoading))
                     {
-                        GameSettings.ThreadSettings.TmpGameBackgroundThread = thread; //TODO danger: rename if exception happens
+                        GameSettings.ThreadSettings.BackgroundThread = thread;
                         GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = true;
-                        GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
+                        GameSettings.ThreadSettings.BackgroundThread.Start();
                     }
                     break;
                 }
