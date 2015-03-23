@@ -13,6 +13,7 @@ namespace SeriousGameZ.Model
         {
             public static bool TempGameIsLoading { get; set; }
             public static bool HelyesVagyHejesIsLoading { get; set; }
+            public static bool OsztokaIsLoading { get; set; }
         }
 
         public class ThreadSettings
@@ -29,8 +30,6 @@ namespace SeriousGameZ.Model
             public static Vector2 SzorzokaButtonPosition { get; set; }
             public static Vector2 ReturnButtonPosition { get; set; }
         }
-
-
 
         public static class Buttons
         {
@@ -58,7 +57,6 @@ namespace SeriousGameZ.Model
         public static class TempGameContent
         {
             public static Texture2D Orb { get; set; }
-            
             public static Vector2 OrbPosition { get; set; }
             public static float Speed = 10f;
         }

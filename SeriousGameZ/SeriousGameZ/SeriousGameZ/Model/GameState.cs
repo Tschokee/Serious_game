@@ -6,7 +6,9 @@
         StartMenu,
         LoadingTempGame,
         LoadingHelyesVagyHejes,
+        LoadingOsztoka,
         PlayingTempGame,
-        PlayingHelyesVagyHejes
+        PlayingHelyesVagyHejes,
+        PlayingOsztoka
     }
 }

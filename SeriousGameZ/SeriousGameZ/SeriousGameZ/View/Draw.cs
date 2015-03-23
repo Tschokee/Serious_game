@@ -39,6 +39,9 @@ namespace SeriousGameZ.View
                 case GameState.PlayingHelyesVagyHejes:
                     HelyesVagyHejesGame.Draw();
                     break;
+                case GameState.PlayingOsztoka:
+                    OsztokaGame.Draw();
+                    break;
             }
 
             GameSettings.SreenSettings.SpriteBatch.End();

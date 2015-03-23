@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using SeriousGameZ.Model;
 using SeriousGameZ.Model.Interface;
 
@@ -28,6 +27,16 @@ namespace SeriousGameZ.Controller
                     {
                         GameSettings.ThreadSettings.BackgroundThread = thread;
                         GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = true;
+                        GameSettings.ThreadSettings.BackgroundThread.Start();
+                    }
+                    break;
+                }
+                case "Osztoka":
+                {
+                    if (IsLoadingState(GameState.LoadingOsztoka, GameSettings.GameStateSettings.OsztokaIsLoading))
+                    {
+                        GameSettings.ThreadSettings.BackgroundThread = thread;
+                        GameSettings.GameStateSettings.OsztokaIsLoading = true;
                         GameSettings.ThreadSettings.BackgroundThread.Start();
                     }
                     break;

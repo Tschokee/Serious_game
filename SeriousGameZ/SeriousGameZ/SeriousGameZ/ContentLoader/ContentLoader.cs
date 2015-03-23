@@ -23,7 +23,8 @@ namespace SeriousGameZ.ContentLoader
 
         public static void UnloadContent()
         {
-            GameSettings.ThreadSettings.BackgroundThread.Abort();
+            if (GameSettings.ThreadSettings.BackgroundThread != null)
+                GameSettings.ThreadSettings.BackgroundThread.Abort();
         }
     }
 }

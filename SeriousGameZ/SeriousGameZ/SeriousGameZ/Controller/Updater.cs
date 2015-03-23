@@ -17,6 +17,7 @@ namespace SeriousGameZ.Controller
         {
             GameLogic.ThreadHandling("TempGame", new Thread(() => LoadGame(graphicsDevice, contentManager)));
             GameLogic.ThreadHandling("HelyesVagyHejes", new Thread(() => LoadHelyesVagyHejesGame(graphicsDevice, contentManager)));
+            GameLogic.ThreadHandling("Osztoka", new Thread(() => LoadOsztoka(graphicsDevice, contentManager)));
             
             switch (GameSettings.GameState)
             {
@@ -25,6 +26,9 @@ namespace SeriousGameZ.Controller
                     break;
                 case GameState.PlayingHelyesVagyHejes:
                     HelyesVagyHejesGame.Play(graphicsDevice);
+                    break;
+                case GameState.PlayingOsztoka:
+                    OsztokaGame.Play(graphicsDevice);
                     break;
             }
 
@@ -47,6 +51,11 @@ namespace SeriousGameZ.Controller
             {
                 LoadHelyesVagyHejesGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
+            }
+            if (RecentlyStartedPlaying(GameState.PlayingOsztoka, GameSettings.GameStateSettings.OsztokaIsLoading))
+            {
+                LoadOsztoka(graphicsDevice, contentManager);
+                GameSettings.GameStateSettings.OsztokaIsLoading = false;
             }
         }
 
@@ -75,9 +84,6 @@ namespace SeriousGameZ.Controller
             GameSettings.GameStateSettings.TempGameIsLoading = false;
         }
 
-        /// <summary>
-        /// Loads the orb
-        /// </summary>
         public static void LoadHelyesVagyHejesGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
@@ -90,6 +96,18 @@ namespace SeriousGameZ.Controller
           
         }
 
+        public static void LoadOsztoka(GraphicsDevice graphicsDevice, ContentManager contentManager)
+        {
+            GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
+            GameSettings.Buttons.ReturnButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
+            GameSettings.TempGameContent.OrbPosition = new Vector2(
+                (graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
+            Thread.Sleep(100);
+            GameSettings.GameState = GameState.PlayingOsztoka;
+            GameSettings.GameStateSettings.OsztokaIsLoading = false;
+
+        }
+
         public static void MouseClicked(Game1 game, int x, int y)
         {
             //creates a rectangle of 10x10 around the place where the mouse was clicked
@@ -100,19 +118,24 @@ namespace SeriousGameZ.Controller
             {
                 var startButtonRect = new Rectangle((int)GameSettings.ButtonPositions.TempGameStartButtonPosition.X, (int)GameSettings.ButtonPositions.TempGameStartButtonPosition.Y, 100, 20);
                 var helyesVagyHejesButtonRect = new Rectangle((int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.X, (int)GameSettings.ButtonPositions.HelyesVagyHejesStartButtonPosition.Y, 200, 100);
+                var osztokaButtonRect = new Rectangle((int)GameSettings.ButtonPositions.OsztokaButtonPosition.X, (int)GameSettings.ButtonPositions.OsztokaButtonPosition.Y, 300, 100);
 
                 var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
                 
                 if (mouseClickRect.Intersects(startButtonRect)) 
                     SetGameState("TempGame");                    
                 if (mouseClickRect.Intersects(helyesVagyHejesButtonRect)) 
-                    SetGameState("HelyesVagyHejes");    
+                    SetGameState("HelyesVagyHejes");
+                if (mouseClickRect.Intersects(osztokaButtonRect))
+                    SetGameState("Osztoka");    
                 if (mouseClickRect.Intersects(exitButtonRect)) //player clicked exit button
                     game.Exit();
             }
 
             //check the return button
-            if (GameSettings.GameState == GameState.PlayingTempGame || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
+            if (GameSettings.GameState == GameState.PlayingTempGame 
+                || GameSettings.GameState == GameState.PlayingHelyesVagyHejes
+                || GameSettings.GameState == GameState.PlayingOsztoka)
             {
                 var pauseButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ReturnButtonPosition.X, (int)GameSettings.ButtonPositions.ReturnButtonPosition.Y, 70, 70);
                 var exitButtonRect = new Rectangle((int)GameSettings.ButtonPositions.ExitButtonPosition.X, (int)GameSettings.ButtonPositions.ExitButtonPosition.Y, 100, 20);
@@ -139,6 +162,12 @@ namespace SeriousGameZ.Controller
                 {
                     GameSettings.GameState = GameState.LoadingHelyesVagyHejes;
                     GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
+                    break;
+                }
+                case "Osztoka":
+                {
+                    GameSettings.GameState = GameState.LoadingOsztoka;
+                    GameSettings.GameStateSettings.OsztokaIsLoading = false;
                     break;
                 }
             }

@@ -4,17 +4,20 @@ using SeriousGameZ.Model;
 
 namespace SeriousGameZ.Controller
 {
-    public class HelyesVagyHejesGame : GameLogic
+    public class OsztokaGame : GameLogic
     {
         public static void Play(GraphicsDevice graphicsDevice)
         {
             const float orbWidth = 50f;
             //move the orb
-            GameSettings.TempGameContent.OrbPosition += new Vector2(0, GameSettings.TempGameContent.Speed);
+            GameSettings.TempGameContent.OrbPosition += new Vector2(GameSettings.TempGameContent.Speed, GameSettings.TempGameContent.Speed);
 
             //prevent out of bounds
             if (GameSettings.TempGameContent.OrbPosition.Y > (graphicsDevice.Viewport.Height - orbWidth)
                 || GameSettings.TempGameContent.OrbPosition.Y < 0)
+                GameSettings.TempGameContent.Speed *= -1;
+            if (GameSettings.TempGameContent.OrbPosition.X > (graphicsDevice.Viewport.Width - orbWidth)
+                || GameSettings.TempGameContent.OrbPosition.X < 0)
                 GameSettings.TempGameContent.Speed *= -1;
         }
 

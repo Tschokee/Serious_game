@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ContentLoader\ContentLoader.cs" />
     <Compile Include="Controller\GameLogic.cs" />
+    <Compile Include="Controller\OsztokaGame.cs" />
     <Compile Include="Controller\HelyesVagyHejesGame.cs" />
     <Compile Include="Controller\TempGame.cs" />
     <Compile Include="Model\Interface\IGame.cs" />
