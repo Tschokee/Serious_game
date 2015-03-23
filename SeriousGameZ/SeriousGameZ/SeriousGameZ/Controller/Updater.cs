@@ -8,6 +8,7 @@ using SeriousGameZ.Model;
 
 namespace SeriousGameZ.Controller
 {
+    //TODO drag&drop: each item has an ID, mouse.intersects(element(ID)) && leftMouseBtn.keydown -> move item to cursor position
     public class Updater
     {
         private const float orbWidth = 50f;
