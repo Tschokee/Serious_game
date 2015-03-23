@@ -73,6 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentLoader\ContentLoader.cs" />
+    <Compile Include="Controller\GameLogic.cs" />
+    <Compile Include="Controller\HelyesVagyHejesGame.cs" />
+    <Compile Include="Controller\TempGame.cs" />
+    <Compile Include="Model\Interface\IGame.cs" />
+    <Compile Include="Model\Interface\IGameLogic.cs" />
     <Compile Include="Controller\Updater.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\GameState.cs" />

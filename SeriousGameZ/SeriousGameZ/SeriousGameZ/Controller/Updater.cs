@@ -14,37 +14,17 @@ namespace SeriousGameZ.Controller
 
         public static void Update(Game1 game, GameTime gameTime, GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
-            //load the game when needed
-            if (GameSettings.GameState == GameState.Loading && !GameSettings.GameStateSettings.IsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
+            GameLogic.ThreadHandling("TempGame", new Thread(() => LoadGame(graphicsDevice, contentManager)));
+            GameLogic.ThreadHandling("HelyesVagyHejes", new Thread(() => LoadHelyesVagyHejesGame(graphicsDevice, contentManager)));
+            
+            switch (GameSettings.GameState)
             {
-                //set backgroundthread
-                GameSettings.ThreadSettings.TmpGameBackgroundThread = new Thread(() => LoadGame(graphicsDevice, contentManager));
-                GameSettings.GameStateSettings.IsLoading = true;
-
-                //start backgroundthread
-                GameSettings.ThreadSettings.TmpGameBackgroundThread.Start();
-            }
-
-            //TODO refactor needed ofc
-            if (GameSettings.GameState == GameState.LoadingHelyesVagyHejes && !GameSettings.GameStateSettings.HelyesVagyHejesIsLoading) //isLoading bool is to prevent the LoadGame method from being called 60 times a seconds
-            {
-                //set backgroundthread
-                GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread = new Thread(() => LoadHelyesVagyHejesGame(graphicsDevice, contentManager));
-                GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = true;
-
-                //start backgroundthread
-                GameSettings.ThreadSettings.HelyesVagyHejesBackgroundThread.Start();
-            }
-
-            //move the orb if the game is in progress
-            if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
-            {
-                //move the orb
-                GameSettings.TempGameContent.OrbPosition += new Vector2(GameSettings.TempGameContent.Speed, 0); 
-
-                //prevent out of bounds
-                if (GameSettings.TempGameContent.OrbPosition.X > (graphicsDevice.Viewport.Width - orbWidth) || GameSettings.TempGameContent.OrbPosition.X < 0)
-                    GameSettings.TempGameContent.Speed *= -1;
+                case GameState.Playing:
+                    TempGame.Play(graphicsDevice);
+                    break;
+                case GameState.PlayingHelyesVagyHejes:
+                    HelyesVagyHejesGame.Play(graphicsDevice);
+                    break;
             }
 
             //wait for mouseclick
@@ -57,16 +37,21 @@ namespace SeriousGameZ.Controller
 
             GameSettings.MouseSettings.PreviousMouseState = GameSettings.MouseSettings.MouseState;
 
-            if (GameSettings.GameState == GameState.Playing && GameSettings.GameStateSettings.IsLoading)
+            if (RecentlyStartedPlaying(GameState.Playing, GameSettings.GameStateSettings.IsLoading))
             {
                 LoadGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.IsLoading = false;
             }
-            if (GameSettings.GameState == GameState.PlayingHelyesVagyHejes && GameSettings.GameStateSettings.HelyesVagyHejesIsLoading)
+            if (RecentlyStartedPlaying(GameState.PlayingHelyesVagyHejes, GameSettings.GameStateSettings.HelyesVagyHejesIsLoading))
             {
                 LoadHelyesVagyHejesGame(graphicsDevice, contentManager);
                 GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
             }
+        }
+
+        private static bool RecentlyStartedPlaying(GameState state, bool isLoading)
+        {
+            return GameSettings.GameState == state && isLoading;
         }
 
         /// <summary>
@@ -94,17 +79,10 @@ namespace SeriousGameZ.Controller
         /// </summary>
         public static void LoadHelyesVagyHejesGame(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
-            //load the game images into the content pipeline
             GameSettings.TempGameContent.Orb = contentManager.Load<Texture2D>(@"Sprites/GameElements/orb");
             GameSettings.TempGameContent.PauseButton = contentManager.Load<Texture2D>(@"Sprites/Navigation/pause");
-
-            //set the position of the orb in the middle of the gamewindow
             GameSettings.TempGameContent.OrbPosition = new Vector2((graphicsDevice.Viewport.Width / 2) - (orbWidth / 2), (graphicsDevice.Viewport.Height / 2) - (orbHeight / 2));
-
-            //since this will go to fast for this demo's purpose, wait for 3 seconds
             Thread.Sleep(100);
-
-            //start playing
             GameSettings.GameState = GameState.PlayingHelyesVagyHejes;
             GameSettings.GameStateSettings.HelyesVagyHejesIsLoading = false;
         }
@@ -124,7 +102,6 @@ namespace SeriousGameZ.Controller
 
                 if (mouseClickRect.Intersects(startButtonRect)) //player clicked start button
                 {
-                    //GameSettings.GameState = GameState.Playing;
                     GameSettings.GameState = GameState.Loading;
                     GameSettings.GameStateSettings.IsLoading = false;
                 }
@@ -137,9 +114,10 @@ namespace SeriousGameZ.Controller
                     game.Exit();
             }
 
-            //check the pausebutton
+            //check the return button
             if (GameSettings.GameState == GameState.Playing || GameSettings.GameState == GameState.PlayingHelyesVagyHejes)
             {
+                //TODO: rename to return
                 var pauseButtonRect = new Rectangle(0, 0, 70, 70);
                 var exitButtonRect = new Rectangle((int)GameSettings.MainMenuSettings.ExitButtonPosition.X, (int)GameSettings.MainMenuSettings.ExitButtonPosition.Y, 100, 20);
 
