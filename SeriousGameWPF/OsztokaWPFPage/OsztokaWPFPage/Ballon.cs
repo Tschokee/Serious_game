@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace OsztokaWPFPage
@@ -17,6 +12,7 @@ namespace OsztokaWPFPage
         private int _number;
         private int _zindex;
         #endregion
+
         #region Properties
         public string Color { get { return _color; } set { _color = value; OnPropertyChanged("Color"); } }
         public int PosX { get { return _posx; } set { _posx = value; OnPropertyChanged("PosX"); OnPropertyChanged("Margin"); } }
@@ -26,22 +22,17 @@ namespace OsztokaWPFPage
         public int ZIndex { get { return _zindex; } set { _zindex = value; OnPropertyChanged("ZIndex"); } }
         #endregion
 
-
-
         #region INotifyPropertyChanged members
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
-                this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
         #endregion
 
         public Ballon()
         {
         }
-
     }
 }

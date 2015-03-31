@@ -14,7 +14,6 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Height="200" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2">
-
                                 <Image x:Name="myimg" Source="{Binding ImageUri}" ToolTip="{Binding Name}" Stretch="Uniform" Opacity="0.75" MouseLeftButtonDown="myimg_MouseLeftButtonDown" >
                                     <Image.Triggers>
                                         <EventTrigger RoutedEvent="Image.MouseEnter">
@@ -38,15 +37,12 @@
                                             </BeginStoryboard>
                                         </EventTrigger>
                                     </Image.Triggers>
-
                                 </Image>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
                 <Image x:Name="im" HorizontalAlignment="Left" Height="100" Width="517"/>
-
             </Grid>
         </ScrollViewer>
 

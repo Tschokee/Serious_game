@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using OsztokaWPFPage;
 
 namespace SeriousGameWPF
 {
@@ -23,14 +15,10 @@ namespace SeriousGameWPF
     public partial class MainWindow : Window
     {
         public ObservableCollection<Game> GamesList0 { get; set; }
-        public Game osztoka,helyes; // nem biztos hogy kell
+        public Game osztoka, helyes; // nem biztos hogy kell
         
         public MainWindow()
         {
-            
-            
-           
-            
             InitializeComponent();
             InitGames();
             DataContext = this;
@@ -39,13 +27,12 @@ namespace SeriousGameWPF
             GamesList0 = new ObservableCollection<Game>();
             InitOsztoka();
             InitHelyes();
-          
         }
         #region WPFEventHandlers
         private void myimg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Image img = sender as Image;
-            Game gametostart = img.DataContext as Game;
+            var img = sender as Image;
+            var gametostart = img.DataContext as Game;
             if (gametostart.start!=null)
             {
                 gametostart.start();
@@ -54,54 +41,47 @@ namespace SeriousGameWPF
             {
                 MessageBox.Show("A játék nem indítható.");
             }
-            
         }
         #endregion
         #region GameMenuInits
         private void InitOsztoka()
         {
-            osztoka = new Game();
-            osztoka.ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg");
-            osztoka.Name = "Osztoka";
-            osztoka.PosX = 1;
-            osztoka.start = new Start(StartOsztoka);
+            osztoka = new Game
+            {
+                ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
+                Name = "Osztoka",
+                PosX = 1,
+                start = StartOsztoka
+            };
             GamesList0.Add(osztoka);
         }
         private void InitHelyes()
         {
-            helyes = new Game();
-
-            helyes.ImageUri = ConvertStringToImageSource("/Images/helyes_vagy_hejes.jpg");
-            helyes.Name = "Helyes vagy hejes";
-            helyes.PosX = 2;
-
+            helyes = new Game
+            {
+                ImageUri = ConvertStringToImageSource("/Images/helyes_vagy_hejes.jpg"),
+                Name = "Helyes vagy hejes",
+                PosX = 2
+            };
             GamesList0.Add(helyes);
-
         }
         #endregion
         #region StartGameMethods
-        public void StartOsztoka() {
-            OsztokaWPFPage.OsztokaPage o = new OsztokaWPFPage.OsztokaPage();
-
-
+        public void StartOsztoka() 
+        {
+            var o = new OsztokaPage();
         }
         #endregion
         #region StaticMethods
         private static ImageSource ConvertStringToImageSource(string uri)
         {
-
-            BitmapImage bimage = new BitmapImage();
+            var bimage = new BitmapImage();
             bimage.BeginInit();
             bimage.UriSource = new Uri(uri, UriKind.Relative);
             bimage.EndInit();
 
             return bimage;
-
-
         }
         #endregion
     }
-
-    
-   
 }
