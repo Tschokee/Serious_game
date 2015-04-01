@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 
 namespace OsztokaWPFPage
 {
@@ -11,6 +12,7 @@ namespace OsztokaWPFPage
         private string _color;
         private int _number;
         private int _zindex;
+        private ImageSource _displayImage;
         #endregion
 
         #region Properties
@@ -20,6 +22,7 @@ namespace OsztokaWPFPage
         public int Number { get { return _number; } set { _number = value; OnPropertyChanged("Number"); } }
         public Thickness Margin { get { return new Thickness(PosX, PosY, 0, 0); } }
         public int ZIndex { get { return _zindex; } set { _zindex = value; OnPropertyChanged("ZIndex"); } }
+        public ImageSource DisplayImage { get { return _displayImage; } set { _displayImage = value; OnPropertyChanged("DisplayImage"); } }
         #endregion
 
         #region INotifyPropertyChanged members

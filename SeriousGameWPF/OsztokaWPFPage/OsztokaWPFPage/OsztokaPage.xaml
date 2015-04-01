@@ -5,22 +5,42 @@
     <Window.Resources>
 
 
-        <PathGeometry x:Key="AnimationPath"
-      Figures="M 10,100 C 35,0 135,0 160,100"
-      />
+        <PathGeometry x:Key="AnimationPath">
+                 <PathGeometry.Figures>
+                        <PathFigureCollection>
+                            <PathFigure IsClosed="True" StartPoint="0,0">
+                                <PathFigure.Segments>
+                                    <PathSegmentCollection>
+                                        <LineSegment Point="0,10" />
+                                     </PathSegmentCollection>
+                                </PathFigure.Segments>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry.Figures>
+                </PathGeometry>
+         
+      
     </Window.Resources>
     <Grid>
         <Image Source="Images/close.png" Opacity="0.40" MouseLeftButtonUp="Image_MouseLeftButtonUp" StretchDirection="DownOnly" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="60" MaxHeight="60" HorizontalAlignment="Right" VerticalAlignment="Top" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" />
         <Canvas HorizontalAlignment="Left" Margin="10,39,0,0" Width="497"  >
+           
+            
             <ItemsControl ItemsSource="{Binding Ballons}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                   <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Height="200" Width="100" Margin="{Binding Margin}" Background="AliceBlue">
-
-                            <Canvas.RenderTransform>
+                        
+                       
+                            <Viewbox Height="200" Stretch="Fill" Width="100" Margin="{Binding Margin}" >
+                                <Viewbox.RenderTransform>
                                 <TranslateTransform x:Name="AnimatedTranslateTransform"  />
-                            </Canvas.RenderTransform>
-                            <Canvas.Triggers>
+                            </Viewbox.RenderTransform>
+                            <Viewbox.Triggers>
                                 <EventTrigger RoutedEvent="Path.Loaded">
                                     <BeginStoryboard>
                                         <Storyboard RepeatBehavior="Forever">
@@ -43,22 +63,28 @@
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
-                            </Canvas.Triggers>
-                            <Ellipse Height="200" Width="100" Fill="Red" Panel.ZIndex="{Binding Zindex}" />
-                            <Label Content="{Binding Number}" Height="27" Width="54" Margin="36,80,407,186"/>
+                            </Viewbox.Triggers>
+
+                            <Grid Height="200" Width="100">
+
+
+                                    <Image Source="{Binding DisplayImage}"/>
+                                    <Label Content="{Binding Number}" Margin="36,44,10,129"/>
+
+                                </Grid>
+                            </Viewbox>
 
 
 
 
-                        </Canvas>
+                       
                     </DataTemplate>
 
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-
-
+            
 
         </Canvas>
+        
     </Grid>
 </Window>
