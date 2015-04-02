@@ -1,19 +1,29 @@
 ﻿<Window x:Class="SeriousGameWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="504" Width="631" Background="#FF151111">
+        xmlns:s="clr-namespace:SeriousGameWPF.Static"
+        xmlns:l="clr-namespace:SeriousGameWPF"
+        Title="MainWindow" Height="504" Width="631" Background="#FF151111" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged">
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <ItemsControl x:Name="ItemControl0"  ItemsSource="{Binding GamesList0}" Grid.Column="0" >
+
+                <Canvas x:Name="Canvas1" VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"  Height="{Binding Path=CanvasHeight}" Width="{Binding Path=CanvasWidth}">
+            
+
+                <ItemsControl x:Name="ItemControl0" ItemsSource="{Binding Source={x:Static s:MainMenuHandler.GamesList},Mode=OneWay}"  Grid.Column="0" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid Height="200" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2">
+                            <Viewbox Height="200" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{Binding Margin}">
                                 <Image x:Name="myimg" Source="{Binding ImageUri}" ToolTip="{Binding Name}" Stretch="Uniform" Opacity="0.75" MouseLeftButtonDown="myimg_MouseLeftButtonDown" >
                                     <Image.Triggers>
                                         <EventTrigger RoutedEvent="Image.MouseEnter">
@@ -38,13 +48,15 @@
                                         </EventTrigger>
                                     </Image.Triggers>
                                 </Image>
-                            </Grid>
+                            </Viewbox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Image x:Name="im" HorizontalAlignment="Left" Height="100" Width="517"/>
+                
+            
+
+        </Canvas>
             </Grid>
         </ScrollViewer>
-
     </Grid>
 </Window>
