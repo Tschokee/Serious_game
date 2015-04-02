@@ -48,14 +48,17 @@ namespace OsztokaWPFPage
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-            (sender as Image).Opacity = 1;
+            var image = sender as Image;
+            if (image != null) image.Opacity = 1;
         }
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
         {
-            (sender as Image).Opacity = 0.40;
-        }      
-         #region StaticMethods
+            var image = sender as Image;
+            if (image != null) image.Opacity = 0.40;
+        }
+
+        #region StaticMethods
         private static ImageSource ConvertStringToImageSource(string uri)
         {
             var bimage = new BitmapImage();

@@ -41,7 +41,7 @@ namespace SeriousGameWPF
             osztoka = new Game
             {
                 ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
-                Name = "Osztoka",
+                Name = "Osztóka",
                 start = StartOsztoka
             };
          
@@ -64,7 +64,7 @@ namespace SeriousGameWPF
                 MainMenuHandler.AddGame(new Game
                 {
                     ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
-                    Name = "Osztoka",
+                    Name = "Osztóka",
                     start = StartOsztoka
                 });
             }
@@ -114,18 +114,15 @@ namespace SeriousGameWPF
         }
         public void FixView()
         {
-            double[] CanvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this);
-            CanvasHeight = CanvasData[0];
-            CanvasWidth = CanvasData[1];
+            var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this);
+            CanvasHeight = canvasData[0];
+            CanvasWidth = canvasData[1];
             ScrollViewerForCanvas.UpdateLayout();
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-
             FixView();
-
-
         }
         #endregion
         #region WPFProperties
