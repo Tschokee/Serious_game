@@ -1118,4 +1118,56 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	<Style x:Key="MainMenuViewBoxStyle1" TargetType="{x:Type Viewbox}"/>
+	<Style x:Key="MainMenuBorderStyle1" TargetType="{x:Type Border}">
+		<Style.Resources>
+			<Storyboard x:Key="OnMouseEnter1">
+				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="{x:Null}">
+					<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+				</DoubleAnimationUsingKeyFrames>
+				<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="{x:Null}">
+					<EasingColorKeyFrame KeyTime="0:0:1" Value="#FF0051FF"/>
+				</ColorAnimationUsingKeyFrames>
+			</Storyboard>
+			<Storyboard x:Key="OnMouseLeave1">
+				<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="{x:Null}">
+					<EasingColorKeyFrame KeyTime="0:0:1" Value="White"/>
+				</ColorAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="{x:Null}">
+					<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.5"/>
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+		</Style.Resources>
+		<Style.Triggers>
+			<EventTrigger RoutedEvent="Mouse.MouseLeave">
+				<BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave1}"/>
+			</EventTrigger>
+			<EventTrigger RoutedEvent="Mouse.MouseEnter">
+				<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
+			</EventTrigger>
+		</Style.Triggers>
+		<Setter Property="BorderBrush" Value="White"/>
+		<Setter Property="BorderThickness" Value="2"/>
+		<Setter Property="Opacity" Value="0.5"/>
+	</Style>
+	<ControlTemplate x:Key="MainMenuLabelControlTemplate1" TargetType="{x:Type Label}">
+		<Grid/>
+	</ControlTemplate>
+	<Style x:Key="MainMenuTextBlockStyle1" TargetType="{x:Type TextBlock}">
+		<Setter Property="Background" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontFamily" Value="/SeriousGameWPF;component/Fonts/#Narkisim"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style x:Key="MainMenuGridStyle1" TargetType="{x:Type Grid}">
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0.5,3" StartPoint="0.5,0">
+					<GradientStop Color="Black" Offset="1"/>
+					<GradientStop Color="#FF540381" Offset="0"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary>

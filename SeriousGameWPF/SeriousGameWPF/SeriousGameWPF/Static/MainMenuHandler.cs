@@ -12,13 +12,20 @@ namespace SeriousGameWPF.Static
     {
         static double _xSize;
         static double _ySize;
-        
+
         private static ObservableCollection<Game> _gamesList { get; set; }
-        public static ObservableCollection<Game> GamesList { get { return _gamesList; } }
+
+        public static ObservableCollection<Game> GamesList
+        {
+            get
+            {
+                return _gamesList;
+            }
+        }
         static MainMenuHandler()
         {
-            _xSize = 150;
-            _ySize = 200;
+            _xSize = 420;
+            _ySize = 220;
             _gamesList = new ObservableCollection<Game>();
         }
         public static void AddGame(Game game)
@@ -34,23 +41,27 @@ namespace SeriousGameWPF.Static
         public static double[] CalculatePositionForAllGamesIn(MainWindow mainWindow)
         {
             double currentPosX = 0;
-            double currentPosY = 0;
+            double currentPosY = 20;
+            int db = (int)(mainWindow.ActualWidth / _xSize);
+            double extraspace = ((mainWindow.ActualWidth - (_xSize * db)) / db) / 2;
+            currentPosX += extraspace ;
+            double thisxSize=_xSize+ (mainWindow.ActualWidth-(_xSize*db))/db;
             double canvash = 0;
             double canvasw = 0;
             foreach (Game game in _gamesList)
             {
                 game.PosX = currentPosX;
                 game.PosY = currentPosY;
-                currentPosX += _xSize;
+                currentPosX += thisxSize;
                 if (mainWindow.ActualWidth < currentPosX + _xSize)
                 {
-                    currentPosX = 0;
+                    currentPosX = 0+ extraspace;
                     currentPosY += _ySize;
                     canvash = currentPosY;
                 }
             }
             canvash += _ySize;
-            double[] data=new double[2]{canvash,canvasw};
+            double[] data = new double[2] { canvash, canvasw };
 
             return data;
 
