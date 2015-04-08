@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SeriousGameWPF.Static
 {
@@ -12,6 +13,8 @@ namespace SeriousGameWPF.Static
     {
         static double _xSize;
         static double _ySize;
+        public static object DataContext;
+    
 
         private static ObservableCollection<Game> _gamesList { get; set; }
 

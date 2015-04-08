@@ -26,6 +26,11 @@ namespace SeriousGameWPF
 
             InitializeComponent();
             InitGames();
+            MainMenuHandler.DataContext = this;
+            this.DataContext = this;
+            WindowCenterX = this.ActualWidth / 2;
+            WindowCenterY = this.ActualHeight / 2;
+            DisplayPage = "MainMenu.xaml"; // ezt kell majd valahogy dinamikusan váltazani
             
         }
         private void InitGames()
@@ -33,6 +38,7 @@ namespace SeriousGameWPF
 
             InitOsztoka();
             InitHelyes();
+            InitSzorzoka();
             InitDummyGames(); // ezt csak teszt, ki kell majd venni
             MainMenuHandler.CalculatePositionForAllGamesIn(this, isHorizontal);
         }
@@ -46,7 +52,18 @@ namespace SeriousGameWPF
                 Name = "Osztóka",
                 start = StartOsztoka
             };
-         
+            MainMenuHandler.AddGame(osztoka);
+
+        }
+        private void InitSzorzoka()
+        {
+            MainMenuHandler.AddGame( new Game
+            {
+                ImageUri = ConvertStringToImageSource("/Images/szorzoka.png"),
+                Name = "Szorzóka",
+                //start = 
+            });
+
 
         }
         private void InitHelyes()
@@ -60,7 +77,7 @@ namespace SeriousGameWPF
             MainMenuHandler.AddGame(helyes);
         }
         private void InitDummyGames() {
-            MainMenuHandler.AddGame(osztoka);
+           // MainMenuHandler.AddGame(osztoka);
             for (int i = 0; i < 20; i++)
             {
                 MainMenuHandler.AddGame(new Game
@@ -98,6 +115,7 @@ namespace SeriousGameWPF
         {
             var img = sender as Image;
             var gametostart = img.DataContext as Game;
+            
             if (gametostart.start != null)
             {
                 gametostart.start();
@@ -119,17 +137,62 @@ namespace SeriousGameWPF
             var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
             CanvasHeight = canvasData[0];
             CanvasWidth = canvasData[1];
+            WindowCenterY = this.ActualWidth / 2;
+            WindowCenterX = this.ActualHeight / 2;
             ScrollViewerForCanvas.UpdateLayout();
         }
-
         private void Window_StateChanged(object sender, EventArgs e)
         {
             FixView();
         }
         #endregion
         #region WPFProperties
+        double _windowCenterX;
+        double _windowCenterY;
         double _canvasHeight = 200;
         double _canvasWidth = 200;
+        private string displayPage;
+        public string DisplayPage
+        {
+            get
+            {
+                return displayPage;
+            }
+            set
+            {
+                if (displayPage == value)
+                {
+                    return;
+                }
+
+                this.displayPage = value;
+                OnPropertyChanged("DisplayPage");
+            }
+        }
+        public double WindowCenterX
+        {
+            get
+            {
+                return _windowCenterX;
+            }
+            set
+            {
+                _windowCenterX = value;
+                OnPropertyChanged("WindowCenterX");
+            }
+        }
+        public double WindowCenterY
+        {
+            get
+            {
+                return _windowCenterY;
+            }
+            set
+            {
+                _windowCenterY = value;
+                OnPropertyChanged("WindowCenterY");
+            }
+        }
         public double CanvasHeight
         {
             get
@@ -177,5 +240,13 @@ namespace SeriousGameWPF
 
         }
         #endregion
+
+        private void Viewbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var vb = sender as Viewbox;
+            var gametoview = vb.DataContext as Game;
+
+
+        }
     }
 }

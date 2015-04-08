@@ -38,5 +38,10 @@ namespace SeriousGameWPF
         {
             //kell majd normális konstruktor
         }
+
+        internal void MoveToCenter(MainWindow mainWindow)
+        {
+            
+        }
     }
 }
