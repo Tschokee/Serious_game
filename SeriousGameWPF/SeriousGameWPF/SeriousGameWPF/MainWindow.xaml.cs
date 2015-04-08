@@ -19,6 +19,8 @@ namespace SeriousGameWPF
     {
         public Game osztoka, helyes; // nem biztos hogy kell
 
+        private bool isHorizontal = true;
+
         public MainWindow()
         {
 
@@ -32,7 +34,7 @@ namespace SeriousGameWPF
             InitOsztoka();
             InitHelyes();
             InitDummyGames(); // ezt csak teszt, ki kell majd venni
-            MainMenuHandler.CalculatePositionForAllGamesIn(this);
+            MainMenuHandler.CalculatePositionForAllGamesIn(this, isHorizontal);
         }
         #region LogicRegion
         #region GameMenuInits
@@ -114,7 +116,7 @@ namespace SeriousGameWPF
         }
         public void FixView()
         {
-            var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this);
+            var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
             CanvasHeight = canvasData[0];
             CanvasWidth = canvasData[1];
             ScrollViewerForCanvas.UpdateLayout();

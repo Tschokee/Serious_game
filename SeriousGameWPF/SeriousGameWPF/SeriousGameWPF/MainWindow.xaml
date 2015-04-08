@@ -9,7 +9,7 @@
     </Window.Resources>
 
     <Grid>
-        <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
             <Grid>
 
                 <Canvas x:Name="Canvas1" VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"  Height="{Binding Path=CanvasHeight}" Width="{Binding Path=CanvasWidth}">
