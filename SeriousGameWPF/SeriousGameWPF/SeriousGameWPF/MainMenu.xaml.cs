@@ -1,18 +1,7 @@
-﻿using SeriousGameWPF.Static;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SeriousGameWPF.Static;
 
 namespace SeriousGameWPF
 {
@@ -39,9 +28,9 @@ namespace SeriousGameWPF
             var img = sender as Image;
             var gametostart = img.DataContext as Game;
 
-            if (gametostart.start != null)
+            if (gametostart.Start != null)
             {
-                gametostart.start();
+                gametostart.Start();
             }
             else
             {
