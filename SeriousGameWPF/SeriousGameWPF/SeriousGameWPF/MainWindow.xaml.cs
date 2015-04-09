@@ -9,6 +9,7 @@ using OsztokaWPFPage;
 using SeriousGameWPF.Static;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace SeriousGameWPF
 {
@@ -23,15 +24,20 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
-
             InitializeComponent();
-            InitGames();
+            InitWindow();
+            InitGames();                                  
+        }
+        private void InitWindow()
+        {
             MainMenuHandler.DataContext = this;
             this.DataContext = this;
             WindowCenterX = this.ActualWidth / 2;
             WindowCenterY = this.ActualHeight / 2;
-            DisplayPage = "MainMenu.xaml"; // ezt kell majd valahogy dinamikusan váltazani
-            
+            MainMenuHandler.ChangeScreenTo = this.ChangeScreenTo;
+            MainMenuHandler.ChangeScreenTo("MainMenu.xaml");
+            MainMenuHandler.AddMenuItem(new OMenuItem() { Text = "Exit" });
+            MainMenuHandler.AddMenuItem(new OMenuItem() { Text = "Back" });
         }
         private void InitGames()
         {
@@ -40,7 +46,7 @@ namespace SeriousGameWPF
             InitHelyes();
             InitSzorzoka();
             InitDummyGames(); // ezt csak teszt, ki kell majd venni
-            MainMenuHandler.CalculatePositionForAllGamesIn(this, isHorizontal);
+            MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal);
         }
         #region LogicRegion
         #region GameMenuInits
@@ -50,8 +56,14 @@ namespace SeriousGameWPF
             {
                 ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                 Name = "Osztóka",
-                start = StartOsztoka
+                start = StartOsztoka,
+                GameModes = new ObservableCollection<GameMode>()
+            
             };
+            osztoka.GameModes.Add(new GameMode() { GameDesc = "123" });
+            osztoka.GameModes.Add(new GameMode() { GameDesc = "223" });
+
+            osztoka.GameModes.Add(new GameMode() { GameDesc = "323" });
             MainMenuHandler.AddGame(osztoka);
 
         }
@@ -96,8 +108,6 @@ namespace SeriousGameWPF
         }
         #endregion
         #endregion
-
-
         #region VisualRegion
         #region StaticMethods
         private static ImageSource ConvertStringToImageSource(string uri)
@@ -111,6 +121,15 @@ namespace SeriousGameWPF
         }
         #endregion
         #region WPFEventHandlers
+        
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+               this.Close();
+            }
+        }
+
         private void myimg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var img = sender as Image;
@@ -126,6 +145,13 @@ namespace SeriousGameWPF
             }
         }
 
+        private void Viewbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var vb = sender as Viewbox;
+            var gametoview = vb.DataContext as Game;
+
+
+        }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             FixView();
@@ -134,7 +160,9 @@ namespace SeriousGameWPF
         }
         public void FixView()
         {
-            var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
+           // var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
+            var canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList,this, isHorizontal);
+
             CanvasHeight = canvasData[0];
             CanvasWidth = canvasData[1];
             WindowCenterY = this.ActualWidth / 2;
@@ -144,6 +172,10 @@ namespace SeriousGameWPF
         private void Window_StateChanged(object sender, EventArgs e)
         {
             FixView();
+        }
+        private void mainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            
         }
         #endregion
         #region WPFProperties
@@ -229,24 +261,31 @@ namespace SeriousGameWPF
         }
 
         #endregion
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                this.Close();
-            }
+        #region Delegates
+        public async void ChangeScreenTo(string page) {
             
+            FadeFrameOut();
+            await Task.Delay(1000);
+            DisplayPage = page;
+            FadeFrameIn();
+            await Task.Delay(1000);
+        }
+        public  void FadeFrameOut() {
+            (this.Resources["FadeOut"] as Storyboard).Begin();
+            // ez így lehet nem lesz jó
+                
+        }
+        public void FadeFrameIn()
+        {
+            (this.Resources["FadeIn"] as Storyboard).Begin();
+           // ez így lehet nem lesz jó
 
         }
         #endregion
 
-        private void Viewbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var vb = sender as Viewbox;
-            var gametoview = vb.DataContext as Game;
+        
 
+        #endregion
 
-        }
     }
 }

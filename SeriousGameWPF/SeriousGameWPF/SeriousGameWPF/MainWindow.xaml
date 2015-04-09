@@ -4,27 +4,57 @@
         xmlns:s="clr-namespace:SeriousGameWPF.Static"
         xmlns:l="clr-namespace:SeriousGameWPF"
         x:Name="mainWindow"  Tag="{Binding}"
-        Title="MainWindow" Height="504" Width="631" Background="#FF2C2C2C" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged" WindowStyle="None" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="504" Width="631" Background="#FF2C2C2C" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged" WindowStyle="None" KeyDown="Window_KeyDown" Closing="mainWindow_Closing">
     <Window.Resources>
 
-    	<Storyboard x:Key="OnLoaded1">
+    	<Storyboard  x:Key="FadeIn">
     		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="frame">
     			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
     			<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
     		</DoubleAnimationUsingKeyFrames>
     	</Storyboard>
+        <Storyboard  x:Key="FadeOut">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="frame">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseLeaveMenu">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuItem">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.495"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseEnter1Menu">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuItem">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
 
     </Window.Resources>
 	<Window.Triggers>
-		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
-			<BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+		<!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource FadeIn}"/>
+		</EventTrigger>-->
+
+		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="menuItem">
+			<BeginStoryboard x:Name="MenuHighlight_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter1Menu}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="menuItem">
+			<BeginStoryboard x:Name="OnMouseLeaveMenu_BeginStoryboard" Storyboard="{StaticResource OnMouseLeaveMenu}"/>
 		</EventTrigger>
 	</Window.Triggers>
 
     <Grid>
-        <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
-            <Frame x:Name="frame" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Source="{Binding Path=DisplayPage, UpdateSourceTrigger=PropertyChanged}"></Frame>
-          <!--  <Grid>
+		<StackPanel>
+			<Menu x:Name="menu" IsMainMenu="True" Style="{DynamicResource MenuStyle1}" Foreground="White" BorderBrush="#FF8D8B8B">
+				<MenuItem Opacity="0.5" x:Name="menuItem" Header="Exit" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}"></MenuItem>
+				<MenuItem Opacity="0.5" x:Name="menuItemBack" Header="Back" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}"></MenuItem>
+			</Menu>
+        </StackPanel>
+        <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}" Margin="0,23,0,0">
+            <Frame NavigationUIVisibility="Hidden" x:Name="frame" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Source="{Binding Path=DisplayPage, UpdateSourceTrigger=PropertyChanged}"></Frame>
+      
+        <!--  <Grid>
 
                 <Canvas x:Name="Canvas1" VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"  Height="{Binding Path=CanvasHeight}" Width="{Binding Path=CanvasWidth}">
 
@@ -109,5 +139,6 @@
             </Grid>
     -->
         </ScrollViewer>
+        
     </Grid>
 </Window>

@@ -30,7 +30,8 @@ namespace SeriousGameWPF
         {
             var vb = sender as Viewbox;
             var gametoview = vb.DataContext as Game;
-
+            MainMenuHandler.SelectedGame = gametoview;
+            MainMenuHandler.ChangeScreenTo("GameStartPage.xaml");
 
         }
         private void myimg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
