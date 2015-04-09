@@ -143,6 +143,14 @@ namespace SeriousGameWPF.Static
 
 
             }
+            if (data[0]<0)
+            {
+                data[0] = 0;
+            }
+            if (data[1] < 0)
+            {
+                data[1] = 0;
+            }
             return data;
 
         }

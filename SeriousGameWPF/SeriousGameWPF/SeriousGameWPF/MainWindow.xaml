@@ -4,6 +4,7 @@
         xmlns:s="clr-namespace:SeriousGameWPF.Static"
         xmlns:l="clr-namespace:SeriousGameWPF"
         x:Name="mainWindow"  Tag="{Binding}"
+        MinHeight="400" MinWidth="400"
         Title="MainWindow" Height="504" Width="631" Background="#FF2C2C2C" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged" WindowStyle="None" KeyDown="Window_KeyDown" Closing="mainWindow_Closing">
     <Window.Resources>
 

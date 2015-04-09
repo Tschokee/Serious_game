@@ -24,15 +24,15 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
-           
+            MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
             InitWindow();                  
         }
         private void InitWindow()
         {
-            MainMenuHandler.DataContext = this;
-            this.DataContext = this;
+
+            this.DataContext = MainMenuHandler.DataContext;
             WindowCenterX = this.ActualWidth / 2;
             WindowCenterY = this.ActualHeight / 2;
             MainMenuHandler.ChangeScreenTo = this.ChangeScreenTo;
@@ -46,7 +46,7 @@ namespace SeriousGameWPF
             InitHelyes();
             InitSzorzoka();
           //  InitDummyGames(); // ezt csak teszt, ki kell majd venni
-            MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal);
+            MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, MainMenuHandler.DataContext as MainWindow, isHorizontal);
         }
         #region LogicRegion
         #region GameMenuInits
@@ -164,11 +164,11 @@ namespace SeriousGameWPF
            // var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
             if (DisplayPage=="MainWindow.xaml")
             {
-             canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal);
+                canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, MainMenuHandler.DataContext as MainWindow, isHorizontal);
             }
             else if (DisplayPage == "GameStartPage.xaml")
             {
-                canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.SelectedGame.GameModes, this, isHorizontal);
+                canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.SelectedGame.GameModes, MainMenuHandler.DataContext as MainWindow, isHorizontal);
             }
             
             
