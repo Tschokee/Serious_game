@@ -24,9 +24,10 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
+           
             InitializeComponent();
-            InitWindow();
-            InitGames();                                  
+            InitGames();
+            InitWindow();                  
         }
         private void InitWindow()
         {
@@ -36,8 +37,7 @@ namespace SeriousGameWPF
             WindowCenterY = this.ActualHeight / 2;
             MainMenuHandler.ChangeScreenTo = this.ChangeScreenTo;
             MainMenuHandler.ChangeScreenTo("MainMenu.xaml");
-            MainMenuHandler.AddMenuItem(new OMenuItem() { Text = "Exit" });
-            MainMenuHandler.AddMenuItem(new OMenuItem() { Text = "Back" });
+
         }
         private void InitGames()
         {
@@ -45,7 +45,7 @@ namespace SeriousGameWPF
             InitOsztoka();
             InitHelyes();
             InitSzorzoka();
-            InitDummyGames(); // ezt csak teszt, ki kell majd venni
+          //  InitDummyGames(); // ezt csak teszt, ki kell majd venni
             MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal);
         }
         #region LogicRegion
@@ -160,14 +160,26 @@ namespace SeriousGameWPF
         }
         public void FixView()
         {
+            double[] canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal); ;
            // var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
-            var canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList,this, isHorizontal);
-
+            if (DisplayPage=="MainWindow.xaml")
+            {
+             canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal);
+            }
+            else if (DisplayPage == "GameStartPage.xaml")
+            {
+                canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.SelectedGame.GameModes, this, isHorizontal);
+            }
+            
+            
+                
+           
             CanvasHeight = canvasData[0];
             CanvasWidth = canvasData[1];
             WindowCenterY = this.ActualWidth / 2;
             WindowCenterX = this.ActualHeight / 2;
             ScrollViewerForCanvas.UpdateLayout();
+            
         }
         private void Window_StateChanged(object sender, EventArgs e)
         {
@@ -229,11 +241,11 @@ namespace SeriousGameWPF
         {
             get
             {
-                return _canvasHeight;
+                return MainMenuHandler._canvasHeight;
             }
             set
             {
-                _canvasHeight = value;
+                MainMenuHandler._canvasHeight = value;
                 OnPropertyChanged("CanvasHeight");
             }
         }
@@ -241,11 +253,11 @@ namespace SeriousGameWPF
         {
             get
             {
-                return _canvasWidth;
+                return MainMenuHandler._canvasWidth;
             }
             set
             {
-                _canvasWidth = value;
+                MainMenuHandler._canvasWidth = value;
                 OnPropertyChanged("CanvasWidth");
             }
         }
@@ -263,29 +275,40 @@ namespace SeriousGameWPF
         #endregion
         #region Delegates
         public async void ChangeScreenTo(string page) {
-            
+            menuItemBack.IsEnabled = true;
             FadeFrameOut();
             await Task.Delay(1000);
             DisplayPage = page;
+            FixView();
             FadeFrameIn();
             await Task.Delay(1000);
         }
         public  void FadeFrameOut() {
             (this.Resources["FadeOut"] as Storyboard).Begin();
-            // ez így lehet nem lesz jó
+        
                 
         }
         public void FadeFrameIn()
         {
             (this.Resources["FadeIn"] as Storyboard).Begin();
-           // ez így lehet nem lesz jó
+           
 
         }
         #endregion
 
+        private void menuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         
 
         #endregion
+
+        private void menuItemBack_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeScreenTo("MainMenu.xaml");
+        }
 
     }
 }

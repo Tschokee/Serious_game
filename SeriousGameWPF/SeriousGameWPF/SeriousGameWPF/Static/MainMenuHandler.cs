@@ -18,7 +18,6 @@ namespace SeriousGameWPF.Static
         public static ChangeScreen ChangeScreenTo;
         public static Game SelectedGame;
         private static ObservableCollection<Game> _gamesList { get; set; }
-        private static ObservableCollection<OMenuItem> _menu { get; set; }
         public static ObservableCollection<Game> GamesList
         {
             get
@@ -26,23 +25,13 @@ namespace SeriousGameWPF.Static
                 return _gamesList;
             }
         }
-        public static ObservableCollection<OMenuItem> Menu
-        {
-            get
-            {
-                return _menu;
-            }
-        }
+       
         static MainMenuHandler()
         {
-            _menu = new ObservableCollection<OMenuItem>();
+        
             _gamesList = new ObservableCollection<Game>();
         }
-        public static void AddMenuItem(OMenuItem game)
-        {
-            _menu.Add(game);
-
-        }
+        
         public static void AddGame(Game game)
         {
             _gamesList.Add(game);
@@ -75,7 +64,7 @@ namespace SeriousGameWPF.Static
             {
                 double currentPosY = 0;
                 double currentPosX = 20;
-                double windowHeight = mainWindow.ActualHeight-23;
+                double windowHeight = mainWindow.ActualHeight-40;
                 if (windowHeight<0)
                 {
                     windowHeight = 1;
@@ -83,6 +72,10 @@ namespace SeriousGameWPF.Static
                 }
 
                 int db = (int)(windowHeight / _ySize);
+                if (db > stuff.Count)
+                {
+                    db = stuff.Count;
+                }
                 double extraspace = ((((windowHeight) - (_ySize * db)) / db) / 2);
                 currentPosY += extraspace;
                 double thisySize = _ySize + (windowHeight - (_ySize * db)) / db;
@@ -94,7 +87,7 @@ namespace SeriousGameWPF.Static
                     game.PosY = currentPosY;
                     currentPosY += thisySize;
                     //currentPosX += _xSize;
-                    if ((windowHeight < currentPosY + _ySize) && isHorizontal)
+                    if ((windowHeight < currentPosY + _ySize) )
                     {
                         currentPosY = 0 + extraspace;
                         currentPosX += _xSize;
@@ -114,9 +107,13 @@ namespace SeriousGameWPF.Static
             }
             else
             {
-                double currentPosX = 20;
-                double currentPosY = 0;
+                double currentPosY = 20;
+                double currentPosX = 0;
                 int db = (int)(mainWindow.ActualWidth / _xSize);
+                if (db>stuff.Count)
+                {
+                    db = stuff.Count;
+                }
                 double extraspace = (((mainWindow.ActualWidth - (_xSize * db)) / db) / 2);
                 currentPosX += extraspace;
                 double thisxSize = _xSize + (mainWindow.ActualWidth - (_xSize * db)) / db;
@@ -127,7 +124,7 @@ namespace SeriousGameWPF.Static
                     game.PosX = currentPosX;
                     game.PosY = currentPosY;
                     currentPosX += thisxSize;
-                    if ((mainWindow.ActualWidth < currentPosX + _xSize) && !isHorizontal)
+                    if ((mainWindow.ActualWidth < currentPosX + _xSize))
                     {
                         currentPosX = 0 + extraspace;
                         currentPosY += _ySize;
@@ -140,6 +137,7 @@ namespace SeriousGameWPF.Static
                     {
                         canvash += _ySize;
                     }
+                    
                 }
                 data = new double[2] { canvash, canvasw };
 
@@ -157,6 +155,8 @@ namespace SeriousGameWPF.Static
                 handler(null, EventArgs.Empty);
         }
         public static event EventHandler CanvasWidthPropertyChanged;
+        public static double _canvasHeight;
+        public static double _canvasWidth;
         public static void RaiseCanvasWidthPropertyChanged()
         {
             EventHandler handler = CanvasWidthPropertyChanged;
