@@ -8,6 +8,6 @@
 	Title="GameStartPage">
 
     <Canvas VerticalAlignment="Top" HorizontalAlignment="Left"  Height="{Binding Path=CanvasHeight}" Width="{Binding Path=CanvasWidth}">
-        <ItemsControl x:Name="it" ItemsSource="{Binding SelectedGameModes}" ItemTemplate="{DynamicResource GameModeTemplate}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"/>
+        <ItemsControl DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}" x:Name="it" ItemsSource="{Binding SelectedGameModes}" ItemTemplate="{DynamicResource GameModeTemplate}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"/>
     </Canvas>
 </Page>

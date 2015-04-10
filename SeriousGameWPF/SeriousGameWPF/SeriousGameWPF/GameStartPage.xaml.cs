@@ -62,7 +62,7 @@ namespace SeriousGameWPF
         public GameStartPage()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = MainMenuHandler.DataContext;
             this.SelectedGameModes = MainMenuHandler.SelectedGame.GameModes;
 
             double[] canvasData = MainMenuHandler.CalculatePositionFor(SelectedGameModes, MainMenuHandler.DataContext as MainWindow, true);
