@@ -22,12 +22,13 @@ namespace SeriousGameWPF
 
         private bool isHorizontal = true;
 
+
         public MainWindow()
         {
             MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
-            InitWindow();                  
+            InitWindow();
         }
         private void InitWindow()
         {
@@ -45,7 +46,7 @@ namespace SeriousGameWPF
             InitOsztoka();
             InitHelyes();
             InitSzorzoka();
-          //  InitDummyGames(); // ezt csak teszt, ki kell majd venni
+            //  InitDummyGames(); // ezt csak teszt, ki kell majd venni
             MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, MainMenuHandler.DataContext as MainWindow, isHorizontal);
         }
         #region LogicRegion
@@ -58,7 +59,7 @@ namespace SeriousGameWPF
                 Name = "Osztóka",
                 Start = StartOsztoka,
                 GameModes = new ObservableCollection<GameMode>()
-            
+
             };
             osztoka.GameModes.Add(new GameMode() { GameDesc = "123" });
             osztoka.GameModes.Add(new GameMode() { GameDesc = "223" });
@@ -69,7 +70,7 @@ namespace SeriousGameWPF
         }
         private void InitSzorzoka()
         {
-            MainMenuHandler.AddGame( new Game
+            MainMenuHandler.AddGame(new Game
             {
                 ImageUri = ConvertStringToImageSource("/Images/szorzoka.png"),
                 Name = "Szorzóka",
@@ -88,8 +89,9 @@ namespace SeriousGameWPF
             };
             MainMenuHandler.AddGame(helyes);
         }
-        private void InitDummyGames() {
-           // MainMenuHandler.AddGame(osztoka);
+        private void InitDummyGames()
+        {
+            // MainMenuHandler.AddGame(osztoka);
             for (int i = 0; i < 20; i++)
             {
                 MainMenuHandler.AddGame(new Game
@@ -121,12 +123,12 @@ namespace SeriousGameWPF
         }
         #endregion
         #region WPFEventHandlers
-        
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-               this.Close();
+                this.Close();
             }
         }
 
@@ -134,7 +136,7 @@ namespace SeriousGameWPF
         {
             var img = sender as Image;
             var gametostart = img.DataContext as Game;
-            
+
             if (gametostart.Start != null)
             {
                 gametostart.Start();
@@ -161,8 +163,8 @@ namespace SeriousGameWPF
         public void FixView()
         {
             double[] canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, this, isHorizontal); ;
-           // var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
-            if (DisplayPage=="MainWindow.xaml")
+            // var canvasData = MainMenuHandler.CalculatePositionForAllGamesIn(this,isHorizontal);
+            if (DisplayPage == "MainWindow.xaml")
             {
                 canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.GamesList, MainMenuHandler.DataContext as MainWindow, isHorizontal);
             }
@@ -170,16 +172,16 @@ namespace SeriousGameWPF
             {
                 canvasData = MainMenuHandler.CalculatePositionFor(MainMenuHandler.SelectedGame.GameModes, MainMenuHandler.DataContext as MainWindow, isHorizontal);
             }
-            
-            
-                
-           
+
+
+
+
             CanvasHeight = canvasData[0];
             CanvasWidth = canvasData[1];
             WindowCenterY = this.ActualWidth / 2;
             WindowCenterX = this.ActualHeight / 2;
             ScrollViewerForCanvas.UpdateLayout();
-            
+
         }
         private void Window_StateChanged(object sender, EventArgs e)
         {
@@ -187,7 +189,7 @@ namespace SeriousGameWPF
         }
         private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
-            
+
         }
         #endregion
         #region WPFProperties
@@ -196,6 +198,17 @@ namespace SeriousGameWPF
         double _canvasHeight = 200;
         double _canvasWidth = 200;
         private string displayPage;
+        public bool IsBackEnabled
+        {
+            get
+            {
+                if (DisplayPage == "MainMenu.xaml")
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
         public string DisplayPage
         {
             get
@@ -211,6 +224,7 @@ namespace SeriousGameWPF
 
                 this.displayPage = value;
                 OnPropertyChanged("DisplayPage");
+                OnPropertyChanged("IsBackEnabled");
             }
         }
         public double WindowCenterX
@@ -274,8 +288,9 @@ namespace SeriousGameWPF
 
         #endregion
         #region Delegates
-        public async void ChangeScreenTo(string page) {
-            menuItemBack.IsEnabled = true;
+        public async void ChangeScreenTo(string page)
+        {
+            
             FadeFrameOut();
             await Task.Delay(1000);
             DisplayPage = page;
@@ -283,15 +298,16 @@ namespace SeriousGameWPF
             FadeFrameIn();
             await Task.Delay(1000);
         }
-        public  void FadeFrameOut() {
+        public void FadeFrameOut()
+        {
             (this.Resources["FadeOut"] as Storyboard).Begin();
-        
-                
+
+
         }
         public void FadeFrameIn()
         {
             (this.Resources["FadeIn"] as Storyboard).Begin();
-           
+
 
         }
         #endregion
@@ -301,7 +317,7 @@ namespace SeriousGameWPF
             this.Close();
         }
 
-        
+
 
         #endregion
 

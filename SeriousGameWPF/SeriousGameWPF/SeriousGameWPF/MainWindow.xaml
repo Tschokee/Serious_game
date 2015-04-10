@@ -30,6 +30,16 @@
         		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="OnMouseLeaveMenu2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuItemBack">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.495"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseEnter1Menu2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuItemBack">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
 
     </Window.Resources>
 	<Window.Triggers>
@@ -43,13 +53,19 @@
 		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="menuItem">
 			<BeginStoryboard x:Name="OnMouseLeaveMenu_BeginStoryboard" Storyboard="{StaticResource OnMouseLeaveMenu}"/>
 		</EventTrigger>
-	</Window.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="menuItemBack">
+            <BeginStoryboard x:Name="MenuHighlight_BeginStoryboard2" Storyboard="{StaticResource OnMouseEnter1Menu2}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="menuItemBack">
+            <BeginStoryboard x:Name="OnMouseLeaveMenu_BeginStoryboard2" Storyboard="{StaticResource OnMouseLeaveMenu2}"/>
+        </EventTrigger>
+    </Window.Triggers>
 
     <Grid>
 		<StackPanel>
 			<Menu x:Name="menu" IsMainMenu="True" Style="{DynamicResource MenuStyle1}" Foreground="White" BorderBrush="#FF8D8B8B">
 				<MenuItem Opacity="0.5" x:Name="menuItem" Header="Exit" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" Click="menuItem_Click"></MenuItem>
-				<MenuItem Opacity="0.5" x:Name="menuItemBack" Header="Back" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" IsEnabled="False" Click="menuItemBack_Click" ></MenuItem>
+                <MenuItem Opacity="0.5" x:Name="menuItemBack" Header="Back" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="{Binding IsBackEnabled}" Click="menuItemBack_Click" ></MenuItem>
 			</Menu>
         </StackPanel>
         <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}" Margin="0,23,0,0">

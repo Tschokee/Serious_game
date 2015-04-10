@@ -12,30 +12,7 @@ namespace SeriousGameWPF
     {
         public ObservableCollection<GameMode> SelectedGameModes { get; set; }
 
-         public double CanvasHeight
-        {
-            get
-            {
-                return MainMenuHandler._canvasHeight;
-            }
-            set
-            {
-                MainMenuHandler._canvasHeight = value;
-                OnPropertyChanged("CanvasHeight");
-            }
-        }
-         public double CanvasWidth
-         {
-             get
-             {
-                 return MainMenuHandler._canvasWidth;
-             }
-             set
-             {
-                 MainMenuHandler._canvasWidth = value;
-                 OnPropertyChanged("CanvasWidth");
-             }
-         }
+        
          #region INotifyPropertyChanged members
 
          public event PropertyChangedEventHandler PropertyChanged;
@@ -52,10 +29,7 @@ namespace SeriousGameWPF
             this.DataContext = MainMenuHandler.DataContext;
             this.SelectedGameModes = MainMenuHandler.SelectedGame.GameModes;
 
-            double[] canvasData = MainMenuHandler.CalculatePositionFor(SelectedGameModes, MainMenuHandler.DataContext as MainWindow, true);
-            CanvasHeight = canvasData[0];
-            CanvasWidth = canvasData[1];
-        }
+         }
 
         
     }
