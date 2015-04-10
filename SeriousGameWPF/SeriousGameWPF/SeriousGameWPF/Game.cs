@@ -1,7 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Media;
 
 namespace SeriousGameWPF
 {
@@ -9,8 +6,8 @@ namespace SeriousGameWPF
     public class Game : Displayable
     {
         public ObservableCollection<GameMode> GameModes;
-        public static double _ySize=200;
-        public static double _xSize=400;
+        public static double YSize=200;
+        public static double XSize=400;
         #region Privates
              
 
@@ -21,7 +18,7 @@ namespace SeriousGameWPF
         #endregion
 
         
-        public Start start;
+        public Start Start;
         public Game()
         {
 

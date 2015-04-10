@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace SeriousGameWPF.Static
 {
@@ -50,14 +44,14 @@ namespace SeriousGameWPF.Static
             double _xSize= -1;
             if (typeof(T)==typeof(Game))
             {
-                _ySize = Game._ySize+20;
-                _xSize = Game._xSize+20;
+                _ySize = Game.YSize+20;
+                _xSize = Game.XSize+20;
 
             }
             else if(typeof(T) == typeof(GameMode))
             {
-                _ySize = GameMode._ySize+20;
-                _xSize = GameMode._xSize+20;
+                _ySize = GameMode.YSize+20;
+                _xSize = GameMode.XSize+20;
 
             }
             if (isHorizontal)

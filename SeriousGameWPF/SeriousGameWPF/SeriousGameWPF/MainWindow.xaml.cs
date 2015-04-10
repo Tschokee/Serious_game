@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using OsztokaWPFPage;
 using SeriousGameWPF.Static;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 
 namespace SeriousGameWPF
 {
@@ -56,7 +56,7 @@ namespace SeriousGameWPF
             {
                 ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                 Name = "Osztóka",
-                start = StartOsztoka,
+                Start = StartOsztoka,
                 GameModes = new ObservableCollection<GameMode>()
             
             };
@@ -96,7 +96,7 @@ namespace SeriousGameWPF
                 {
                     ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                     Name = "Osztóka",
-                    start = StartOsztoka
+                    Start = StartOsztoka
                 });
             }
         }
@@ -135,9 +135,9 @@ namespace SeriousGameWPF
             var img = sender as Image;
             var gametostart = img.DataContext as Game;
             
-            if (gametostart.start != null)
+            if (gametostart.Start != null)
             {
-                gametostart.start();
+                gametostart.Start();
             }
             else
             {
