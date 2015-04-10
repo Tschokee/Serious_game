@@ -61,10 +61,11 @@ namespace SeriousGameWPF
                 GameModes = new ObservableCollection<GameMode>()
 
             };
-            osztoka.GameModes.Add(new GameMode() { GameDesc = "123" });
-            osztoka.GameModes.Add(new GameMode() { GameDesc = "223" });
-
-            osztoka.GameModes.Add(new GameMode() { GameDesc = "323" });
+            for (int i = 0; i < 10; i++)
+            {
+                osztoka.GameModes.Add(new GameMode() { GameDesc = (i+1).ToString(), StartParameters = (i+1).ToString() });
+            }
+            
             MainMenuHandler.AddGame(osztoka);
 
         }

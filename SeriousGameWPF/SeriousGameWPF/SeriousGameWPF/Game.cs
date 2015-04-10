@@ -21,7 +21,8 @@ namespace SeriousGameWPF
         public Start Start;
         public Game()
         {
-
+            GameModes= new ObservableCollection<GameMode>();
+            GameModes.Add(new GameMode() { GameDesc = "Nincs elérhető játékmód." });
             //kell majd normális konstruktor
         }
 
