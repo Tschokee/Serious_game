@@ -27,7 +27,7 @@ namespace SeriousGameWPF
         {
             var img = sender as Image;
             var gametostart = img.DataContext as Game;
-
+            /*
             if (gametostart.Start != null)
             {
                 gametostart.Start();
@@ -36,6 +36,7 @@ namespace SeriousGameWPF
             {
                 MessageBox.Show("A játék nem indítható.");
             }
+             * */
         }
     }
 }
