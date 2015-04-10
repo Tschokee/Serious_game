@@ -90,7 +90,7 @@ namespace SeriousGameWPF.Static
                 }
                 if (db != 0)
                 {
-                    if (stuff.Count % db > 0)
+                    if (_gamesList.Count % db > 0)
                     {
                         canvasw += _xSize;
                     }
@@ -127,7 +127,7 @@ namespace SeriousGameWPF.Static
                 }
                 if (db != 0)
                 {
-                    if (stuff.Count % db > 0)
+                    if (_gamesList.Count % db > 0)
                     {
                         canvash += _ySize;
                     }
