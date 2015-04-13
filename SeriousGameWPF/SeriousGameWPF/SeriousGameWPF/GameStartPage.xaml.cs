@@ -31,6 +31,13 @@ namespace SeriousGameWPF
 
          }
 
+        private void Viewbox_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Viewbox vb = sender as Viewbox;
+            GameMode gm = vb.DataContext as GameMode;
+            MainMenuHandler.SelectedGame.Start(gm);
+        }
+
         
     }
 }

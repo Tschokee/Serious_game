@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SeriousGameWPF
+{
+    public enum State {
+        Default,
+        Undefined
+    }
+    public class GameContent:Displayable
+    {
+        private int _pairID;
+        private double _defaultPosX;
+        private double _defaultPosY;
+        private State _state;
+        private string _textContent;
+        private double _textLeft;
+        private double _textTop;
+        private double _viewboxHeight;
+        private double _viewboxWidth;
+
+        public double ViewboxHeight
+        {
+            get { return _viewboxHeight; }
+            set { _viewboxHeight = value;
+            OnPropertyChanged("ViewboxHeight");
+            }
+        }
+       
+
+        public double ViewboxWidth
+        {
+            get { return _viewboxWidth; }
+            set { _viewboxWidth = value;
+            OnPropertyChanged("ViewboxWidth");
+            }
+        }
+
+        public double TextTop
+        {
+            get { return _textTop; }
+            set { _textTop = value;
+            OnPropertyChanged("TextLeft");
+            }
+        }
+        public double TextLeft
+        {
+            get { return _textLeft; }
+            set { _textLeft = value;
+            OnPropertyChanged("TextLeft");
+            }
+        }
+        
+
+        public string TextContent
+        {
+            get { return _textContent; }
+            set { _textContent = value;
+            OnPropertyChanged("TextContent");
+            }
+        }
+        public int PairID { get { return _pairID; } set { this._pairID = value; OnPropertyChanged("PairID"); } }
+        public double DefaultPosX { get { return _defaultPosX; } set { this._defaultPosX = value; OnPropertyChanged("DefaultPosX"); } }
+        public double DefaultPosY { get { return _defaultPosY; } set { this._defaultPosY = value; OnPropertyChanged("DefaultPosY"); } }
+        public State State { get { return _state; } set { this._state = value; OnPropertyChanged("State"); } }
+        public GameContent()
+        {
+                
+        }
+    }
+}

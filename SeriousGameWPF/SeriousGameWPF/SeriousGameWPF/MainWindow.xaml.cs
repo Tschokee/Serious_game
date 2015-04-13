@@ -57,7 +57,7 @@ namespace SeriousGameWPF
             {
                 ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                 Name = "Osztóka",
-                Start = StartOsztoka,
+                Start = StartGame,
                 GameModes = new ObservableCollection<GameMode>()
 
             };
@@ -99,15 +99,15 @@ namespace SeriousGameWPF
                 {
                     ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                     Name = "Osztóka",
-                    Start = StartOsztoka
+                    Start = StartGame
                 });
             }
         }
         #endregion
         #region StartGameMethods
-        public void StartOsztoka()
+        public void StartGame(GameMode gm)
         {
-            var o = new OsztokaPage();
+            ChangeScreenTo(gm);
         }
         #endregion
         #endregion
@@ -140,7 +140,7 @@ namespace SeriousGameWPF
 
             if (gametostart.Start != null)
             {
-                gametostart.Start();
+              
             }
             else
             {
@@ -295,6 +295,16 @@ namespace SeriousGameWPF
             FadeFrameOut();
             await Task.Delay(1000);
             DisplayPage = page;
+            FixView();
+            FadeFrameIn();
+            await Task.Delay(1000);
+        }
+        public async void ChangeScreenTo(GameMode gm)
+        {
+
+            FadeFrameOut();
+            await Task.Delay(1000);
+            frame.Navigate(new PlayGame(MainMenuHandler.SelectedGame, gm, this));
             FixView();
             FadeFrameIn();
             await Task.Delay(1000);

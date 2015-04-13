@@ -2,14 +2,15 @@
 
 namespace SeriousGameWPF
 {
-    public delegate void Start();
+    public delegate void Start(GameMode gm);
+    public delegate void GenerateActiveContent(GameMode gm);
     public class Game : Displayable
     {
         public ObservableCollection<GameMode> GameModes;
         public static double YSize=200;
         public static double XSize=400;
         #region Privates
-             
+        public ObservableCollection<GameContent> ActiveContent { set; get; }     
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace SeriousGameWPF
 
         
         public Start Start;
+        public GenerateActiveContent GenerateActiveContent;
         public Game()
         {
             GameModes= new ObservableCollection<GameMode>();
@@ -26,9 +28,6 @@ namespace SeriousGameWPF
             //kell majd normális konstruktor
         }
 
-        internal void MoveToCenter(MainWindow mainWindow)
-        {
-            
-        }
+
     }
 }
