@@ -64,13 +64,20 @@ namespace SeriousGameWPF
         {
 
         }
-               
+        private double m_X;
+        private double m_Y;
+        private double c_X;
+        private double c_Y;
+
         private void Viewbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Viewbox vb = sender as Viewbox;
             SelectedContent = vb.DataContext as GameContent;
             m_IsPressed = true;
-            
+            m_X = Mouse.GetPosition(PlayArea).X;
+            m_Y = Mouse.GetPosition(PlayArea).Y;
+            c_X = SelectedContent.PosX;
+            c_Y = SelectedContent.PosY;
         }
 
         private void Viewbox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -80,10 +87,14 @@ namespace SeriousGameWPF
 
         private void Viewbox_MouseMove(object sender, MouseEventArgs e)
         {
+            if (Mouse.LeftButton == MouseButtonState.Released)
+            {
+                m_IsPressed = false;
+            }
             if (m_IsPressed)
             {
-                SelectedContent.PosX = Mouse.GetPosition(PlayArea).X - (SelectedContent.ViewboxHeight / 2);    // ez így gagyi javítani kell
-                SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (SelectedContent.ViewboxWidth  / 2);    // ez így gagyi javítani kell
+                SelectedContent.PosX = c_X-m_X+Mouse.GetPosition(PlayArea).X;    // ez így gagyi javítani kell
+                SelectedContent.PosY = c_Y-m_Y+Mouse.GetPosition(PlayArea).Y;    // ez így gagyi javítani kell
                 //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
                 //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
             }
