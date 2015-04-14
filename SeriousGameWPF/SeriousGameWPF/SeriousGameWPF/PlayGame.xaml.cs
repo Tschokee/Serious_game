@@ -43,9 +43,9 @@ namespace SeriousGameWPF
             this.DataContext = this;
             game.ActiveContent = new ObservableCollection<GameContent>();
             game.ActiveContent.Add(new GameContent() { DefaultPosX=10, DefaultPosY=10 , ImageUri= ConvertStringToImageSource("Images/blueBalloon.png"), Name="Balloon1", PairID=1, PosX=10,PosY=10, TextContent="10", TextLeft=30, TextTop=30 , ViewboxHeight=200, ViewboxWidth=200});
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 1, PosX = 20, PosY = 10, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 1, PosX = 10, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 1, PosX = 30, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 2, PosX = 20, PosY = 10, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 3, PosX = 10, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 4, PosX = 30, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
             
             ActiveContent = game.ActiveContent;
             mainWindow.Height = MainMenuHandler.GameWindowHeight;
@@ -78,11 +78,19 @@ namespace SeriousGameWPF
             m_Y = Mouse.GetPosition(PlayArea).Y;
             c_X = SelectedContent.PosX;
             c_Y = SelectedContent.PosY;
+            SelectedContent.Focus = true;
+            
         }
 
         private void Viewbox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             m_IsPressed = false;
+            SelectedContent.Focus = false;
+            GameContent temp;
+            if(game.CollusionTest(SelectedContent,out temp)){
+                SelectedContent.TextContent = "HURRAH";
+                temp.TextContent = "HURRAH2";
+            }
         }
 
         private void Viewbox_MouseMove(object sender, MouseEventArgs e)
@@ -90,6 +98,11 @@ namespace SeriousGameWPF
             if (Mouse.LeftButton == MouseButtonState.Released)
             {
                 m_IsPressed = false;
+                if (SelectedContent!=null)
+                {
+                    SelectedContent.Focus = false;
+                }
+               
             }
             if (m_IsPressed)
             {

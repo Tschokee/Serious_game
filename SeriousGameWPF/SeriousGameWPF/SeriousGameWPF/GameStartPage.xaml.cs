@@ -35,6 +35,7 @@ namespace SeriousGameWPF
         {
             Viewbox vb = sender as Viewbox;
             GameMode gm = vb.DataContext as GameMode;
+
             if (MainMenuHandler.SelectedGame.Start != null)
             {
                 MainMenuHandler.SelectedGame.Start(gm);

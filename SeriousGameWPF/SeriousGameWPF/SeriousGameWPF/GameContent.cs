@@ -20,7 +20,7 @@ namespace SeriousGameWPF
         private double _textTop;
         private double _viewboxHeight;
         private double _viewboxWidth;
-
+        private bool _focus;
         public double ViewboxHeight
         {
             get { return _viewboxHeight; }
@@ -68,6 +68,50 @@ namespace SeriousGameWPF
         public GameContent()
         {
                 
+        }
+
+        //A Focus mechanika jó, de nem a méretet kellene növelni hanem valami normálisabb ötlet kellene
+        public bool Focus { get{return _focus;}
+            set
+            {
+                if (_focus)
+                {
+                    if (value == false)
+                    {
+                        this.ViewboxHeight /= 1.10;
+                        this.ViewboxWidth /= 1.10;
+                    }
+                    _focus = value;
+                }
+                else
+                {
+                    if (value==true)
+                    {
+                    this.ViewboxHeight *= 1.10;
+                    this.ViewboxWidth *= 1.10;
+                    }
+                   
+                    _focus = value;
+                }
+                OnPropertyChanged("Focus");
+            }
+            }
+        public bool Collusion(GameContent toTest)
+        {
+            /*
+            this.ViewboxHeight;
+            this.ViewboxWidth;
+            this.PosX;
+            this.PosY; * */
+
+            //Dummy implementation
+            Random rand = new Random();
+            if (rand.Next(5)==1)
+            {
+                return true;
+            }
+            return false;
+            
         }
     }
 }
