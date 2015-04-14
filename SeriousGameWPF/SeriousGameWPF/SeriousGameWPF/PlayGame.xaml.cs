@@ -41,12 +41,7 @@ namespace SeriousGameWPF
             this.game = game;
             this.gm = gm;
             this.DataContext = this;
-            game.ActiveContent = new ObservableCollection<GameContent>();
-            game.ActiveContent.Add(new GameContent() { DefaultPosX=10, DefaultPosY=10 , ImageUri= ConvertStringToImageSource("Images/blueBalloon.png"), Name="Balloon1", PairID=1, PosX=10,PosY=10, TextContent="10", TextLeft=30, TextTop=30 , ViewboxHeight=200, ViewboxWidth=200});
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 2, PosX = 20, PosY = 10, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 3, PosX = 10, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
-            game.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 4, PosX = 30, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
-            
+            game.GenerateActiveContent(gm);   
             ActiveContent = game.ActiveContent;
             mainWindow.Height = MainMenuHandler.GameWindowHeight;
             mainWindow.Width = MainMenuHandler.GameWindowWidth;
@@ -90,7 +85,16 @@ namespace SeriousGameWPF
             if(game.CollusionTest(SelectedContent,out temp)){
                 SelectedContent.TextContent = "HURRAH";
                 temp.TextContent = "HURRAH2";
+                SelectedContent.State = State.Solved;
+                temp.State = State.Solved;
             }
+            IsThisTheEnd();
+        }
+        private void IsThisTheEnd() {
+            if (game.IsSolved()) {
+
+                MainMenuHandler.ChangeScreenTo("EndScreen.Xaml");
+            };
         }
 
         private void Viewbox_MouseMove(object sender, MouseEventArgs e)

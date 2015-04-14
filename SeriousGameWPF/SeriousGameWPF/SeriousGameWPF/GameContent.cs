@@ -5,9 +5,11 @@ using System.Text;
 
 namespace SeriousGameWPF
 {
-    public enum State {
+    public enum State
+    {
         Default,
-        Undefined
+        Undefined,
+        Solved
     }
     public class GameContent:Displayable
     {
@@ -105,6 +107,7 @@ namespace SeriousGameWPF
             this.PosY; * */
 
             //Dummy implementation
+            //TODO
             Random rand = new Random();
             if (rand.Next(5)==1)
             {

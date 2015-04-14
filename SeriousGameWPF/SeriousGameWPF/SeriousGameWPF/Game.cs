@@ -54,5 +54,17 @@ namespace SeriousGameWPF
         }
 
 
+
+        internal bool IsSolved()
+        {
+            foreach (GameContent gameContent in ActiveContent)
+            {
+                if (gameContent.State!=State.Solved)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

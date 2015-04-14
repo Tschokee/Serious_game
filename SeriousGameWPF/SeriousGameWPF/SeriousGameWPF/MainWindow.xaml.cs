@@ -58,6 +58,7 @@ namespace SeriousGameWPF
                 ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
                 Name = "Osztóka",
                 Start = StartGame,
+                GenerateActiveContent = GenerateActiveContentforOsztoka,
                 GameModes = new ObservableCollection<GameMode>()
 
             };
@@ -75,7 +76,7 @@ namespace SeriousGameWPF
             {
                 ImageUri = ConvertStringToImageSource("/Images/szorzoka.png"),
                 Name = "Szorzóka",
-                //start = 
+                
             });
 
 
@@ -108,6 +109,15 @@ namespace SeriousGameWPF
         public void StartGame(GameMode gm)
         {
             ChangeScreenTo(gm);
+        }
+        public void GenerateActiveContentforOsztoka(GameMode gm) {
+           MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
+           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 1, PosX = 10, PosY = 10, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 2, PosX = 20, PosY = 10, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 3, PosX = 10, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 4, PosX = 30, PosY = 30, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200 });
+         
+
         }
         #endregion
         #endregion
