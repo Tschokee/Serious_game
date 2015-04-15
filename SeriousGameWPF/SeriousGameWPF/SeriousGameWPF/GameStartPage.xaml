@@ -13,7 +13,7 @@
         <Viewbox  d:DesignWidth="200" d:DesignHeight="200" Width="{Binding Source={x:Static l:GameMode.YSize}}" Height="{Binding Source={x:Static l:GameMode.XSize}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="{Binding Margin}" Style="{DynamicResource MainMenuViewBoxStyle1}" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown">
 			<Border BorderThickness="1" Style="{DynamicResource MainMenuBorderStyle1}">
 				<Grid Style="{DynamicResource MainMenuGridStyle1}" Height="100" Width="100">
-					<TextBlock HorizontalAlignment="Center" Height="50"  TextWrapping="Wrap" TextAlignment="Center" Text="{Binding GameDesc}" VerticalAlignment="Center" Width="100" Style="{DynamicResource MainMenuTextBlockStyle1}"/>
+                        <TextBlock FontSize="{Binding Source={x:Static s:MainMenuHandler.GameMenuFontSize},Mode=OneWay}" HorizontalAlignment="Center" Height="50"  TextWrapping="Wrap" TextAlignment="Center" Text="{Binding GameDesc}" VerticalAlignment="Center" Width="100" Style="{DynamicResource MainMenuTextBlockStyle1}"/>
 					
 				</Grid>
 				</Border>

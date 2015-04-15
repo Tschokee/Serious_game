@@ -42,7 +42,7 @@ namespace SeriousGameWPF
         }
         private void InitGames()
         {
-
+            //TODO Itt hívd meg a definiált metódust
             InitOsztoka();
             InitHelyes();
             InitSzorzoka();
@@ -51,6 +51,7 @@ namespace SeriousGameWPF
         }
         #region LogicRegion
         #region GameMenuInits
+        //TODO Itt hozd létre a metódust
         private void InitOsztoka()
         {
             osztoka = new Game
@@ -335,7 +336,12 @@ namespace SeriousGameWPF
 
         private void menuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var result = MessageBox.Show("Biztos ki akarsz lépni?", "Exit", MessageBoxButton.YesNo); //lehetne szebben is
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+           
         }
 
 
