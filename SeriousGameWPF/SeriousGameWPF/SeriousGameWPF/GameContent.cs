@@ -106,13 +106,13 @@ namespace SeriousGameWPF
             this.PosX;
             this.PosY; * */
 
-            if (this.PosX > toTest.PosX && this.PosX < toTest.PosX + toTest.ViewboxWidth && this.PosY > toTest.PosY && this.PosY < toTest.PosY + toTest.ViewboxHeight/2)
+            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight/4)
                 return true;
-            if (this.PosX + this.ViewboxWidth > toTest.PosX && this.PosX + this.ViewboxWidth < toTest.PosX + toTest.ViewboxWidth && this.PosY > toTest.PosY && this.PosY < toTest.PosY + toTest.ViewboxHeight / 2)
+            if (this.PosX + this.ViewboxWidth/3 >= toTest.PosX && this.PosX + this.ViewboxWidth/3 <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight / 4)
                 return true;
-            if (this.PosX > toTest.PosX && this.PosX < toTest.PosX + toTest.ViewboxWidth && this.PosY + this.ViewboxHeight / 2 > toTest.PosY && this.PosY + this.ViewboxHeight / 2 < toTest.PosY + toTest.ViewboxHeight / 2)
+            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY + this.ViewboxHeight / 4 >= toTest.PosY && this.PosY + this.ViewboxHeight / 4 <= toTest.PosY + toTest.ViewboxHeight / 4)
                 return true;
-            if (this.PosX + this.ViewboxWidth > toTest.PosX && this.PosX + this.ViewboxWidth < toTest.PosX + toTest.ViewboxWidth && this.PosY + this.ViewboxHeight / 2 > toTest.PosY && this.PosY + this.ViewboxHeight / 2 < toTest.PosY + toTest.ViewboxHeight / 2)
+            if (this.PosX + this.ViewboxWidth/3 >= toTest.PosX && this.PosX + this.ViewboxWidth/3 <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY + this.ViewboxHeight / 4 >= toTest.PosY && this.PosY + this.ViewboxHeight / 4 <= toTest.PosY + toTest.ViewboxHeight / 4)
                 return true;
             return false;
             
