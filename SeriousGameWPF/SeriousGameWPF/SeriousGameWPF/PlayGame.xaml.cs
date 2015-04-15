@@ -110,8 +110,11 @@ namespace SeriousGameWPF
             }
             if (m_IsPressed)
             {
-                SelectedContent.PosX = c_X-m_X+Mouse.GetPosition(PlayArea).X;    // ez így gagyi javítani kell
-                SelectedContent.PosY = c_Y-m_Y+Mouse.GetPosition(PlayArea).Y;    // ez így gagyi javítani kell
+                if (SelectedContent != null)
+                {
+                    SelectedContent.PosX = c_X-m_X+Mouse.GetPosition(PlayArea).X;    // ez így gagyi javítani kell
+                    SelectedContent.PosY = c_Y-m_Y+Mouse.GetPosition(PlayArea).Y;    // ez így gagyi javítani kell
+                }
                 //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
                 //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
             }

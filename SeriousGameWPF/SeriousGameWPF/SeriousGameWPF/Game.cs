@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SeriousGameWPF
 {
@@ -57,14 +58,7 @@ namespace SeriousGameWPF
 
         internal bool IsSolved()
         {
-            foreach (GameContent gameContent in ActiveContent)
-            {
-                if (gameContent.State!=State.Solved)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return ActiveContent.All(gameContent => gameContent.State == State.Solved);
         }
     }
 }
