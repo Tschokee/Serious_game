@@ -106,15 +106,17 @@ namespace SeriousGameWPF
             this.PosX;
             this.PosY; * */
 
-            //Dummy implementation
-            //TODO
-            Random rand = new Random();
-            if (rand.Next(5)==1)
-            {
+            if (this.PosX > toTest.PosX && this.PosX < toTest.PosX + toTest.ViewboxWidth && this.PosY > toTest.PosY && this.PosY < toTest.PosY + toTest.ViewboxHeight/2)
                 return true;
-            }
+            if (this.PosX + this.ViewboxWidth > toTest.PosX && this.PosX + this.ViewboxWidth < toTest.PosX + toTest.ViewboxWidth && this.PosY > toTest.PosY && this.PosY < toTest.PosY + toTest.ViewboxHeight / 2)
+                return true;
+            if (this.PosX > toTest.PosX && this.PosX < toTest.PosX + toTest.ViewboxWidth && this.PosY + this.ViewboxHeight / 2 > toTest.PosY && this.PosY + this.ViewboxHeight / 2 < toTest.PosY + toTest.ViewboxHeight / 2)
+                return true;
+            if (this.PosX + this.ViewboxWidth > toTest.PosX && this.PosX + this.ViewboxWidth < toTest.PosX + toTest.ViewboxWidth && this.PosY + this.ViewboxHeight / 2 > toTest.PosY && this.PosY + this.ViewboxHeight / 2 < toTest.PosY + toTest.ViewboxHeight / 2)
+                return true;
             return false;
             
         }
+
     }
 }
