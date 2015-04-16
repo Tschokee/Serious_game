@@ -23,6 +23,7 @@ namespace SeriousGameWPF
         private double _viewboxHeight;
         private double _viewboxWidth;
         private bool _focus;
+        private bool _draggable;
         public double ViewboxHeight
         {
             get { return _viewboxHeight; }
@@ -30,7 +31,15 @@ namespace SeriousGameWPF
             OnPropertyChanged("ViewboxHeight");
             }
         }
-       
+        public bool Draggable
+        {
+            get { return _draggable; }
+            set
+            {
+                _draggable = value;
+                OnPropertyChanged("Draggable");
+            }
+        }
 
         public double ViewboxWidth
         {

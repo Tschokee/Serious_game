@@ -40,11 +40,12 @@ namespace SeriousGameWPF
             // TODO: Complete member initialization
             this.game = game;
             this.gm = gm;
-            this.DataContext = this;
+            this.DataContext = game;
             game.GenerateActiveContent(gm);   
-            ActiveContent = game.ActiveContent;
+            //ActiveContent = game.ActiveContent;
             mainWindow.Height = MainMenuHandler.GameWindowHeight;
             mainWindow.Width = MainMenuHandler.GameWindowWidth;
+            //mainWindow.ResizeMode = ResizeMode.NoResize;
         }
         private static ImageSource ConvertStringToImageSource(string uri)
         {
@@ -68,27 +69,33 @@ namespace SeriousGameWPF
         {
             Viewbox vb = sender as Viewbox;
             SelectedContent = vb.DataContext as GameContent;
+            if (SelectedContent.Draggable)
+            {                       
             m_IsPressed = true;
             m_X = Mouse.GetPosition(PlayArea).X;
             m_Y = Mouse.GetPosition(PlayArea).Y;
             c_X = SelectedContent.PosX;
             c_Y = SelectedContent.PosY;
             SelectedContent.Focus = true;
-            
+            }
         }
 
         private void Viewbox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             m_IsPressed = false;
             SelectedContent.Focus = false;
-            GameContent temp;
-            if(game.CollusionTest(SelectedContent,out temp)){
-                SelectedContent.TextContent = "HURRAH";
-                temp.TextContent = "HURRAH2";
-                SelectedContent.State = State.Solved;
-                temp.State = State.Solved;
+            if (SelectedContent.Draggable)
+            {
+                GameContent temp;
+                if (game.CollusionTest(SelectedContent, out temp))
+                {
+                    SelectedContent.TextContent = "HURRAH";
+                    temp.TextContent = "HURRAH2";
+                    SelectedContent.State = State.Solved;
+                    temp.State = State.Solved;
+                }
+                IsThisTheEnd();
             }
-            IsThisTheEnd();
         }
         private void IsThisTheEnd() {
             if (game.IsSolved()) {
@@ -99,27 +106,33 @@ namespace SeriousGameWPF
 
         private void Viewbox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (Mouse.LeftButton == MouseButtonState.Released)
-            {
-                m_IsPressed = false;
-                if (SelectedContent!=null)
+            
+
+                if (Mouse.LeftButton == MouseButtonState.Released)
                 {
-                    SelectedContent.Focus = false;
+                    m_IsPressed = false;
+                    if (SelectedContent != null)
+                    {
+                        SelectedContent.Focus = false;
+                    }
+
                 }
-               
-            }
-            if (m_IsPressed)
-            {
-                if (SelectedContent != null)
+                if (m_IsPressed)
                 {
-                    SelectedContent.PosX = c_X-m_X+Mouse.GetPosition(PlayArea).X;    // ez így gagyi javítani kell
-                    SelectedContent.PosY = c_Y-m_Y+Mouse.GetPosition(PlayArea).Y;    // ez így gagyi javítani kell
+                    if (SelectedContent != null)
+                    {
+                        if (SelectedContent.Draggable)
+                        {
+                            SelectedContent.PosX = c_X - m_X + Mouse.GetPosition(PlayArea).X;
+                            SelectedContent.PosY = c_Y - m_Y + Mouse.GetPosition(PlayArea).Y;
+                        }
+                    }
+                    //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
+                    //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
                 }
-                //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
-                //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
+
             }
-        }
-       
+        
 
 
     }

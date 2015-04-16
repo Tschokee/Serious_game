@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
 
 namespace SeriousGameWPF
 {
@@ -10,13 +11,27 @@ namespace SeriousGameWPF
         public ObservableCollection<GameMode> GameModes;
         public static double YSize=200;
         public static double XSize=400;
-        #region Privates
-        public ObservableCollection<GameContent> ActiveContent { set; get; }     
+        public ObservableCollection<GameContent> ActiveContent { set; get; }   
 
+        #region Privates
+        private Brush _background;
+        
         #endregion
 
         #region Properties
-       
+        public Brush Background
+        {
+            get
+            {
+                return _background;
+            }
+
+            set
+            {
+                _background = value;
+                OnPropertyChanged("Background");
+            }
+        }
         #endregion
 
         
