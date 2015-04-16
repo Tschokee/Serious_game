@@ -169,9 +169,9 @@ namespace SeriousGameWPF.Static
         #endregion
 
         //private double _gameWindowHeight;
-        public static double GameWindowHeight { get{return 600;} set{} }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public static double GameWindowHeight { get{return 700;} set{} }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        public static double GameWindowWidth { get { return 800; } set { } }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public static double GameWindowWidth { get { return 900; } set { } }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public static int GameMenuFontSize { get { return 30; } set { } }
     }
 }

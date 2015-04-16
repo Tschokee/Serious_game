@@ -20,8 +20,8 @@
 		<Canvas IsItemsHost="True"/>
 	</ItemsPanelTemplate>
 	</Page.Resources>
-	
-    <Canvas x:Name="PlayArea" Background="{Binding Background}">
+    <Viewbox>
+        <Canvas x:Name="PlayArea" Background="{Binding Background}" Width="800" Height="600">
        <ItemsControl ItemsSource="{Binding ActiveContent}" ItemTemplate="{DynamicResource DataTemplate1}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"></ItemsControl>
 	   <!--<Viewbox Height="290" Width="290" HorizontalAlignment="Left" VerticalAlignment="Top" >
 				<Canvas Height="243.403" Width="126.209" >
@@ -30,5 +30,6 @@
 				</Canvas>
 			</Viewbox>-->
     </Canvas>
-	
+    </Viewbox>
+
 </Page>
