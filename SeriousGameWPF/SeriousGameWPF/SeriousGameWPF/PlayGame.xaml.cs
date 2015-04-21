@@ -89,10 +89,12 @@ namespace SeriousGameWPF
                 GameContent temp;
                 if (game.CollusionTest(SelectedContent, out temp))
                 {
-                    SelectedContent.TextContent = "HURRAH";
-                    temp.TextContent = "HURRAH2";
-                    SelectedContent.State = State.Solved;
-                    temp.State = State.Solved;
+                    if (SelectedContent.PairID == temp.PairID)
+                    {    //SelectedContent.TextContent = "HURRAH";
+                        //temp.TextContent = "HURRAH2";
+                        SelectedContent.State = State.Solved;
+                        temp.State = State.Solved;
+                    }
                 }
                 IsThisTheEnd();
             }
