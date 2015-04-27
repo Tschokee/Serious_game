@@ -81,6 +81,8 @@ namespace SeriousGameWPF
                 
         }
 
+        //TODO lehet jó lenne az alapértelmezetten kívül több konstruktor, ezt így nehéz használni
+
         //A Focus mechanika jó, de nem a méretet kellene növelni hanem valami normálisabb ötlet kellene
         public bool Focus { get{return _focus;}
             set
