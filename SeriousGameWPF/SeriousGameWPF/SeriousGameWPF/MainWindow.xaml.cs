@@ -114,7 +114,6 @@ namespace SeriousGameWPF
         }
         public void GenerateActiveContentforOsztoka(GameMode gm) {
            MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 400, DefaultPosY = 400, ImageUri = ConvertStringToImageSource("Images/osztoka.jpg"), Name = "Logo", PairID = 4, PosX = -15, PosY = 400, TextContent = "", TextLeft = 30, TextTop = 30, ViewboxHeight = 100, ViewboxWidth = 100, Draggable = false });
            //TODO nem jó helyen van 
            MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 400, DefaultPosY = 0, ImageUri = ConvertStringToImageSource("Images/Osztoka/felho.png"), Name = "Logo", PairID = 4, PosX = -15, PosY = 400, TextContent = "", TextLeft = 30, TextTop = 30, ViewboxHeight = 100, ViewboxWidth = 100, Draggable = false });
          
