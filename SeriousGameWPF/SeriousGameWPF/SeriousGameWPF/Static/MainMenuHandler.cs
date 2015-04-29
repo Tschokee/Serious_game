@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SeriousGameWPF.Static
 {
@@ -167,11 +169,30 @@ namespace SeriousGameWPF.Static
         }
 
         #endregion
+        public static ImageSource ConvertStringToImageSource(string uri)
+        {
+            var bimage = new BitmapImage();
+            bimage.BeginInit();
+            bimage.UriSource = new Uri(uri, UriKind.Relative);
+            bimage.EndInit();
 
+            return bimage;
+        }
         //private double _gameWindowHeight;
         public static double GameWindowHeight { get{return 700;} set{} }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         public static double GameWindowWidth { get { return 900; } set { } }//   TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public static int GameMenuFontSize { get { return 30; } set { } }
+
+       
+        public static void RunResultCheck()
+        {
+            //TODO implement/verify this
+            if (SelectedGame.ResultCheck!=null)
+            {
+                SelectedGame.ResultCheck();
+            }
+            ChangeScreenTo("EndScreen.xaml");
+        }
     }
 }

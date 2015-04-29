@@ -6,6 +6,7 @@ namespace SeriousGameWPF
 {
     public delegate void Start(GameMode gm);
     public delegate void GenerateActiveContent(GameMode gm);
+    public delegate void ResultCheck();
     public class Game : Displayable
     {
         public ObservableCollection<GameMode> GameModes;
@@ -37,6 +38,7 @@ namespace SeriousGameWPF
         
         public Start Start;
         public GenerateActiveContent GenerateActiveContent;
+        public ResultCheck ResultCheck;
         public Game()
         {
             GameModes= new ObservableCollection<GameMode>();
@@ -75,5 +77,7 @@ namespace SeriousGameWPF
         {
             return ActiveContent.All(gameContent => gameContent.State == State.Solved);
         }
+
+       
     }
 }

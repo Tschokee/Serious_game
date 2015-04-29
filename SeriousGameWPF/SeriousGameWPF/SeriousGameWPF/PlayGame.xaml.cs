@@ -134,6 +134,12 @@ namespace SeriousGameWPF
                 }
 
             }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MainMenuHandler.RunResultCheck();
+        }
         
 
 

@@ -89,6 +89,7 @@
     <Compile Include="GameStartPage.xaml.cs">
       <DependentUpon>GameStartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Games\Osztoka.cs" />
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>

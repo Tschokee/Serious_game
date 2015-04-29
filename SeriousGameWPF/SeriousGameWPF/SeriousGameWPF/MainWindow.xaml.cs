@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using OsztokaWPFPage;
 using SeriousGameWPF.Static;
+using SeriousGameWPF.Games;
 
 namespace SeriousGameWPF
 {
@@ -54,20 +55,9 @@ namespace SeriousGameWPF
         //TODO Itt hozd létre a metódust
         private void InitOsztoka()
         {
-            osztoka = new Game
-            {
-                ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
-                Name = "Osztóka",
-                Start = StartGame,
-                GenerateActiveContent = GenerateActiveContentforOsztoka,
-                GameModes = new ObservableCollection<GameMode>(),
-                Background=new SolidColorBrush(Color.FromArgb(0xff,0xcc,0xff,0xff))
-
-            };
-            for (int i = 0; i < 10; i++)
-            {
-                osztoka.GameModes.Add(new GameMode() { GameDesc = (i+1).ToString(), StartParameters = (i+1).ToString() });
-            }
+            osztoka = new Osztoka(StartGame);
+            
+            
             
             MainMenuHandler.AddGame(osztoka);
 
@@ -76,7 +66,7 @@ namespace SeriousGameWPF
         {
             MainMenuHandler.AddGame(new Game
             {
-                ImageUri = ConvertStringToImageSource("/Images/szorzoka.png"),
+                ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/szorzoka.png"),
                 Name = "Szorzóka",
                 
             });
@@ -87,7 +77,7 @@ namespace SeriousGameWPF
         {
             helyes = new Game
             {
-                ImageUri = ConvertStringToImageSource("/Images/helyes_vagy_hejes.jpg"),
+                ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/helyes_vagy_hejes.jpg"),
                 Name = "Helyes vagy hejes",
 
             };
@@ -100,7 +90,7 @@ namespace SeriousGameWPF
             {
                 MainMenuHandler.AddGame(new Game
                 {
-                    ImageUri = ConvertStringToImageSource("/Images/osztoka.jpg"),
+                    ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/osztoka.jpg"),
                     Name = "Osztóka",
                     Start = StartGame
                 });
@@ -112,29 +102,12 @@ namespace SeriousGameWPF
         {
             ChangeScreenTo(gm);
         }
-        public void GenerateActiveContentforOsztoka(GameMode gm) {
-           MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 400, DefaultPosY = 400, ImageUri = ConvertStringToImageSource("Images/osztoka.jpg"), Name = "Logo", PairID = -1, PosX = -15, PosY = 400, TextContent = "", TextLeft = 30, TextTop = 30, ViewboxHeight = 100, ViewboxWidth = 100, Draggable = false });
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 0, DefaultPosY = 0, ImageUri = ConvertStringToImageSource("Images/Osztoka/felho.png"), Name = "Logo", PairID = -1, PosX =650, PosY = 10, TextContent = "", TextLeft = 30, TextTop = 30, ViewboxHeight = 100, ViewboxWidth = 100, Draggable = false });
-         
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 1, PosX = 200, PosY = 100, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200, Draggable = true });
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 2, PosX = 230, PosY = 70, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200, Draggable = true });
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 3, PosX = 250, PosY = 70, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200, Draggable = true });
-           MainMenuHandler.SelectedGame.ActiveContent.Add(new GameContent() { DefaultPosX = 10, DefaultPosY = 10, ImageUri = ConvertStringToImageSource("Images/blueBalloon.png"), Name = "Balloon1", PairID = 4, PosX = 280, PosY = 100, TextContent = "10", TextLeft = 30, TextTop = 30, ViewboxHeight = 200, ViewboxWidth = 200, Draggable = true });
-        }
+       
         #endregion
         #endregion
         #region VisualRegion
         #region StaticMethods
-        private static ImageSource ConvertStringToImageSource(string uri)
-        {
-            var bimage = new BitmapImage();
-            bimage.BeginInit();
-            bimage.UriSource = new Uri(uri, UriKind.Relative);
-            bimage.EndInit();
-
-            return bimage;
-        }
+      
         #endregion
         #region WPFEventHandlers
 
