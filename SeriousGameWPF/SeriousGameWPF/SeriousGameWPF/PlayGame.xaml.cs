@@ -68,8 +68,8 @@ namespace SeriousGameWPF
         private void Viewbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Viewbox vb = sender as Viewbox;
-            SelectedContent = vb.DataContext as GameContent;
-            if (SelectedContent.Draggable)
+            if (vb != null) SelectedContent = vb.DataContext as GameContent;
+            if (SelectedContent != null && SelectedContent.Draggable)
             {
                 m_IsPressed = true;
                 m_X = Mouse.GetPosition(PlayArea).X;
