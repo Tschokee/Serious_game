@@ -34,14 +34,14 @@ namespace SeriousGameWPF
             InitializeComponent();
         }
 
-        public PlayGame(Game game, GameMode gm,MainWindow mainWindow)
+        public PlayGame(Game game, GameMode gm, MainWindow mainWindow)
         {
             InitializeComponent();
             // TODO: Complete member initialization
             this.game = game;
             this.gm = gm;
             this.DataContext = game;
-            game.GenerateActiveContent(gm);   
+            game.GenerateActiveContent(gm);
             //ActiveContent = game.ActiveContent;
             mainWindow.Height = MainMenuHandler.GameWindowHeight;
             mainWindow.Width = MainMenuHandler.GameWindowWidth;
@@ -70,13 +70,13 @@ namespace SeriousGameWPF
             Viewbox vb = sender as Viewbox;
             SelectedContent = vb.DataContext as GameContent;
             if (SelectedContent.Draggable)
-            {                       
-            m_IsPressed = true;
-            m_X = Mouse.GetPosition(PlayArea).X;
-            m_Y = Mouse.GetPosition(PlayArea).Y;
-            c_X = SelectedContent.PosX;
-            c_Y = SelectedContent.PosY;
-            SelectedContent.Focus = true;
+            {
+                m_IsPressed = true;
+                m_X = Mouse.GetPosition(PlayArea).X;
+                m_Y = Mouse.GetPosition(PlayArea).Y;
+                c_X = SelectedContent.PosX;
+                c_Y = SelectedContent.PosY;
+                SelectedContent.Focus = true;
             }
         }
 
@@ -89,18 +89,37 @@ namespace SeriousGameWPF
                 GameContent temp;
                 if (game.CollusionTest(SelectedContent, out temp))
                 {
+                    if (SelectedContent.SetActive != null)
+                        if (temp is IResult)
+                        {
+                            SelectedContent.SetActive(true);
+                        }
+                        else
+                        {
+                            SelectedContent.SetActive(false);
+                        }
                     if (SelectedContent.PairID == temp.PairID)
                     {    //SelectedContent.TextContent = "HURRAH";
                         //temp.TextContent = "HURRAH2";
                         SelectedContent.State = State.Solved;
                         temp.State = State.Solved;
                     }
+                    else
+                    {
+                        SelectedContent.State = State.Default;
+                    }
+                }
+                else
+                {
+                    SelectedContent.SetActive(false);
                 }
                 IsThisTheEnd();
             }
         }
-        private void IsThisTheEnd() {
-            if (game.IsSolved()) {
+        private void IsThisTheEnd()
+        {
+            if (game.IsSolved())
+            {
 
                 MainMenuHandler.ChangeScreenTo("EndScreen.Xaml");
             };
@@ -108,39 +127,42 @@ namespace SeriousGameWPF
 
         private void Viewbox_MouseMove(object sender, MouseEventArgs e)
         {
-            
 
-                if (Mouse.LeftButton == MouseButtonState.Released)
-                {
-                    m_IsPressed = false;
-                    if (SelectedContent != null)
-                    {
-                        SelectedContent.Focus = false;
-                    }
 
-                }
-                if (m_IsPressed)
+            if (Mouse.LeftButton == MouseButtonState.Released)
+            {
+                m_IsPressed = false;
+                if (SelectedContent != null)
                 {
-                    if (SelectedContent != null)
-                    {
-                        if (SelectedContent.Draggable)
-                        {
-                            SelectedContent.PosX = c_X - m_X + Mouse.GetPosition(PlayArea).X;
-                            SelectedContent.PosY = c_Y - m_Y + Mouse.GetPosition(PlayArea).Y;
-                        }
-                    }
-                    //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
-                    //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
+                    SelectedContent.Focus = false;
                 }
 
             }
+            if (m_IsPressed)
+            {
+                if (SelectedContent != null)
+                {
+                    if (SelectedContent.Draggable)
+                    {
+                        game.ActiveContent.Remove(SelectedContent);
+                        game.ActiveContent.Add(SelectedContent);
+
+                        SelectedContent.PosX = c_X - m_X + Mouse.GetPosition(PlayArea).X;
+                        SelectedContent.PosY = c_Y - m_Y + Mouse.GetPosition(PlayArea).Y;
+                    }
+                }
+                //SelectedContent.PosX = Mouse.GetPosition(PlayArea).X-(Mouse.GetPosition(sender as Viewbox).X);
+                //SelectedContent.PosY = Mouse.GetPosition(PlayArea).Y - (Mouse.GetPosition(sender as Viewbox).Y);
+            }
+
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             MainMenuHandler.RunResultCheck();
         }
-        
+
 
 
     }

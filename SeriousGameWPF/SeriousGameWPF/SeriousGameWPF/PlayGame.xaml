@@ -11,8 +11,8 @@
 		<DataTemplate x:Key="DataTemplate1">
 			<Viewbox Height="{Binding ViewboxHeight}" Width="{Binding ViewboxWidth}" Margin="{Binding Margin}" MouseMove="Viewbox_MouseMove" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown" MouseLeftButtonUp="Viewbox_MouseLeftButtonUp" >
 				<Canvas Height="240" Width="120">
-					<Image Source="{Binding ImageUri}"/>
-					<TextBlock FontSize="20" Text="{Binding TextContent}" Canvas.Left="{Binding TextLeft}" Canvas.Top="{Binding TextTop}"/>
+                    <Image Source="{Binding ImageUri}"/>
+                    <TextBlock FontSize="20" Text="{Binding TextContent}" Canvas.Left="{Binding TextLeft}" Canvas.Top="{Binding TextTop}"/>
 				</Canvas>
 			</Viewbox>
 		</DataTemplate>

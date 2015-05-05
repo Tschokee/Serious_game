@@ -9,8 +9,11 @@
 	Title="EndScreen">
 
     <Grid>
-        <Image gif:ImageBehavior.AnimatedSource="Images/436627.gif" HorizontalAlignment="Left" Height="100" Margin="103,142,0,0" VerticalAlignment="Top" Width="100"/>
-
+        <Viewbox>
+            <Canvas x:Name="PlayArea" Background="{Binding Background}" Width="800" Height="600">
+                <!-- <Image gif:ImageBehavior.AnimatedSource="Images/436627.gif" HorizontalAlignment="Left" Height="100" Margin="103,142,0,0" VerticalAlignment="Top" Width="100"/>-->
+            </Canvas>
+        </Viewbox>
 
     </Grid>
 </Page>

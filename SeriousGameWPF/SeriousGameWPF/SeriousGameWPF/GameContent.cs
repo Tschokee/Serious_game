@@ -9,8 +9,10 @@ namespace SeriousGameWPF
     {
         Default,
         Undefined,
-        Solved
+        Solved,
+        Active
     }
+    public delegate void SetActive(bool t);
     public class GameContent:Displayable
     {
         private int _pairID;
@@ -24,6 +26,7 @@ namespace SeriousGameWPF
         private double _viewboxWidth;
         private bool _focus;
         private bool _draggable;
+        public SetActive SetActive;
         public double ViewboxHeight
         {
             get { return _viewboxHeight; }

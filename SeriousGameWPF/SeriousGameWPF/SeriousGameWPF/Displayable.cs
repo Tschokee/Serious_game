@@ -12,6 +12,7 @@ namespace SeriousGameWPF
         private double _posy;
         private string _name;
         private ImageSource _imageuri;
+        private int _zIndex;
         #endregion
         #region Properties
 
@@ -20,6 +21,7 @@ namespace SeriousGameWPF
         public ImageSource ImageUri { get { return _imageuri; } set { _imageuri = value; OnPropertyChanged("ImageUri"); } }
         public double PosX { get { return _posx; } set { _posx = value; OnPropertyChanged("PosX"); OnPropertyChanged("Margin"); } }
         public double PosY { get { return _posy; } set { _posy = value; OnPropertyChanged("PosY"); OnPropertyChanged("Margin"); } }
+        public int ZIndex { get { return _zIndex; } set { _zIndex = value; OnPropertyChanged("ZIndex"); } }
         public Thickness Margin { get { return new Thickness(PosX, PosY, 0, 0); } }
         #endregion
 

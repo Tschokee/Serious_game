@@ -192,7 +192,7 @@ namespace SeriousGameWPF.Static
             {
                 SelectedGame.ResultCheck();
             }
-            ChangeScreenTo("EndScreen.xaml");
+            //ChangeScreenTo("EndScreen.xaml");
         }
     }
 }
