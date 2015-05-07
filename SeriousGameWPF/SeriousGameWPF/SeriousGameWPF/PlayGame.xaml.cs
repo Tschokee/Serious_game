@@ -121,7 +121,7 @@ namespace SeriousGameWPF
             if (game.IsSolved())
             {
 
-                MainMenuHandler.ChangeScreenTo("EndScreen.Xaml");
+               // MainMenuHandler.ChangeScreenTo("EndScreen.Xaml");
             };
         }
 
@@ -161,6 +161,8 @@ namespace SeriousGameWPF
         {
 
             MainMenuHandler.RunResultCheck();
+            (sender as Button).IsEnabled = false;
+            (sender as Button).Foreground = new SolidColorBrush(Colors.Black);
         }
 
 

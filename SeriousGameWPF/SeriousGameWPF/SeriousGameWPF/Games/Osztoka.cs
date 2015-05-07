@@ -35,6 +35,7 @@ namespace SeriousGameWPF.Games
 
             foreach (GameContent result in this.ActiveContent)
             {
+                result.Draggable = false;
                 if (result is IResult)
                 {
                     if ((result as GameContent).State == State.Solved)
