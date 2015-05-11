@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using OsztokaWPFPage;
 using SeriousGameWPF.Static;
 using SeriousGameWPF.Games;
 
@@ -26,11 +22,20 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
+            PirateVersion();
             MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
             InitWindow();
         }
+
+        private bool PirateVersion()
+        {
+            //var fp = FingerPrint.Value();
+            //var detector = new PirateDetector();
+            return false;
+        }
+
         private void InitWindow()
         {
 
