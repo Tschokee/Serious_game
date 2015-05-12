@@ -33,6 +33,7 @@ namespace SeriousGameWPF
         {
             //var fp = FingerPrint.Value();
             //var detector = new PirateDetector();
+            //detector.ReadAuthenticationFile();
             return false;
         }
 
