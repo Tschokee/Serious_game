@@ -88,7 +88,8 @@ namespace SeriousGameWPF
         {
             IFormatter formatter = new BinaryFormatter();
             StringBuilder sb = new StringBuilder();
-            if (!File.Exists("data.bin")) //first run
+            if (!File.Exists("data.bin")) //first run 
+                //nah it should be permanent in root, so delete = piracy
             {
                 sb.Append(this.CentralProcessingUnitId);
                 sb.Append('-');
