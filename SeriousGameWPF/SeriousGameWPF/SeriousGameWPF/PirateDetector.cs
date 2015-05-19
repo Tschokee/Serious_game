@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net.NetworkInformation;
 using System.Management;
 using System.Runtime.Serialization;
@@ -12,19 +13,24 @@ namespace SeriousGameWPF
     /// </summary>
     internal class PirateDetector 
     {
-
-        public string MacAddress;
-        public string HardDiscId;
-        public string CentralProcessingUnitId;
-
+        public string CentralProcessingUnitId { get; set; }
+        public string MacAddress { get; set; }
+        public string BaseIdentifier { get; set; }
+        public string BiosIdentifier { get; set; }
+        public string HardDiscIdentifier { get; set; }
+        public string VideoCardIdentifier { get; set; }
+        
         /// <summary>
         /// Get hardware unique keys
         /// </summary>
         public PirateDetector()
         {
-            this.MacAddress = GetMacAddress();
-            this.HardDiscId = HddId();
-            this.CentralProcessingUnitId = CpuId();
+            this.CentralProcessingUnitId = FingerPrint.CpuId();
+            this.MacAddress = FingerPrint.MacId();
+            this.BaseIdentifier = FingerPrint.BaseId();
+            this.BiosIdentifier = FingerPrint.BiosId();
+            this.HardDiscIdentifier = FingerPrint.DiskId();
+            this.VideoCardIdentifier = FingerPrint.VideoId();
         }
 
         /// <summary>
@@ -91,11 +97,17 @@ namespace SeriousGameWPF
             if (!File.Exists("data.bin")) //first run 
                 //nah it should be permanent in root, so delete = piracy
             {
-                sb.Append(this.CentralProcessingUnitId);
-                sb.Append('-');
-                sb.Append(this.HardDiscId);
-                sb.Append('-');
-                sb.Append(this.MacAddress);
+                sb.Append(FingerPrint.CpuId());
+                sb.Append('#');
+                sb.Append(FingerPrint.BaseId());
+                sb.Append('#');
+                sb.Append(FingerPrint.BiosId());
+                sb.Append('#');
+                sb.Append(FingerPrint.DiskId());
+                sb.Append('#');
+                sb.Append(FingerPrint.MacId());
+                sb.Append('#');
+                sb.Append(FingerPrint.VideoId());
 
                 using (var stream = new FileStream("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
                 {
@@ -109,7 +121,7 @@ namespace SeriousGameWPF
             {
                 formatter = new BinaryFormatter();
                 var piratePrint = formatter.Deserialize(stream);
-                var separatedPrint = ((string)piratePrint).Split('-');
+                var separatedPrint = ((string)piratePrint).Split('#');
                 CheckPiracy(separatedPrint);
             }
         }
@@ -120,16 +132,22 @@ namespace SeriousGameWPF
         /// </summary>
         /// <param name="separatedPrint">keys separated with '-'</param>
         /// <returns>user tries to YARRRR</returns>
-        private bool CheckPiracy(string[] separatedPrint)
+        private bool CheckPiracy(IReadOnlyList<string> separatedPrint)
         {
-            const int tolerance = 2; //in case of hardware upgrade
+            const int tolerance = 4; //in case of hardware upgrade
             var hardwareDeviation = 0;
 
             if (separatedPrint[0] != CentralProcessingUnitId)
                 hardwareDeviation++;
-            if (separatedPrint[1] != HardDiscId)
+            if (separatedPrint[1] != BaseIdentifier)
                 hardwareDeviation++;
-            if (separatedPrint[2] != MacAddress)
+            if (separatedPrint[2] != BiosIdentifier)
+                hardwareDeviation++;
+            if (separatedPrint[3] != HardDiscIdentifier)
+                hardwareDeviation++;
+            if (separatedPrint[4] != MacAddress)
+                hardwareDeviation++;
+            if (separatedPrint[5] != VideoCardIdentifier)
                 hardwareDeviation++;
 
             return hardwareDeviation <= tolerance;

@@ -103,7 +103,7 @@ namespace SeriousGameWPF
             }
             return result;
         }
-        private static string CpuId()
+        public static string CpuId()
         {
             //Uses first CPU identifier available in order of preference
             //Don't get all identifiers, as it is very time consuming
@@ -125,7 +125,7 @@ namespace SeriousGameWPF
             return retVal;
         }
         //BIOS Identifier
-        private static string BiosId()
+        public static string BiosId()
         {
             return identifier("Win32_BIOS", "Manufacturer")
             + identifier("Win32_BIOS", "SMBIOSBIOSVersion")
@@ -135,7 +135,7 @@ namespace SeriousGameWPF
             + identifier("Win32_BIOS", "Version");
         }
         //Main physical hard drive ID
-        private static string DiskId()
+        public static string DiskId()
         {
             return identifier("Win32_DiskDrive", "Model")
             + identifier("Win32_DiskDrive", "Manufacturer")
@@ -143,7 +143,7 @@ namespace SeriousGameWPF
             + identifier("Win32_DiskDrive", "TotalHeads");
         }
         //Motherboard ID
-        private static string BaseId()
+        public static string BaseId()
         {
             return identifier("Win32_BaseBoard", "Model")
             + identifier("Win32_BaseBoard", "Manufacturer")
@@ -151,13 +151,13 @@ namespace SeriousGameWPF
             + identifier("Win32_BaseBoard", "SerialNumber");
         }
         //Primary video controller ID
-        private static string VideoId()
+        public static string VideoId()
         {
             return identifier("Win32_VideoController", "DriverVersion")
             + identifier("Win32_VideoController", "Name");
         }
         //First enabled network card ID
-        private static string MacId()
+        public static string MacId()
         {
             return identifier("Win32_NetworkAdapterConfiguration",
                 "MACAddress", "IPEnabled");
