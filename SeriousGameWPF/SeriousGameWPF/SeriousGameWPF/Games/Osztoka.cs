@@ -1,20 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using SeriousGameWPF.Static;
 
 namespace SeriousGameWPF.Games
 {
+    public class PositionElement
+    {
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        public PositionElement(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
     public class Osztoka:Game
     {
+        private List<PositionElement> balloonPositionList = new List<PositionElement>();
+        private List<PositionElement> answerPositionList = new List<PositionElement>();
+
+        private void FillPositionLists()
+        {
+            //TODO fill with proper values
+            balloonPositionList.Add(new PositionElement(10, 10));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(500, 500));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(30, 30));
+
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(30, 30));
+        }
+
+        public static void Shuffle<T>(IList<T> list)
+        {
+            var random = new Random();
+            var n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                var k = random.Next(n + 1);
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
 
         public Osztoka(Start StartGame)
         {
-
+                FillPositionLists();
+                //Randomize
+                Shuffle(balloonPositionList);
+                Shuffle(answerPositionList);
                 ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/osztoka.jpg");
                 Name = "Osztóka";
                 Start = StartGame;
@@ -82,16 +135,20 @@ namespace SeriousGameWPF.Games
                 MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
                 MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/osztoka.jpg", -15, 400, "", 100, 100));
                 MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/felho.png", 650, 10, "", 100, 100));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Balloon(1, 200, 50, "10"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Answer (1, 200, 400, "10"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Balloon(2, 200, 150, "14"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Answer (2, 350, 400, "14"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Balloon(3, 200, 250, "15"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Answer (3, 500, 400, "15"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Balloon(4, 200, 350, "20"));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new Answer (4, 650, 400, "20"));
+                GenerateSpecificVariables(gm.StartParameters, MainMenuHandler.SelectedGame.ActiveContent);
             }
            
+        }
+
+        private void GenerateSpecificVariables(string param, ObservableCollection<GameContent> activeContent)
+        {
+            for (var i = 1; i < 11; i++)
+            {
+                //activeContent.Add(new Balloon(i, i*50, i*50, i.ToString()));
+                //activeContent.Add(new Answer(i, i * 50+20, i * 50+20, i*int.Parse(param) + ":" + param));
+                activeContent.Add(new Balloon(i, balloonPositionList[i-1].X, balloonPositionList[i-1].Y, i.ToString()));
+                activeContent.Add(new Answer(i, answerPositionList[i-1].X, answerPositionList[i-1].Y, i * int.Parse(param) + ":" + param));
+            }
         }
     }
     public class Balloon : GameContent
@@ -110,8 +167,8 @@ namespace SeriousGameWPF.Games
             this.TextContent = TextContent;
             TextLeft = 45;
             TextTop = 45;
-            ViewboxHeight = 100;
-            ViewboxWidth = 100;
+            ViewboxHeight = 70;
+            ViewboxWidth = 70;
             Draggable = true;
             State = State.Default;
             this.SetActive = SetActiveforOsztoka;
@@ -145,8 +202,8 @@ namespace SeriousGameWPF.Games
             this.TextContent = TextContent;
             TextLeft = 45;
             TextTop = 45;
-            ViewboxHeight = 150;
-            ViewboxWidth = 150;
+            ViewboxHeight = 105;
+            ViewboxWidth = 105;
             State = State.Default;
             Draggable = false;
         }
@@ -161,7 +218,7 @@ namespace SeriousGameWPF.Games
             this.ZIndex = 0;
             this.ImageUri = MainMenuHandler.ConvertStringToImageSource(ImageUri);
             Name = "BackgroundContent";
-            this.PairID = PairID;
+            this.PairID = -1;
             this.PosX = PosX;
             this.PosY = PosY;
             this.TextContent = TextContent;
