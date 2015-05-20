@@ -24,9 +24,19 @@ namespace SeriousGameWPF
         private double _textTop;
         private double _viewboxHeight;
         private double _viewboxWidth;
+        private int _textFontSize;
         private bool _focus;
         private bool _draggable;
         public SetActive SetActive;
+        public int TextFontSize
+        {
+            get { return _textFontSize; }
+            set
+            {
+                _textFontSize = value;
+                OnPropertyChanged("TextFontSize");
+            }
+        }
         public double ViewboxHeight
         {
             get { return _viewboxHeight; }

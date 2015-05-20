@@ -165,6 +165,7 @@ namespace SeriousGameWPF.Games
             this.PosX = PosX;
             this.PosY = PosY;
             this.TextContent = TextContent;
+            this.TextFontSize = MainMenuHandler.FontSize;
             TextLeft = 45;
             TextTop = 45;
             ViewboxHeight = 70;
@@ -200,6 +201,7 @@ namespace SeriousGameWPF.Games
             this.PosX = PosX;
             this.PosY = PosY;
             this.TextContent = TextContent;
+            this.TextFontSize = MainMenuHandler.FontSize;
             TextLeft = 45;
             TextTop = 45;
             ViewboxHeight = 105;

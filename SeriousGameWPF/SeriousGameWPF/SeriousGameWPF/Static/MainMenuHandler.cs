@@ -13,6 +13,7 @@ namespace SeriousGameWPF.Static
         public static object DataContext;
         public static ChangeScreen ChangeScreenTo;
         public static Game SelectedGame;
+        public static int FontSize = 10;
         private static ObservableCollection<Game> _gamesList { get; set; }
         public static ObservableCollection<Game> GamesList
         {
