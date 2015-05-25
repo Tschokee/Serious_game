@@ -25,27 +25,27 @@ namespace SeriousGameWPF.Games
         private void FillPositionLists()
         {
             //TODO fill with proper values
-            balloonPositionList.Add(new PositionElement(10, 10));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(500, 500));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
-            balloonPositionList.Add(new PositionElement(30, 30));
+            balloonPositionList.Add(new PositionElement(100, 100));
+            balloonPositionList.Add(new PositionElement(160, 200));
+            balloonPositionList.Add(new PositionElement(220, 100));
+            balloonPositionList.Add(new PositionElement(280, 200));
+            balloonPositionList.Add(new PositionElement(340, 200));
+            balloonPositionList.Add(new PositionElement(400, 200));
+            balloonPositionList.Add(new PositionElement(460, 100));
+            balloonPositionList.Add(new PositionElement(520, 100));
+            balloonPositionList.Add(new PositionElement(580, 200));
+            balloonPositionList.Add(new PositionElement(640, 100));
 
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
-            answerPositionList.Add(new PositionElement(30, 30));
+            answerPositionList.Add(new PositionElement(100, 400));
+            answerPositionList.Add(new PositionElement(160, 350));
+            answerPositionList.Add(new PositionElement(220, 400));
+            answerPositionList.Add(new PositionElement(280, 350));
+            answerPositionList.Add(new PositionElement(340, 400));
+            answerPositionList.Add(new PositionElement(400, 350));
+            answerPositionList.Add(new PositionElement(460, 400));
+            answerPositionList.Add(new PositionElement(520, 350));
+            answerPositionList.Add(new PositionElement(580, 400));
+            answerPositionList.Add(new PositionElement(640, 350));
         }
 
         public static void Shuffle<T>(IList<T> list)
