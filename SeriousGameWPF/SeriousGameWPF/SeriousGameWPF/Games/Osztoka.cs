@@ -24,7 +24,6 @@ namespace SeriousGameWPF.Games
 
         private void FillPositionLists()
         {
-            //TODO fill with proper values
             balloonPositionList.Add(new PositionElement(100, 100));
             balloonPositionList.Add(new PositionElement(160, 200));
             balloonPositionList.Add(new PositionElement(220, 100));

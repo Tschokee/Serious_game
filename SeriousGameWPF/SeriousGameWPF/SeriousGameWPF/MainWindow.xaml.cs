@@ -22,7 +22,7 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
-            PirateVersion();
+            PirateVersion(); //if this is false: Message - Valószínűleg szoftverhamisítás áldozata lettél 
             MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
@@ -31,10 +31,8 @@ namespace SeriousGameWPF
 
         private bool PirateVersion()
         {
-            //var fp = FingerPrint.Value();
-            //var detector = new PirateDetector();
-            //detector.ReadAuthenticationFile();
-            return false;
+            var detector = new PirateDetector();
+            return detector.ReadAuthenticationFile();
         }
 
         private void InitWindow()

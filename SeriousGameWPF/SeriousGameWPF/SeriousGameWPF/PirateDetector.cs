@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Management;
@@ -90,31 +91,18 @@ namespace SeriousGameWPF
         /// <summary>
         /// Reads the data.bin file located in root
         /// </summary>
-        public void ReadAuthenticationFile()
+        public bool ReadAuthenticationFile()
         {
             IFormatter formatter = new BinaryFormatter();
             StringBuilder sb = new StringBuilder();
-            if (!File.Exists("data.bin")) //first run 
-                //nah it should be permanent in root, so delete = piracy
-            {
-                sb.Append(FingerPrint.CpuId());
-                sb.Append('#');
-                sb.Append(FingerPrint.BaseId());
-                sb.Append('#');
-                sb.Append(FingerPrint.BiosId());
-                sb.Append('#');
-                sb.Append(FingerPrint.DiskId());
-                sb.Append('#');
-                sb.Append(FingerPrint.MacId());
-                sb.Append('#');
-                sb.Append(FingerPrint.VideoId());
+            const string fileName = "data.bin";
 
-                using (var stream = new FileStream("data.bin", FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    //should be object, not string
-                    formatter.Serialize(stream, sb.ToString());
-                }
-                return;   
+            if (!File.Exists(fileName)) return false; //this file MUST be there
+
+            if (new FileInfo(fileName).Length == 0) //first run 
+            {
+                UpdateFile(fileName, sb, formatter);
+                return true;   
             }
 
             using (var stream = new FileStream("data.bin", FileMode.Open, FileAccess.Read, FileShare.None))
@@ -122,7 +110,32 @@ namespace SeriousGameWPF
                 formatter = new BinaryFormatter();
                 var piratePrint = formatter.Deserialize(stream);
                 var separatedPrint = ((string)piratePrint).Split('#');
-                CheckPiracy(separatedPrint);
+                var isPirateVersion = CheckPiracy(separatedPrint);
+
+                //UpdateFile(fileName, sb, formatter);  //In case of hardware change
+
+                return isPirateVersion;
+            }
+        }
+
+        private void UpdateFile(string fileName, StringBuilder sb, IFormatter formatter)
+        {
+            sb.Append(FingerPrint.CpuId());
+            sb.Append('#');
+            sb.Append(FingerPrint.BaseId());
+            sb.Append('#');
+            sb.Append(FingerPrint.BiosId());
+            sb.Append('#');
+            sb.Append(FingerPrint.DiskId());
+            sb.Append('#');
+            sb.Append(FingerPrint.MacId());
+            sb.Append('#');
+            sb.Append(FingerPrint.VideoId());
+
+            using (var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.None))
+            {
+                //should be object, not string
+                formatter.Serialize(stream, sb.ToString());
             }
         }
 
