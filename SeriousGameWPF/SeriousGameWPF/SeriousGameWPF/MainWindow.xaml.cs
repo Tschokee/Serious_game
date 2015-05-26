@@ -22,7 +22,12 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
-            PirateVersion(); //if this is false: Message - Valószínűleg szoftverhamisítás áldozata lettél 
+            if (!PirateVersion()) //if this is false: Message - Valószínűleg szoftverhamisítás áldozata lettél 
+            {
+                MessageBox.Show("A szoftver nincs aktiválva. XYZ", "Aktiválás", MessageBoxButton.OK);
+                this.Close();
+                return;
+            }
             MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
