@@ -160,9 +160,23 @@ namespace SeriousGameWPF
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            MainMenuHandler.RunResultCheck();
-            (sender as Button).IsEnabled = false;
-            (sender as Button).Foreground = new SolidColorBrush(Colors.Black);
+           
+           // (sender as Button).IsEnabled = false;
+           // (sender as Button).Foreground = new SolidColorBrush(Colors.Black);
+          
+            if(MainMenuHandler.ResultCheckFinished==false){
+                MainMenuHandler.RunResultCheck();
+                MainMenuHandler.ResultCheckFinished = true;
+                (sender as Button).Content = "Újraindítás";
+                
+            }else
+            {
+                MainMenuHandler.ResultCheckFinished = false;
+                MainMenuHandler.SelectedGame.Start(MainMenuHandler.SelectedGameMode);
+               // (sender as Button).Content = "Újraindítás";
+                
+            }
+
         }
 
 

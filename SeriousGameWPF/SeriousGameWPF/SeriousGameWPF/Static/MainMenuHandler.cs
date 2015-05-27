@@ -14,6 +14,7 @@ namespace SeriousGameWPF.Static
         public static ChangeScreen ChangeScreenTo;
         public static Game SelectedGame;
         public static int FontSize = 40;
+        public static bool ResultCheckFinished = false;
         private static ObservableCollection<Game> _gamesList { get; set; }
         public static ObservableCollection<Game> GamesList
         {
@@ -162,6 +163,7 @@ namespace SeriousGameWPF.Static
         public static event EventHandler CanvasWidthPropertyChanged;
         public static double _canvasHeight;
         public static double _canvasWidth;
+        public static GameMode SelectedGameMode;
         public static void RaiseCanvasWidthPropertyChanged()
         {
             EventHandler handler = CanvasWidthPropertyChanged;

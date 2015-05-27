@@ -38,6 +38,7 @@ namespace SeriousGameWPF
 
             if (MainMenuHandler.SelectedGame.Start != null)
             {
+                MainMenuHandler.SelectedGameMode = gm;
                 MainMenuHandler.SelectedGame.Start(gm);
             }
             else
