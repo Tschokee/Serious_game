@@ -205,6 +205,17 @@ namespace SeriousGameWPF
                 return true;
             }
         }
+        public bool IsModeBackEnabled
+        {
+            get
+            {
+                if (DisplayPage == "GameStartPage.xaml")
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
         public string DisplayPage
         {
             get
@@ -221,6 +232,7 @@ namespace SeriousGameWPF
                 this.displayPage = value;
                 OnPropertyChanged("DisplayPage");
                 OnPropertyChanged("IsBackEnabled");
+                OnPropertyChanged("IsModeBackEnabled");
             }
         }
         public double WindowCenterX
@@ -335,6 +347,10 @@ namespace SeriousGameWPF
         private void menuItemBack_Click(object sender, RoutedEventArgs e)
         {
             ChangeScreenTo("MainMenu.xaml");
+        }
+        private void menuItemModeBack_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeScreenTo("GameStartPage.xaml");///VALAMI BUGOS wtf
         }
 
     }

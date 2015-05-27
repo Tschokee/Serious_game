@@ -66,7 +66,8 @@
 			<Menu x:Name="menu" IsMainMenu="True" Style="{DynamicResource MenuStyle1}" Foreground="White" BorderBrush="#FF8D8B8B">
 				<MenuItem Opacity="0.5" x:Name="menuItem" Header="Exit" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" Click="menuItem_Click"></MenuItem>
                 <MenuItem Opacity="0.5" x:Name="menuItemBack" Header="Back" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="{Binding IsBackEnabled}" Click="menuItemBack_Click" ></MenuItem>
-			</Menu>
+                <MenuItem Opacity="0.5" x:Name="menuItemBacktoMode" Header="Mode Selection" Style="{DynamicResource MenuItemStyle1}" Background="{x:Null}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" IsEnabled="{Binding IsModeBackEnabled}" Click="menuItemModeBack_Click" ></MenuItem>
+            </Menu>
         </StackPanel>
         <ScrollViewer x:Name="ScrollViewerForCanvas" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}" Margin="0,23,0,0">
             <Frame NavigationUIVisibility="Hidden" x:Name="frame" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Source="{Binding Path=DisplayPage, UpdateSourceTrigger=PropertyChanged}"></Frame>
