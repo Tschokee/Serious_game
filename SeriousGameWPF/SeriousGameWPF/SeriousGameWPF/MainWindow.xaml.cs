@@ -322,8 +322,9 @@ namespace SeriousGameWPF
 
             FadeFrameOut();
             await Task.Delay(1000);
+            if (frame.Source != null)
+                DisplayPage = frame.Source.OriginalString.Split('/')[frame.Source.OriginalString.Split('/').Length - 1];
             frame.NavigationService.GoBack();
-            DisplayPage=frame.Source.OriginalString.Split('/')[frame.Source.OriginalString.Split('/').Length-1];
             FixView();
             FadeFrameIn();
             await Task.Delay(1000);
