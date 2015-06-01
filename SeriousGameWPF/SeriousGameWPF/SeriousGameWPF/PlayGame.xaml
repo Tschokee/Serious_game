@@ -4,18 +4,23 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="SeriousGameWPF.PlayGame" 
+      xmlns:s="clr-namespace:SeriousGameWPF.Static"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="PlayGame" Loaded="Page_Loaded">
 	<Page.Resources>
 		<DataTemplate x:Key="DataTemplate1">
+            
 			<Viewbox Height="{Binding ViewboxHeight}" Width="{Binding ViewboxWidth}" Margin="{Binding Margin}" MouseMove="Viewbox_MouseMove" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown" MouseLeftButtonUp="Viewbox_MouseLeftButtonUp" >
-				<Canvas Height="240" Width="120">
+                <Border BorderBrush="Black" BorderThickness="{Binding Source={x:Static s:MainMenuHandler.DebugMode},Mode=OneWay}">
+                    <Canvas Height="240" Width="120">
                     <Image Source="{Binding ImageUri}"/>
                     <TextBlock FontSize="{Binding TextFontSize}" Text="{Binding TextContent}" Canvas.Left="{Binding TextLeft}" Canvas.Top="{Binding TextTop}"/>
 				</Canvas>
-			</Viewbox>
-		</DataTemplate>
+                </Border>
+            </Viewbox>
+            
+        </DataTemplate>
 	
 	<ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
 		<Canvas IsItemsHost="True"/>

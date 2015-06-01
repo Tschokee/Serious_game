@@ -166,7 +166,9 @@ namespace SeriousGameWPF
           
             if(MainMenuHandler.ResultCheckFinished==false){
                 MainMenuHandler.RunResultCheck();
-                MainMenuHandler.ResultCheckFinished = true;
+                (sender as Button).IsEnabled = false;
+                SetResultCheckFinishedWithDelay(1000,sender as Button);
+                
                 (sender as Button).Content = "Újraindítás";
                 
             }else
@@ -177,6 +179,11 @@ namespace SeriousGameWPF
                 
             }
 
+        }
+        private async void SetResultCheckFinishedWithDelay(int ms,Button sender)
+        {
+            await Task.Delay(ms);
+            sender.IsEnabled = true;
         }
 
 
