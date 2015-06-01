@@ -141,12 +141,18 @@ namespace SeriousGameWPF.Games
 
         private void GenerateSpecificVariables(string param, ObservableCollection<GameContent> activeContent)
         {
+            Random random = new Random();
             for (var i = 1; i < 11; i++)
             {
+                int ballonRandomizer = random.Next(0, balloonPositionList.Count);
+                int answerRandomizer = random.Next(0, answerPositionList.Count);
                 //activeContent.Add(new Balloon(i, i*50, i*50, i.ToString()));
                 //activeContent.Add(new Answer(i, i * 50+20, i * 50+20, i*int.Parse(param) + ":" + param));
-                activeContent.Add(new Balloon(i, balloonPositionList[i-1].X, balloonPositionList[i-1].Y, i.ToString()));
-                activeContent.Add(new Answer(i, answerPositionList[i-1].X, answerPositionList[i-1].Y, i * int.Parse(param) + ":" + param));
+
+                activeContent.Add(new Balloon(i, balloonPositionList[ballonRandomizer].X, balloonPositionList[ballonRandomizer].Y, i.ToString()));
+                balloonPositionList.RemoveAt(ballonRandomizer);
+                activeContent.Add(new Answer(i, answerPositionList[answerRandomizer].X, answerPositionList[answerRandomizer].Y, i * int.Parse(param) + ":" + param));
+                answerPositionList.RemoveAt(answerRandomizer);
             }
         }
     }
