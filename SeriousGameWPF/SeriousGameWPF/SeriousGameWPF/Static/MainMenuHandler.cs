@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -14,6 +15,7 @@ namespace SeriousGameWPF.Static
         public static ChangeScreen ChangeScreenTo;
         public static Game SelectedGame;
         public static int FontSize = 40;
+        public static int DebugMode = 0;// lehet 0 vagy 1
         public static bool ResultCheckFinished = false;
         private static ObservableCollection<Game> _gamesList { get; set; }
         public static ObservableCollection<Game> GamesList

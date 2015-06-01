@@ -209,7 +209,7 @@ namespace SeriousGameWPF
         {
             get
             {
-                if (DisplayPage == "GameStartPage.xaml")
+                if (DisplayPage == "PlayGame.xaml")
                 {
                     return true;
                 }
@@ -311,7 +311,19 @@ namespace SeriousGameWPF
 
             FadeFrameOut();
             await Task.Delay(1000);
+            DisplayPage = "PlayGame.xaml";
             frame.Navigate(new PlayGame(MainMenuHandler.SelectedGame, gm, this));
+            FixView();
+            FadeFrameIn();
+            await Task.Delay(1000);
+        }
+        public async void ChangeScreenToGoBack()
+        {
+
+            FadeFrameOut();
+            await Task.Delay(1000);
+            frame.NavigationService.GoBack();
+            DisplayPage=frame.Source.OriginalString.Split('/')[frame.Source.OriginalString.Split('/').Length-1];
             FixView();
             FadeFrameIn();
             await Task.Delay(1000);
@@ -350,7 +362,7 @@ namespace SeriousGameWPF
         }
         private void menuItemModeBack_Click(object sender, RoutedEventArgs e)
         {
-            ChangeScreenTo("GameStartPage.xaml");///VALAMI BUGOS wtf
+            ChangeScreenToGoBack();///VALAMI BUGOS wtf
         }
 
     }

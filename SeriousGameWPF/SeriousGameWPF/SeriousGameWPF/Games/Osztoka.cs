@@ -60,13 +60,17 @@ namespace SeriousGameWPF.Games
                 list[n] = value;
             }
         }
+        public void GenerateRandomLists() 
+        {
+            FillPositionLists();
+            //Randomize
+            Shuffle(balloonPositionList);
+            Shuffle(answerPositionList);
+        }
 
         public Osztoka(Start StartGame)
         {
-                FillPositionLists();
-                //Randomize
-                Shuffle(balloonPositionList);
-                Shuffle(answerPositionList);
+               // GenerateRandomLists();
                 ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/osztoka.jpg");
                 Name = "Osztóka";
                 Start = StartGame;
@@ -131,6 +135,7 @@ namespace SeriousGameWPF.Games
             //itt kell eldönteni hogy mit akarsz kirajzolni gamemode függvényében
             if (gm.StartParameters!=null)
             {
+                GenerateRandomLists();
                 MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
                 MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/osztoka.jpg", -15, 400, "", 100, 100));
                 MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/felho.png", 650, 10, "", 100, 100));
@@ -141,13 +146,20 @@ namespace SeriousGameWPF.Games
 
         private void GenerateSpecificVariables(string param, ObservableCollection<GameContent> activeContent)
         {
+            Random random = new Random();
             for (var i = 1; i < 11; i++)
             {
+                int ballonRandomizer = random.Next(0, balloonPositionList.Count);
+                int answerRandomizer = random.Next(0, answerPositionList.Count);
                 //activeContent.Add(new Balloon(i, i*50, i*50, i.ToString()));
                 //activeContent.Add(new Answer(i, i * 50+20, i * 50+20, i*int.Parse(param) + ":" + param));
-                activeContent.Add(new Balloon(i, balloonPositionList[i-1].X, balloonPositionList[i-1].Y, i.ToString()));
-                activeContent.Add(new Answer(i, answerPositionList[i-1].X, answerPositionList[i-1].Y, i * int.Parse(param) + ":" + param));
+
+                activeContent.Add(new Balloon(i, balloonPositionList[ballonRandomizer].X, balloonPositionList[ballonRandomizer].Y, i.ToString()));
+                balloonPositionList.RemoveAt(ballonRandomizer);
+                activeContent.Add(new Answer(i, answerPositionList[answerRandomizer].X, answerPositionList[answerRandomizer].Y, i * int.Parse(param) + ":" + param));
+                answerPositionList.RemoveAt(answerRandomizer);
             }
+            
         }
     }
     public class Balloon : GameContent
@@ -200,8 +212,8 @@ namespace SeriousGameWPF.Games
             this.PosX = PosX;
             this.PosY = PosY;
             this.TextContent = TextContent;
-            this.TextFontSize = MainMenuHandler.FontSize;
-            TextLeft = 45;
+            this.TextFontSize = MainMenuHandler.FontSize-8;
+            TextLeft = 35;
             TextTop = 45;
             ViewboxHeight = 105;
             ViewboxWidth = 105;

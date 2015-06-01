@@ -122,6 +122,22 @@ namespace SeriousGameWPF
                 OnPropertyChanged("Focus");
             }
             }
+        private bool CollusionCalc(GameContent toTest)
+        {
+            int div = 3;
+            int div2 = 4;
+            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth / div && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight / div2)
+                return true;
+            if (this.PosX + this.ViewboxWidth / div >= toTest.PosX && this.PosX + this.ViewboxWidth / div <= toTest.PosX + toTest.ViewboxWidth / div && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight / div2)
+                return true;
+            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth / div && this.PosY + this.ViewboxHeight / div2 >= toTest.PosY && this.PosY + this.ViewboxHeight / div2 <= toTest.PosY + toTest.ViewboxHeight / div2)
+                return true;
+            if (this.PosX + this.ViewboxWidth / div >= toTest.PosX && this.PosX + this.ViewboxWidth / div <= toTest.PosX + toTest.ViewboxWidth / div && this.PosY + this.ViewboxHeight / div2 >= toTest.PosY && this.PosY + this.ViewboxHeight / div2 <= toTest.PosY + toTest.ViewboxHeight / div2)
+                return true;
+
+            return false;
+        
+        }
         public bool Collusion(GameContent toTest)
         {
             /*
@@ -129,18 +145,11 @@ namespace SeriousGameWPF
             this.ViewboxWidth;
             this.PosX;
             this.PosY; * */
-
-            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight/4)
-                return true;
-            if (this.PosX + this.ViewboxWidth/3 >= toTest.PosX && this.PosX + this.ViewboxWidth/3 <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY >= toTest.PosY && this.PosY <= toTest.PosY + toTest.ViewboxHeight / 4)
-                return true;
-            if (this.PosX >= toTest.PosX && this.PosX <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY + this.ViewboxHeight / 4 >= toTest.PosY && this.PosY + this.ViewboxHeight / 4 <= toTest.PosY + toTest.ViewboxHeight / 4)
-                return true;
-            if (this.PosX + this.ViewboxWidth/3 >= toTest.PosX && this.PosX + this.ViewboxWidth/3 <= toTest.PosX + toTest.ViewboxWidth/3 && this.PosY + this.ViewboxHeight / 4 >= toTest.PosY && this.PosY + this.ViewboxHeight / 4 <= toTest.PosY + toTest.ViewboxHeight / 4)
-                return true;
-            return false;
+            
+            return this.CollusionCalc(toTest)|toTest.CollusionCalc(this);
             
         }
+        
 
     }
 }
