@@ -183,6 +183,7 @@ namespace SeriousGameWPF
         private async void SetResultCheckFinishedWithDelay(int ms,Button sender)
         {
             await Task.Delay(ms);
+            MainMenuHandler.ResultCheckFinished = true;
             sender.IsEnabled = true;
         }
 
