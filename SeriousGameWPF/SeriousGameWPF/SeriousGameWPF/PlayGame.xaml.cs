@@ -41,6 +41,7 @@ namespace SeriousGameWPF
             this.game = game;
             this.gm = gm;
             this.DataContext = game;
+            MainMenuHandler.ResultCheckFinished = false;
             game.GenerateActiveContent(gm);
             //ActiveContent = game.ActiveContent;
             mainWindow.Height = MainMenuHandler.GameWindowHeight;
@@ -83,37 +84,42 @@ namespace SeriousGameWPF
         private void Viewbox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             m_IsPressed = false;
-            SelectedContent.Focus = false;
-            if (SelectedContent.Draggable)
+            if (SelectedContent != null)
             {
-                GameContent temp;
-                if (game.CollusionTest(SelectedContent, out temp))
+
+
+                SelectedContent.Focus = false;
+                if (SelectedContent.Draggable)
                 {
-                    if (SelectedContent.SetActive != null)
-                        if (temp is IResult)
-                        {
-                            SelectedContent.SetActive(true);
+                    GameContent temp;
+                    if (game.CollusionTest(SelectedContent, out temp))
+                    {
+                        if (SelectedContent.SetActive != null)
+                            if (temp is IResult)
+                            {
+                                SelectedContent.SetActive(true);
+                            }
+                            else
+                            {
+                                SelectedContent.SetActive(false);
+                            }
+                        if (SelectedContent.PairID == temp.PairID)
+                        {    //SelectedContent.TextContent = "HURRAH";
+                            //temp.TextContent = "HURRAH2";
+                            SelectedContent.State = State.Solved;
+                            temp.State = State.Solved;
                         }
                         else
                         {
-                            SelectedContent.SetActive(false);
+                            SelectedContent.State = State.Default;
                         }
-                    if (SelectedContent.PairID == temp.PairID)
-                    {    //SelectedContent.TextContent = "HURRAH";
-                        //temp.TextContent = "HURRAH2";
-                        SelectedContent.State = State.Solved;
-                        temp.State = State.Solved;
                     }
                     else
                     {
-                        SelectedContent.State = State.Default;
+                        SelectedContent.SetActive(false);
                     }
+                    IsThisTheEnd();
                 }
-                else
-                {
-                    SelectedContent.SetActive(false);
-                }
-                IsThisTheEnd();
             }
         }
         private void IsThisTheEnd()

@@ -22,12 +22,13 @@ namespace SeriousGameWPF
 
         public MainWindow()
         {
-            if (!PirateVersion()) //if this is false: Message - Valószínűleg szoftverhamisítás áldozata lettél 
+           /* if (!PirateVersion()) //if this is false: Message - Valószínűleg szoftverhamisítás áldozata lettél 
             {
                 MessageBox.Show("A szoftver nincs aktiválva.", "Aktiválás", MessageBoxButton.OK);
                 this.Close();
                 return;
             }
+            */
             MainMenuHandler.DataContext = this;
             InitializeComponent();
             InitGames();
@@ -329,6 +330,18 @@ namespace SeriousGameWPF
             FadeFrameIn();
             await Task.Delay(1000);
         }
+        public async void ChangeScreenToModeSelect()
+        {
+
+            FadeFrameOut();
+            await Task.Delay(1000);
+
+            DisplayPage = "GameStartPage.xaml";
+            frame.NavigationService.Navigate(new GameStartPage());
+            FixView();
+            FadeFrameIn();
+            await Task.Delay(1000);
+        }
         public void FadeFrameOut()
         {
             (this.Resources["FadeOut"] as Storyboard).Begin();
@@ -363,7 +376,7 @@ namespace SeriousGameWPF
         }
         private void menuItemModeBack_Click(object sender, RoutedEventArgs e)
         {
-            ChangeScreenToGoBack();///VALAMI BUGOS wtf
+            ChangeScreenToModeSelect();
         }
 
     }
