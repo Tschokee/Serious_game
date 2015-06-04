@@ -10,8 +10,8 @@
 	Title="PlayGame" Loaded="Page_Loaded">
 	<Page.Resources>
 		<DataTemplate x:Key="DataTemplate1">
-            
-			<Viewbox Height="{Binding ViewboxHeight}" Width="{Binding ViewboxWidth}" Margin="{Binding Margin}" MouseMove="Viewbox_MouseMove" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown" MouseLeftButtonUp="Viewbox_MouseLeftButtonUp" >
+
+            <Viewbox  Height="{Binding ViewboxHeight}" Width="{Binding ViewboxWidth}" Margin="{Binding Margin}" MouseMove="Viewbox_MouseMove" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown" MouseLeftButtonUp="Viewbox_MouseLeftButtonUp" >
                 <Border BorderBrush="Black" BorderThickness="{Binding Source={x:Static s:MainMenuHandler.DebugMode},Mode=OneWay}">
                     <Canvas Height="240" Width="120">
                     <Image Source="{Binding ImageUri}"/>
