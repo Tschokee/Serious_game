@@ -190,6 +190,13 @@
   <ItemGroup>
     <Resource Include="Images\Osztoka\pinkBalloon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Osztoka\bohoc.png" />
+    <Resource Include="Images\Osztoka\felho_mirrored.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Osztoka\osztoka_rule.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

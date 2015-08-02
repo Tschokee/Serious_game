@@ -71,7 +71,7 @@ namespace SeriousGameWPF.Games
         public Osztoka(Start StartGame)
         {
                // GenerateRandomLists();
-                ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/osztoka.jpg");
+                ImageUri = MainMenuHandler.ConvertStringToImageSource("/Images/Osztoka/bohoc.png");
                 Name = "Osztóka";
                 Start = StartGame;
                 this.GenerateActiveContent = GenerateActiveContentforOsztoka;
@@ -137,8 +137,10 @@ namespace SeriousGameWPF.Games
             {
                 GenerateRandomLists();
                 MainMenuHandler.SelectedGame.ActiveContent = new ObservableCollection<GameContent>();
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/osztoka.jpg", -15, 400, "", 100, 100));
-                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/felho.png", 650, 10, "", 100, 100));
+                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/osztoka_rule.png", 200, 10, "", 100, 100));
+                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/bohoc.png", -15, 465, "", 100, 100));
+                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/felho.png", 650, 150, "", 100, 100));
+                MainMenuHandler.SelectedGame.ActiveContent.Add(new BackgroundContent("Images/Osztoka/felho_mirrored.png", -15, 100, "", 100, 100));
                 GenerateSpecificVariables(gm.StartParameters, MainMenuHandler.SelectedGame.ActiveContent);
             }
            
